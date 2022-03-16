@@ -1,0 +1,508 @@
+/* -------------------------- *\
+	Globel
+\* -------------------------- */
+* {
+  box-sizing: border-box;
+  position: relative;
+  font-family: 'Zen Antique', serif;
+  margin: 0;
+  padding: 0;
+}
+@font-face{
+  font-family: 'Zen Antique', serif;
+  src: local("Zen Antique"), local("serif");
+  unicode-range: U+4E00-9FFF;
+}
+html
+{
+    background: #000;
+}
+.webgl
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    outline: none;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+// .section
+// {
+//     display: flex;
+//     align-items: center;
+//     height: 100vh;
+//     position: relative;
+//     font-family: 'Cabin', sans-serif;
+//     color: #ffeded;
+//     text-transform: uppercase;
+//     font-size: 7vmin;
+//     padding-left: 10%;
+//     padding-right: 10%;
+// }
+
+// section:nth-child(odd)
+// {
+//     justify-content: flex-end;
+// }
+    
+
+// @font-face{
+//   font-family: 'DxSitrus';
+//   src: url('/assets/fonts/DxSitrus-ExpandedItalic.woff') format("woff"),
+//          url('/assets/fonts/DxSitrus-ExpandedItalic.ttf') format("truetype"),
+//          url('/assets/fonts/DxSitrus-ExpandedItalic.eot') format("embedded-opentype");
+//   unicode-range: U+00-024F;
+// }
+    
+// ** 變數 ** \\
+$light-gray: #d6d5d5;
+$black: #000;
+$blue: #0f4c81;
+
+@mixin background($size) {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: $size;
+}
+@mixin center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+h5 {
+  color: $light-gray;
+}
+a {
+  // text-decoration: none;
+  color: $black;
+}
+// ** 隱藏滾動條 ** \\
+html {
+  overflow: -moz-hidden-unscrollable;
+  height: 100vh;
+  width: 100vw;
+}
+scrollbar {
+  display: none;
+}
+
+body {
+  -ms-overflow-style: none;
+  height: 100vh;
+  width: 100vw;
+  overflow: auto;
+  background-color: #000;
+}
+::-webkit-scrollbar {
+  width: 1px;
+  height: 1px;
+}
+
+::-webkit-scrollbar-button {
+  width: 1px;
+  height: 1px;
+}
+// ** 隱藏滾動條 ** \\
+
+/* -------------------------- *\
+	Block
+\* -------------------------- */
+.webgl
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    outline: none;
+    margin-top: 50%;
+}
+
+.wrapper {
+  margin: auto;
+  height: 100%;
+  background-color: #000;
+  overflow: hidden;
+  .map-wrapper {
+    @include background(contain);
+    @include center();
+    width: 1000%;
+    height: 150%;
+  }
+}
+
+/* item */
+.item-wrapper {
+  margin: auto;
+  // background-color: #000;
+  width: 100vw;
+  height: 100vh;
+  .navbar{
+    position: fixed;
+    height: 50px;
+    width: 100vw;
+    z-index: 999;
+    .nav-item{
+      width: 100%;
+      height: 100%;
+      .nav-logo{
+      background-image: url(/static/logo.svg);
+      @include background(contain);
+      @include center();
+
+      width: 80px;
+      height: 30px;
+     }
+    }
+    /* menu-toggle */
+     .menu-toggle {
+      width: 42px;
+      height: 42px;
+      display: inline-block;
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      transform: translate(0%, -50%);
+      span {
+      display: block;
+      /* span預設inline */
+      width: 42px;
+      height: 2px;
+      background-color: #fff;
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, 0);
+      &:nth-child(1) {
+        top: 35%;
+      }
+      &:nth-child(2) {
+        top: 60%;
+      }
+      }
+    }
+  }
+  /* close-btn */
+
+  .navbar .close-btn {
+      width: 48px;
+      height: 48px;
+      /* border: 1px solid #fff; */
+      /* anchor預設inline */
+      position: absolute;
+      right: 16px;
+      top: 8px;
+      display: none;
+  }
+
+  .navbar .close-btn span {
+      display: block;
+      /* span預設inline */
+      width: 40px;
+      height: 2px;
+      background-color: #fff;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      /* transform: translate(-50%,-50%); */
+  }
+
+  /* transform會覆寫，因此寫在同一行 ＊空一格 */
+
+  .navbar .close-btn span:nth-child(1) {
+      transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  .navbar .close-btn span:nth-child(2) {
+      transform: translate(-50%, -50%) rotate(-45deg);
+  }
+
+  @media screen and (max-width:768px) {
+      .navbar .close-btn {
+          display: inline-block;
+      }
+  }
+
+  /* Btn */
+  .btn-wrapper{
+    width: 42px;
+    position: fixed;
+    z-index: 999;
+    right: 20px;
+    bottom: 20px;
+    display: inline-block;
+
+    .btn-item{
+      width: 42px;
+      height: 42px;
+      display: block;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      margin-top: 10px;
+      display: inline-block;
+
+      .btn-icon{
+        @include background(contain);
+        width: 20px;
+        height: 23px;
+        @include center();
+        &.btn-weigh{
+          background-image: url(/static/btn-weigh.svg);
+        }
+        &.btn-picking{
+          background-image: url(/static/btn-info.svg);
+        }
+      }
+    }
+  }
+
+
+  /* marquee */
+  .marquee-wrapper{
+  position: fixed;
+  width: 40px;
+  height: 100vh;
+  z-index: 999;
+  }
+  .marquee-wrapper .marquee-block{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+    position: relative;
+    float:left;
+  }
+  .marquee-inner{
+    display: block;
+    height: 100%;
+    width:100%;
+    position: absolute;
+  }
+  .marquee-inner.to-left{
+    animation: marqueeTop 25s linear infinite;
+  }
+  .marquee-item{
+    background-image: url(/static/marquee.svg);
+    @include background(contain);
+
+    width: 100%;
+    height: 50vh;
+    display: block;
+  }
+  @keyframes marqueeTop{
+    0% {
+      top: 0;
+    }
+    100% {
+      top: -100%;
+    }
+  }
+
+  .section{
+    width: 100vw;
+    padding-left: 30px;
+    /* section-1 */
+    &-1{
+    overflow: hidden;
+    height: 100vh;
+
+      .item-pic{
+        @include background(contain);
+        position: absolute;
+        display: inline-block;
+        &.item-0{
+          background-image: url(/static/loosun0.png);
+          width: 100px;
+          height: 100px;
+          top: 10%;
+          left: 20%;
+        }
+        &.item-1{
+          background-image: url(/static/loosun1.png);
+          width: 150px;
+          height: 150px;
+          top: 30%;
+          left: 2%;
+          transform: rotate(-15deg);
+
+        }
+        &.item-2{
+          background-image: url(/static/loosun2.png);
+          width: 180px;
+          height: 180px;
+          top: 20%;
+          left: 55%;
+          transform: rotate(15deg);
+        }
+        &.item-3{
+          background-image: url(/static/loosun0.png);
+          width: 300px;
+          height: 300px;
+          top: 35%;
+          left: 10%;
+        }
+      }
+      .scroll{
+        background-image: url(/static/scroll.svg);
+        @include background(contain);
+        width: 140px;
+        height: 50px;
+        position: absolute;
+        left: 50%;
+        bottom: 20px;
+        transform: translate(-50%,0);
+        display: inline-block;
+      }
+    }
+
+    /* section-2 */
+    &-2{
+    height: 1000px;
+
+      .one-catty{
+        background-image: url(/static/onecatty.svg);
+        @include background(contain);
+        width: 250px;
+        height: 160px;
+        left: 50%;
+        top: 200px;
+        transform: translate(-50%,0);
+        span{
+          color: #fff;
+          font-size: 30px;
+          position: absolute;
+          left: 180px;
+          top: 105px;
+
+        }
+      }
+      .weigh{
+        background-image: url(/static/weigh.svg);
+        @include background(contain);
+        width: 260px;
+        height: 260px;
+        left: 50%;
+        top: 450px;
+        transform: translate(-50%,0);
+        .pointer{
+        background-image: url(/static/pointer.svg);
+        @include background(contain);
+        width: 10px;
+        height: 100px;
+        left: 50%;
+        transform: translate(-50%,0);
+        top: 15%;
+        }
+      }
+      
+    }
+
+    /* section-3 */
+    &-3{
+      overflow: hidden;
+      height: 100vh;
+      padding-top: 28%;
+      .cooking-title{
+        background-image: url(/static/cooking-title.svg);
+        @include background(contain);
+        width: 280px;
+        height: 34px;
+        left: 50%;
+        transform: translate(-50%,0);
+      }
+      .cooking-subtitle{
+        background-image: url(/static/cooking.svg);
+        @include background(contain);
+        width: 240px;
+        height: 230px;
+        left: 50%;
+        top: 10px;
+        transform: translate(-50%,0);
+      }
+      .cooking-dishes{
+        .dish{
+            background-image: url(/static/dish.png);
+            @include background(contain);
+            position: absolute;
+          &-0{
+            width: 200px;
+            height: 200px;
+            left: 0%;
+            top: -75px;
+          }
+          &-1{
+            width: 250px;
+            height: 250px;
+            left: 50%;
+            top: -60px;
+          }
+          &-2{
+            width: 300px;
+            height: 300px;
+            left: 50%;
+            top: 20px;
+            transform: translate(-50%,0);
+          }
+        }
+      }
+    }
+
+    /* section-4 */
+    &-4{
+      background-color: #d3d3d3;
+      height: 100vh;
+      padding-left: 0px;
+      overflow: hidden;
+
+      .nav-pink{
+        height: 50px;
+        width: 100%;
+        background-color: #FF4EFD;
+      }
+      .picking{
+        border-left: 1px solid #000;
+        border-right: 1px solid #000;
+
+        width: 50%;
+        height: 100%;
+        position: absolute;
+        right: 0;
+        .picking-title{
+        text-align: center;
+
+          padding-top: 10vh;
+          font-size: 12vw;
+        }
+        .picking-para{
+          text-align: justify;
+          font-family: 'Noto Serif TC', serif;
+          padding: 10vh 3px 0 3px;
+          line-height: 1.5;
+
+        }
+      }
+    }
+  }
+  
+  
+
+  
+  /* background */
+  .item-weigh{
+    background-image: url(/static/bg.png);
+    @include background(cover);
+    @include center();
+    top: 0;
+    transform: translate(-50%,0);
+    width: 100vw;
+    height: 300vh;
+  }
+}
