@@ -8,6 +8,9 @@ import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
+import gsap from 'gsap';
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 /**
  * Spector JS
@@ -21,7 +24,7 @@ import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPa
  * Base
  */
 // Debug
-// const debugObject = {}
+// const debugobject = {}
 // const gui = new dat.GUI({
 //     width: 400
 // })
@@ -48,14 +51,8 @@ const gltfLoader = new GLTFLoader();
 gltfLoader.setDRACOLoader(dracoLoader);
 
 /**
- * Object
+ * object
  */
-// const cube = new THREE.Mesh(
-//     new THREE.BoxGeometry(1, 1, 1),
-//     new THREE.MeshBasicMaterial()
-// )
-
-// scene.add(cube)
 
 /**
  * Light
@@ -72,41 +69,105 @@ gltfLoader.setDRACOLoader(dracoLoader);
 /**
  * Material
  */
-
+ScrollTrigger.defaults({
+    immediateRender: false,
+    ease: "power1.inOut",
+    scrub: 0.5
+});
 /**
  * Model
  */
 
-// let beefAMesh;
-// let beefBMesh;
-// let beefCMesh;
-// let beefDMesh;
+let object;
 
 gltfLoader.load(
     'loosun.glb',
     (gltf) => {
-        console.log(gltf.scene.children)
-        scene.add(gltf.scene)
+        object = gltf.scene
 
-        // // Get each object
-        // const lightAMesh = gltf.scene.children.find((child) => child.name === 'lightA')
-        // const lightBMesh = gltf.scene.children.find((child) => child.name === 'lightB')
-        // const lightCMesh = gltf.scene.children.find((child) => child.name === 'lightC')
-        // const lightDMesh = gltf.scene.children.find((child) => child.name === 'lightD')
+        object.traverse(function (children) {
+            object.scale.set( 1, 1, 1 );
 
-        // beefAMesh = gltf.scene.children.find((child) => child.name === 'beefA')
-        // beefBMesh = gltf.scene.children.find((child) => child.name === 'beefB')
-        // beefCMesh = gltf.scene.children.find((child) => child.name === 'beefC')
-        // beefDMesh = gltf.scene.children.find((child) => child.name === 'beefD')
+            // console.log(children)
 
-        // lightAMesh.material = poleLightMaterial
-        // lightBMesh.material = poleLightMaterial
-        // lightCMesh.material = poleLightMaterial
-        // lightDMesh.material = poleLightMaterial
+            if (object) {
+
+            let scrollY = window.scrollY
+            let currentSection = 0
+                
+            
+            window.addEventListener('scroll', () =>
+            {
+                scrollY = window.scrollY
+                console.log(scrollY)
+
+                // const newSection = Math.round(scrollY / sizes.height)
+                // const newSection = - scrollY / sizes.height
+
+		        const tween = gsap.timeline()
+
+                tween.to(object.rotation, { x: 0.25, scrollTrigger: {
+            
+                trigger: ".section-2",
+                duration: 0.3,
+                ease: 'power2.inOut',
+                    
+                start: "top 40%",
+                end: "30% 80%",
+                // markers: true
+                },
+                // position: "absolute", 
+                // left: -10, 
+                }) 
+
+                // tween.to(object.rotation, { x: -0.25, y: -0.25, scrollTrigger: {
+            
+                // trigger: ".one-catty",
+                // duration: 1.5,
+                // ease: 'power2.inOut',
+                    
+                // start: "top 100%",
+                // end: "30% 30%",
+                // markers: true
+                // }})  
+                
+                
+
+                // if(scrollY >= 300)
+                // {
+                //     // currentSection = newSection
+                //     gsap.to(
+                //         object.position, {
+                //         duration: 1.5,
+                //         ease: 'power2.inOut',
+                //         z: '+0.5',
+                //             ScrollTrigger:(
+                //             {
+                //             trigger: object, //觸發得物件
+                //             // (物件開始位置, 卷軸開始位置) top center bottom px
+                //             start: "top top",
+                //             //(物件結束位置, 卷軸結束位置) , 也可以設卷軸捲動多少結束動畫(+=300)
+                //             end: "+=300",
+                //             pin: true, // 物件執行完動畫會跟著卷軸走，類似 fixed-top
+                //             scrub: true, // 物件動畫根據卷軸捲動程度跑
+                //             markers: true, // 顯示標記
+                //         }
+                //         ) 
+                //         //{
+                //         // duration: 1.5,
+                //         // ease: 'power2.inOut',
+                //         // z: '+0.5',
+                //         //} 
+                //     })
+                // }
+             })
+            }
+        })
+        scene.add(object)
     }
 );
 
-
+ 
 /**
  * Sizes
  */
@@ -147,16 +208,21 @@ scene.add(camera);
 // Controls
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
+controls.enableZoom = false;
+
+
 
 /**
  * Renderer
  */
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
-    antialias: true
+    antialias: true,
+    alpha: true  
 });
 renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setClearAlpha(0);
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1;
 renderer.outputEncoding = THREE.sRGBEncoding;
@@ -164,28 +230,39 @@ renderer.outputEncoding = THREE.sRGBEncoding;
 const environment = new RoomEnvironment();
 const pmremGenerator = new THREE.PMREMGenerator( renderer );
 
-// scene.background = new THREE.Color( 0x000000 );
 scene.environment = pmremGenerator.fromScene(environment).texture;
 
-// debugObject.clearColor = '#FF0000'
-// gui.addColor(debugObject, 'clearColor')
+
+/**
+ * Cursor
+ */
+const cursor = {}
+cursor.x = 0
+cursor.y = 0
+
+window.addEventListener('mousemove', (event) =>
+{
+    cursor.x = event.clientX / sizes.width - 0.5
+    cursor.y = event.clientY / sizes.height - 0.5
+})
+
 
 /**
  * Post processing
  */
-const effectComposer = new EffectComposer(renderer);
-effectComposer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-effectComposer.setSize(sizes.width, sizes.height);
+// const effectComposer = new EffectComposer(renderer);
+// effectComposer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+// effectComposer.setSize(sizes.width, sizes.height);
 
-const renderPass = new RenderPass(scene, camera);
-effectComposer.addPass(renderPass);
+// const renderPass = new RenderPass(scene, camera);
+// effectComposer.addPass(renderPass);
 
-const unrealBloomPass = new UnrealBloomPass();
-effectComposer.addPass(unrealBloomPass);
+// const unrealBloomPass = new UnrealBloomPass();
+// effectComposer.addPass(unrealBloomPass);
 
-unrealBloomPass.strength = 1;
-unrealBloomPass.radius = 1.3;
-unrealBloomPass.threshold = 0.7;
+// unrealBloomPass.strength = 1;
+// unrealBloomPass.radius = 1.3;
+// unrealBloomPass.threshold = 0.7;
 
 // gui.add(unrealBloomPass, 'enabled');
 // gui.add(unrealBloomPass, 'strength').min(0).max(2).step(0.001);
@@ -202,21 +279,20 @@ unrealBloomPass.threshold = 0.7;
 const clock = new THREE.Clock();
 
 const tick = () => {
-    const elapsedTime = clock.getElapsedTime()
-
-    // beefAMesh.rotation.y += 0.01 * deltaTime
-    // if(beefAMesh) beefAMesh.rotation.y += 0.01 * deltaTime
+    const elapsedTime = clock.getElapsedTime();
 
     // Update controls
-    controls.update()
+    controls.update();
+
+    if (object) object.rotation.y = elapsedTime * 0.4;
 
     // Render
-    // renderer.render(scene, camera)
-    effectComposer.render()
+    renderer.render(scene, camera)
+    // effectComposer.render();
 
 
     // Call tick again on the next frame
-    window.requestAnimationFrame(tick)
+    window.requestAnimationFrame(tick);
 
 };
 

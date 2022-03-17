@@ -24,8 +24,9 @@ html
     left: 0;
     outline: none;
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     overflow: hidden;
+    // z-index: 1;
 }
 // .section
 // {
@@ -102,7 +103,7 @@ body {
   height: 100vh;
   width: 100vw;
   overflow: auto;
-  background-color: #000;
+  // background-color: #000;
 }
 ::-webkit-scrollbar {
   width: 1px;
@@ -125,6 +126,7 @@ body {
     left: 0;
     outline: none;
     margin-top: 50%;
+    // z-index: 1;
 }
 
 .wrapper {
@@ -318,6 +320,7 @@ body {
         @include background(contain);
         position: absolute;
         display: inline-block;
+        z-index: -1;
         &.item-0{
           background-image: url(/static/loosun0.png);
           width: 100px;
@@ -338,7 +341,7 @@ body {
           background-image: url(/static/loosun2.png);
           width: 180px;
           height: 180px;
-          top: 20%;
+          top: 15%;
           left: 55%;
           transform: rotate(15deg);
         }

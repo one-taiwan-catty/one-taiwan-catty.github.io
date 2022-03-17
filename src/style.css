@@ -27,7 +27,7 @@ html {
   left: 0;
   outline: none;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
 }
 
@@ -63,7 +63,6 @@ body {
   height: 100vh;
   width: 100vw;
   overflow: auto;
-  background-color: #000;
 }
 
 ::-webkit-scrollbar {
@@ -333,6 +332,7 @@ body {
   background-size: contain;
   position: absolute;
   display: inline-block;
+  z-index: -1;
 }
 
 .item-wrapper .section-1 .item-pic.item-0 {
@@ -357,7 +357,7 @@ body {
   background-image: url(/static/loosun2.png);
   width: 180px;
   height: 180px;
-  top: 20%;
+  top: 15%;
   left: 55%;
   -webkit-transform: rotate(15deg);
           transform: rotate(15deg);
