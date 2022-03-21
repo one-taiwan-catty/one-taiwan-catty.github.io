@@ -24,10 +24,7 @@ gsap.registerPlugin(ScrollTrigger);
  * Base
  */
 // Debug
-// const debugobject = {}
-// const gui = new dat.GUI({
-//     width: 400
-// })
+
 // const gui = new dat.GUI();
 
 // Canvas
@@ -57,14 +54,11 @@ gltfLoader.setDRACOLoader(dracoLoader);
 /**
  * Light
  */
-// const ambientLight = new THREE.AmbientLight(0xffffff, 0)
-// scene.add(ambientLight)
+const pointLight = new THREE.PointLight(0xffffff, .2, 1, 2)
+pointLight.position.set( 0, -20, 10 );
+pointLight.castShadow = true;
 
-// const pointLight = new THREE.PointLight(0xffffff, .2, 100, 2)
-// pointLight.position.set( 0, -20, 10 );
-// pointLight.castShadow = true;
-
-// scene.add(pointLight)
+scene.add(pointLight)
 
 /**
  * Material
@@ -74,10 +68,10 @@ ScrollTrigger.defaults({
     ease: "power1.inOut",
     scrub: 0.5
 });
+
 /**
  * Model
  */
-
 let object;
 
 gltfLoader.load(
@@ -86,80 +80,106 @@ gltfLoader.load(
         object = gltf.scene
 
         object.traverse(function (children) {
-            object.scale.set( 1, 1, 1 );
 
             // console.log(children)
 
             if (object) {
-
-            let scrollY = window.scrollY
-            let currentSection = 0
-                
-            
+                let scrollY = window.scrollY;        
             window.addEventListener('scroll', () =>
             {
                 scrollY = window.scrollY
                 console.log(scrollY)
 
-                // const newSection = Math.round(scrollY / sizes.height)
-                // const newSection = - scrollY / sizes.height
-
 		        const tween = gsap.timeline()
-
-                tween.to(object.rotation, { x: 0.25, scrollTrigger: {
-            
-                trigger: ".section-2",
-                duration: 0.3,
-                ease: 'power2.inOut',
-                    
-                start: "top 40%",
-                end: "30% 80%",
-                // markers: true
+                // 
+                tween.fromTo(object.rotation, { x: 0, y: 0, z: 0 },{x: 0.5, y: 0, z: -0.5, scrollTrigger: {
+                    scrub:true,
+                    trigger: ".section-2",
+                    // duration: {min: 0.2, max: 3}, 
+                    ease: "power0.inOut",
+                    start: "50% 90%",
+                    end: "70% 90%",
+                    // markers: true,
                 },
-                // position: "absolute", 
-                // left: -10, 
                 }) 
-
-                // tween.to(object.rotation, { x: -0.25, y: -0.25, scrollTrigger: {
-            
-                // trigger: ".one-catty",
-                // duration: 1.5,
-                // ease: 'power2.inOut',
-                    
-                // start: "top 100%",
-                // end: "30% 30%",
-                // markers: true
-                // }})  
-                
-                
-
-                // if(scrollY >= 300)
-                // {
-                //     // currentSection = newSection
-                //     gsap.to(
-                //         object.position, {
-                //         duration: 1.5,
-                //         ease: 'power2.inOut',
-                //         z: '+0.5',
-                //             ScrollTrigger:(
-                //             {
-                //             trigger: object, //觸發得物件
-                //             // (物件開始位置, 卷軸開始位置) top center bottom px
-                //             start: "top top",
-                //             //(物件結束位置, 卷軸結束位置) , 也可以設卷軸捲動多少結束動畫(+=300)
-                //             end: "+=300",
-                //             pin: true, // 物件執行完動畫會跟著卷軸走，類似 fixed-top
-                //             scrub: true, // 物件動畫根據卷軸捲動程度跑
-                //             markers: true, // 顯示標記
-                //         }
-                //         ) 
-                //         //{
-                //         // duration: 1.5,
-                //         // ease: 'power2.inOut',
-                //         // z: '+0.5',
-                //         //} 
-                //     })
-                // }
+                //
+                    .fromTo(object.position, { x: 0, y: 0, z: 0 },{x: -3, y: -2, z: 0.8, scrollTrigger: {
+                    scrub:true,
+                    trigger: ".section-2",
+                    duration: { min: 2, max: 3 }, 
+                    ease: "power0.inOut",
+                    start: "50% 90%",
+                    end: "70% 90%",
+                    // markers: true,
+                },
+                }) 
+                //
+                    .to(object.rotation,{x: -0.5, y: 0, z: 0, scrollTrigger: {
+                    scrub:true,
+                    trigger: ".one-catty",
+                    duration: {min: 0.2, max: 1}, 
+                    ease: "power0.inOut",
+                        
+                    start: "20% 50%",
+                    end: "90% 50%",
+                    // markers: true,
+                },
+                }) 
+                //
+                    .to(object.position,{x: -1, y: -1, z: -0.8, scrollTrigger: {
+                    scrub:true, 
+                    trigger: ".one-catty",
+                    duration: {min: 0.2, max: 1}, 
+                    ease: "power0.inOut",
+                    start: "20% 50%",
+                    end: "90% 50%",
+                    // markers: true,
+                },
+                })
+                    //
+                    .to(object.rotation, {x: 0, y: 0, z: 0.5, scrollTrigger: {
+                    scrub:true,
+                        
+                    trigger: ".section-3",
+                    // duration: {min: 0.2, max: 1}, 
+                    ease: "power0.inOut",
+                    start: "50% 80%",
+                    end: "60% 80%",
+                    // markers: true,
+                },
+                })
+                    .to(object.position, {x: -3, y: -2.5, z: 0, scrollTrigger: {
+                    scrub:true,
+                        
+                    trigger: ".section-3",
+                    // duration: {min: 0.2, max: 1}, 
+                    ease: "power0.inOut",
+                    start: "50% 80%",
+                    end: "60% 80%",
+                    // markers: true,
+                },
+                    }) 
+                .to(object.position, {x: -1, y: -2, z: -2, scrollTrigger: {
+                    scrub:true,
+                        
+                    trigger: ".weigh",
+                    // duration: {min: 0.2, max: 1}, 
+                    ease: "power0.inOut",
+                    start: "top 70%",
+                    end: "60% 70%",
+                    // markers: true,
+                },
+                }) 
+                .to(".pointer", {rotation: 50,x:30,y:15, scrollTrigger: {
+                    scrub:true,
+                    trigger: ".weigh",
+                    duration: {min: 0.2, max: 1}, 
+                    // ease: "power0.inOut",
+                    start: "10% 70%",
+                    end: "60% 70%",
+                    // markers: true,
+                },
+                }) 
              })
             }
         })
@@ -268,8 +288,7 @@ window.addEventListener('mousemove', (event) =>
 // gui.add(unrealBloomPass, 'strength').min(0).max(2).step(0.001);
 // gui.add(unrealBloomPass, 'radius').min(0).max(2).step(0.001);
 // gui.add(unrealBloomPass, 'threshold').min(0).max(1).step(0.001);
-// gui.add(poleLightMaterial, 'roughness').min(0).max(1).step(0.001);
-// gui.add(poleLightMaterial, 'metalness').min(0).max(1).step(0.001);
+
 
 
 
@@ -285,6 +304,7 @@ const tick = () => {
     controls.update();
 
     if (object) object.rotation.y = elapsedTime * 0.4;
+
 
     // Render
     renderer.render(scene, camera)
