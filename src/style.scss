@@ -121,15 +121,26 @@ body {
 
 
 .wrapper {
-  margin: auto;
   height: 100%;
+  width: 100%;
   background-color: #000;
   overflow: hidden;
   .map-wrapper {
-    @include background(contain);
+    background-image: url('/static/map.png');
+    @include background(cover);
     @include center();
-    width: 1000%;
-    height: 150%;
+    width: 350vh;
+    height: 150vh;
+    .veg{
+      z-index: 2000;
+      width: 75vw;
+      height: 37vh;
+      border: 1px solid red;
+      position: absolute;
+      top: 30%;
+      left: 77%;
+      transform: rotate(-9deg);
+    }
   }
 }
 

@@ -26,124 +26,31 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
-    <canvas class="webgl"></canvas>
-
-    <div class="item-wrapper">
-        <!-- <div class="item-weigh"></div> -->
-        <!-- Start navbar -->
-        <div class="navbar">
-            <div class="nav-item">
-                <a href="index.html" class="nav-logo"></a>
-                <!-- <ul id="popup-menu" class="nav-popup">
-                        <li></li>
-                        <a href="#!" class="close-btn">
-                            <span></span>
-                            <span></span>
-                        </a>
-                    </ul> -->
-                <a href="#popup-menu" class="menu-toggle">
-                    <span></span>
-                    <span></span>
-                </a>
-            </div>
+    <!-- Start main -->
+    <div class="wrapper" id="container">
+        <!-- Start map -->
+        <div class="map-wrapper" id="map">
+            <a href="vegetable.html" class="veg"></a>
         </div>
-        <!-- Emd navbar -->
-    
-        <!-- Start Btn -->
-        <div class="btn-wrapper">
-            <a class="btn-item" href="#weigh">
-                <div class="btn-icon btn-weigh"></div>
-            </a>
-            <a class="btn-item" href="#picking">
-                <div class="btn-icon btn-picking"></div>
-            </a>
-        </div>
-        <!-- End Btn -->
-    
-        <!-- Start marquee -->
-        <div class="marquee-wrapper">
-            <div class="marquee-block">
-                <div class="marquee-inner to-left">
-                    <span>
-                        <div class="marquee-item">
-                        </div>
-                        <div class="marquee-item">
-                        </div>
-                        <div class="marquee-item">
-                        </div>
-                        <div class="marquee-item">
-                        </div>
-                        <div class="marquee-item">
-                        </div>
-                    </span>
-                    <span>
-                        <div class="marquee-item">
-                        </div>
-                        <div class="marquee-item">
-                        </div>
-                        <div class="marquee-item">
-                        </div>
-                        <div class="marquee-item">
-                        </div>
-                        <div class="marquee-item">
-                        </div>
-                    </span>
-                </div>
-            </div>
-        </div>
-        <!-- End marquee -->
-    
-        <!-- Start main -->
-    
-        <!-- Start section-1 -->
-        <div class="section section-1">
-            <a href="#" class="scroll"></a>
-        </div>
-        <!-- End section-1 -->
-    
-        <!-- Start section-2 -->
-        <div class="section section-2">
-            <div class="one-catty">
-                <span>蘆筍</span>
-            </div>
-        </div>
-        <!-- End section-2 -->
-
-        <!-- Start section-3 -->
-        <div class="section section-3">
-            <div class="weigh">
-                <div class="pointer"></div>
-            </div>
-        </div>
-        <!-- End section-3 -->
-    
-        <!-- Start section-4 -->
-        <div class="section section-4" id="weigh">
-            <div class="cooking-title"></div>
-            <div class="cooking-subtitle"></div>
-            <div class="cooking-dishes">
-                <div class="dish dish-0"></div>
-                <div class="dish dish-1"></div>
-                <div class="dish dish-2"></div>
-            </div>
-        </div>
-        <!-- End section-4 -->
-    
-        <!-- Start section-5 -->
-        <div class="section section-5" id="picking">
-            <div class="nav-pink"></div>
-            <div class="picking">
-                <div class="picking-title">挑選指南</div>
-                <div class="picking-para">
-                    要驗明新鮮蘆筍有4個觀察重點：基部切口需保持鮮綠、筍尖要飽滿、莖上的鱗片要呈現翠綠或鮮粉紫、嫩莖上的表皮要飽滿有光澤；其中一項若呈現乾癟、褐色，或是鱗片間有明顯間隙，都是蘆筍因存放多日損失水分的徵兆，失水過多的蘆筍，尖部附近還會出現皺紋、偏軟而垂頭。
-                </div>
-            </div>
-        </div>
-        <!-- End section-5 -->
-    
-       
-        <!-- End main -->
+        <!-- Start map -->
     </div>
+    <!-- End main -->
 
+    <!-- js -->
+    <script>
+        const $container = $("#container");
+        function update() {
+            Draggable.create(".map-wrapper", {
+                bounds: $container,
+                edgeResistance: 0.8,
+                inertia: true,
+                type: "x,y",
+                allowEventDefault: true,
+                throwProps: true,
+                autoScroll: true,
+            });
+        }
+        update();
+    </script>
 </body>
 </html>
