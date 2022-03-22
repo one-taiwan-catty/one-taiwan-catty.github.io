@@ -100,7 +100,6 @@ body {
 }
 
 .wrapper .map-wrapper .veg {
-  z-index: 2000;
   width: 75vw;
   height: 37vh;
   border: 1px solid red;
