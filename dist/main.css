@@ -79,23 +79,36 @@ body {
 	Block
 \* -------------------------- */
 .wrapper {
-  margin: auto;
   height: 100%;
+  width: 100%;
   background-color: #000;
   overflow: hidden;
 }
 
 .wrapper .map-wrapper {
+  background-image: url(assets/images/15b355f8ea3fd896.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
   position: absolute;
   left: 50%;
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  width: 1000%;
-  height: 150%;
+  width: 350vh;
+  height: 150vh;
+}
+
+.wrapper .map-wrapper .veg {
+  z-index: 2000;
+  width: 75vw;
+  height: 37vh;
+  border: 1px solid red;
+  position: absolute;
+  top: 30%;
+  left: 77%;
+  -webkit-transform: rotate(-9deg);
+          transform: rotate(-9deg);
 }
 
 /* item */
