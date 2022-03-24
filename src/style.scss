@@ -117,7 +117,7 @@ body {
   position: fixed;
   width: 90vw;
   @include verticalCenter;
-  bottom: 10vh;
+  bottom: 15vh;
   
   .dialog-dlg{
     background-image: url('/static/dialog.png');
@@ -149,14 +149,14 @@ body {
       display: none;
       p{
       width: 11ch;
-      animation: typing 1.5s steps(6), blink .5s step-end infinite alternate;
+      animation: typing 0.8s steps(6), blink .5s step-end infinite alternate;
       }
     }
     &.dlg-3{
       display: none;
       p{
       width: 28ch;
-      animation: typing 1.5s steps(17), blink .5s step-end infinite alternate;
+      animation: typing 2s steps(17), blink .5s step-end infinite alternate;
       }
     }
   }

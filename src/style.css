@@ -95,7 +95,7 @@ body {
   left: 50%;
   -webkit-transform: translate(-50%, 0%);
           transform: translate(-50%, 0%);
-  bottom: 10vh;
+  bottom: 15vh;
 }
 
 .dialog .dialog-dlg {
@@ -135,8 +135,8 @@ body {
 
 .dialog .dialog-dlg.dlg-2 p {
   width: 11ch;
-  -webkit-animation: typing 1.5s steps(6), blink 0.5s step-end infinite alternate;
-          animation: typing 1.5s steps(6), blink 0.5s step-end infinite alternate;
+  -webkit-animation: typing 0.8s steps(6), blink 0.5s step-end infinite alternate;
+          animation: typing 0.8s steps(6), blink 0.5s step-end infinite alternate;
 }
 
 .dialog .dialog-dlg.dlg-3 {
@@ -145,8 +145,8 @@ body {
 
 .dialog .dialog-dlg.dlg-3 p {
   width: 28ch;
-  -webkit-animation: typing 1.5s steps(17), blink 0.5s step-end infinite alternate;
-          animation: typing 1.5s steps(17), blink 0.5s step-end infinite alternate;
+  -webkit-animation: typing 2s steps(17), blink 0.5s step-end infinite alternate;
+          animation: typing 2s steps(17), blink 0.5s step-end infinite alternate;
 }
 
 @-webkit-keyframes typing {
