@@ -118,7 +118,7 @@ body {
   position: fixed;
   width: 90vw;
   @include verticalCenter;
-  bottom: 15vh;
+  bottom: 20px;
   
   .dialog-dlg{
     background-image: url('/static/dialog.png');
