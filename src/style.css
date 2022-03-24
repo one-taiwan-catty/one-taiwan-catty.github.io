@@ -59,7 +59,7 @@ button {
 
 html {
   overflow: -moz-hidden-unscrollable;
-  height: 100vh;
+  height: 100%;
   width: 100vw;
 }
 
@@ -69,7 +69,7 @@ scrollbar {
 
 body {
   -ms-overflow-style: none;
-  height: 100vh;
+  height: 100%;
   width: 100vw;
   overflow: auto;
 }
@@ -254,7 +254,7 @@ body {
   z-index: 1000;
   position: fixed;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -299,7 +299,7 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   overflow-x: auto;
   overflow-y: hidden;
 }
@@ -365,7 +365,7 @@ body {
 .item-wrapper {
   margin: auto;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   /* close-btn */
   /* transform會覆寫，因此寫在同一行 ＊空一格 */
   /* Btn */
@@ -513,7 +513,7 @@ body {
 .item-wrapper .marquee-wrapper {
   position: fixed;
   width: 40px;
-  height: 100vh;
+  height: 100%;
   z-index: 999;
 }
 
@@ -570,7 +570,7 @@ body {
 .item-wrapper .section {
   width: 100vw;
   padding-left: 30px;
-  height: 100vh;
+  height: 100%;
   /* section-1 */
   /* section-2 */
   /* section-3 */
@@ -717,7 +717,7 @@ body {
 
 .item-wrapper .section-5 {
   background-color: #d3d3d3;
-  height: 100vh;
+  height: 100%;
   padding-left: 0px;
   overflow: hidden;
 }

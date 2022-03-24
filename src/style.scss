@@ -83,7 +83,7 @@ button{
 // ** 隱藏滾動條 ** \\
 html {
   overflow: -moz-hidden-unscrollable;
-  height: 100vh;
+  height: 100%;
   width: 100vw;
 }
 scrollbar {
@@ -92,7 +92,7 @@ scrollbar {
 
 body {
   -ms-overflow-style: none;
-  height: 100vh;
+  height: 100%;
   width: 100vw;
   overflow: auto;
   // background-color: #000;
@@ -218,7 +218,7 @@ body {
   z-index: 1000;
   position: fixed;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
 }
 .wrapper {
@@ -251,7 +251,7 @@ body {
   background-image: url('/static/vege-bg.png');
   @include background(cover);
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   overflow-x: auto;
   overflow-y: hidden;
   .items-wrapper{
@@ -311,7 +311,7 @@ body {
   margin: auto;
   // background-color: #000;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   .navbar{
     position: fixed;
     height: 50px;
@@ -434,7 +434,7 @@ body {
   .marquee-wrapper{
   position: fixed;
   width: 40px;
-  height: 100vh;
+  height: 100%;
   z-index: 999;
   }
   .marquee-wrapper .marquee-block{
@@ -474,12 +474,12 @@ body {
   .section{
     width: 100vw;
     padding-left: 30px;
-    height: 100vh;
+    height: 100%;
 
     /* section-1 */
     &-1{
     // overflow: hidden;
-    // height: 100vh;
+    // height: 100%;
       .item-pic{
         @include background(contain);
         position: absolute;
@@ -588,7 +588,7 @@ body {
     /* section-5 */
     &-5{
       background-color: #d3d3d3;
-      height: 100vh;
+      height: 100%;
       padding-left: 0px;
       overflow: hidden;
 
