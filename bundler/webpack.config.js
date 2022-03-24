@@ -26,6 +26,13 @@ module.exports = {
       // 配置 HTML 模板路徑與生成名稱 (第三步)
       template: './src/index.html',
       filename: 'index.html',
+      chunks: ['index']
     }),
+    new HtmlWebpackPlugin({
+      // 配置 HTML 模板路徑與生成名稱 (第三步)
+      template: './src/vegetable.html',
+      filename: 'vegetable.html',
+      chunks: ['vegetable']
+    })
   ],
 };
