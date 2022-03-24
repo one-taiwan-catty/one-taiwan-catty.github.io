@@ -48,6 +48,15 @@ a {
   color: #000;
 }
 
+p {
+  font-family: 'Noto Serif TC', serif;
+}
+
+button {
+  border: 0;
+  background-color: none;
+}
+
 html {
   overflow: -moz-hidden-unscrollable;
   height: 100vh;
@@ -78,6 +87,177 @@ body {
 /* -------------------------- *\
 	Block
 \* -------------------------- */
+.dialog {
+  z-index: 2000;
+  position: fixed;
+  width: 90vw;
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0%);
+          transform: translate(-50%, 0%);
+  bottom: 20px;
+}
+
+.dialog .dialog-dlg {
+  background-image: url("/static/dialog.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 90vw;
+  padding-top: 55%;
+  color: #fff;
+}
+
+.dialog .dialog-dlg h4 {
+  position: absolute;
+  top: 16%;
+  left: 13%;
+}
+
+.dialog .dialog-dlg p {
+  position: absolute;
+  top: 46%;
+  left: 13%;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid;
+}
+
+.dialog .dialog-dlg.dlg-1 p {
+  width: 17ch;
+  -webkit-animation: typing 1.5s steps(9), blink 0.5s step-end infinite alternate;
+          animation: typing 1.5s steps(9), blink 0.5s step-end infinite alternate;
+}
+
+.dialog .dialog-dlg.dlg-2 {
+  display: none;
+}
+
+.dialog .dialog-dlg.dlg-2 p {
+  width: 11ch;
+  -webkit-animation: typing 1.5s steps(6), blink 0.5s step-end infinite alternate;
+          animation: typing 1.5s steps(6), blink 0.5s step-end infinite alternate;
+}
+
+.dialog .dialog-dlg.dlg-3 {
+  display: none;
+}
+
+.dialog .dialog-dlg.dlg-3 p {
+  width: 28ch;
+  -webkit-animation: typing 1.5s steps(17), blink 0.5s step-end infinite alternate;
+          animation: typing 1.5s steps(17), blink 0.5s step-end infinite alternate;
+}
+
+@-webkit-keyframes typing {
+  from {
+    width: 0;
+  }
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+}
+
+@-webkit-keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
+
+@-webkit-keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes disappear {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes disappear {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.dialog .dialog-select {
+  background-image: url("/static/select.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 90vw;
+  padding-top: 10%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-item-align: center;
+      align-self: center;
+}
+
+.dialog .dialog-select .select-3 {
+  display: none;
+}
+
+.dialog .dialog-select .select-4 {
+  display: none;
+}
+
+.dialog .dialog-select .select {
+  opacity: 0;
+  width: 50%;
+  color: #fff;
+  text-align: center;
+  -webkit-transform: translate(0, -95%);
+          transform: translate(0, -95%);
+  -webkit-animation: appear 4s 1s forwards;
+          animation: appear 4s 1s forwards;
+}
+
+.dialog .dialog-select .select.active {
+  -webkit-animation: disappear 1s;
+          animation: disappear 1s;
+}
+
+.mask {
+  z-index: 1000;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
 .wrapper {
   height: 100%;
   width: 100%;
@@ -110,7 +290,9 @@ body {
           transform: rotate(-9deg);
 }
 
-/* item */
+/* -------------------------- *\
+	Item
+\* -------------------------- */
 .item-wrapper {
   margin: auto;
   width: 100vw;
@@ -168,8 +350,8 @@ body {
   background-color: #fff;
   position: absolute;
   left: 50%;
-  -webkit-transform: translate(-50%, 0);
-          transform: translate(-50%, 0);
+  -webkit-transform: translate(-50%, 0%);
+          transform: translate(-50%, 0%);
 }
 
 .item-wrapper .navbar .menu-toggle span:nth-child(1) {
@@ -345,9 +527,9 @@ body {
   height: 50px;
   position: absolute;
   left: 50%;
+  -webkit-transform: translate(-50%, 0%);
+          transform: translate(-50%, 0%);
   bottom: 20px;
-  -webkit-transform: translate(-50%, 0);
-          transform: translate(-50%, 0);
   display: inline-block;
 }
 
@@ -358,10 +540,11 @@ body {
   background-size: contain;
   width: 250px;
   height: 160px;
-  left: 50%;
   top: 80vh;
-  -webkit-transform: translate(-50%, 0);
-          transform: translate(-50%, 0);
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0%);
+          transform: translate(-50%, 0%);
 }
 
 .item-wrapper .section-2 .one-catty span {
@@ -392,9 +575,10 @@ body {
   background-size: contain;
   width: 10px;
   height: 100px;
+  position: absolute;
   left: 50%;
-  -webkit-transform: translate(-50%, 0);
-          transform: translate(-50%, 0);
+  -webkit-transform: translate(-50%, 0%);
+          transform: translate(-50%, 0%);
   top: 15%;
 }
 
@@ -410,9 +594,10 @@ body {
   background-size: contain;
   width: 280px;
   height: 34px;
+  position: absolute;
   left: 50%;
-  -webkit-transform: translate(-50%, 0);
-          transform: translate(-50%, 0);
+  -webkit-transform: translate(-50%, 0%);
+          transform: translate(-50%, 0%);
 }
 
 .item-wrapper .section-4 .cooking-subtitle {
@@ -422,10 +607,11 @@ body {
   background-size: contain;
   width: 240px;
   height: 230px;
+  position: absolute;
   left: 50%;
+  -webkit-transform: translate(-50%, 0%);
+          transform: translate(-50%, 0%);
   top: 10px;
-  -webkit-transform: translate(-50%, 0);
-          transform: translate(-50%, 0);
 }
 
 .item-wrapper .section-4 .cooking-dishes .dish {
@@ -453,10 +639,11 @@ body {
 .item-wrapper .section-4 .cooking-dishes .dish-2 {
   width: 300px;
   height: 300px;
-  left: 50%;
   top: 20px;
-  -webkit-transform: translate(-50%, 0);
-          transform: translate(-50%, 0);
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0%);
+          transform: translate(-50%, 0%);
 }
 
 .item-wrapper .section-5 {
@@ -489,7 +676,6 @@ body {
 
 .item-wrapper .section-5 .picking .picking-para {
   text-align: justify;
-  font-family: 'Noto Serif TC', serif;
   padding: 10vh 3px 0 3px;
   line-height: 1.5;
 }

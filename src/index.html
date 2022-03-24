@@ -26,11 +26,41 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
+    <!-- Start Dialog -->
+    <div class="mask">
+        <div class="dialog">
+            <div class="dialog-dlg dlg-1">
+                <h4>謎之音 0.0</h4>
+                <p>肖年欸！哩欲咩啥？</p>
+            </div>
+            <div class="dialog-dlg dlg-2">
+                <h4>謎之音 0.0</h4>
+                <p>一斤120啦！</p>
+            </div>
+            <div class="dialog-dlg dlg-3">
+                <h4>謎之音 0.0</h4>
+                <p>那你真是問對人了！進來看看吧！</p>
+            </div>
+            <div class="dialog-select">
+                <a class="select select-1">逃走</a>
+                <a class="select select-2">這怎麼賣？</a>
+                <a class="select select-3">一斤...是多少...</a>
+                <a class="select select-4">開始探索</a>
+            </div>
+        </div>
+    </div>
+    <!-- End Dialog -->
+
     <!-- Start main -->
     <div class="wrapper" id="container">
         <!-- Start map -->
         <div class="map-wrapper" id="map">
             <a href="vegetable.html" class="veg"></a>
+            <a href="beef.html" class="beef"></a>
+            <a href="pork.html" class="pork"></a>
+            <a href="chicken.html" class="chicken"></a>
+            <a href="seafood.html" class="seafood"></a>
+            <a href="fruit.html" class="fruit"></a>
         </div>
         <!-- Start map -->
     </div>
@@ -38,6 +68,52 @@
 
     <!-- js -->
     <script>
+        $(document).ready(function () {
+            $("body").on("click", function (event) {
+                console.log($(event.target))
+                if ($(event.target).hasClass("select-1")) {
+                    $(event.target).addClass("active");
+                    $(function () {
+                        setTimeout(function () {
+                            $(event.target).parents(".dialog-select").parents(".dialog").hide(1000);
+                        }, 1000);
+                        setTimeout(function () {
+                            $(event.target).parents(".dialog-select").parents(".dialog").parents(".mask").hide(1500);
+                        }, 1500);
+                    })
+                }
+                if ($(event.target).hasClass("select-2")) {
+                    $(event.target).addClass("active");
+                    $(event.target).parents(".dialog-select").siblings(".dlg-1").css({ "display": "none"});
+                    $(event.target).parents(".dialog-select").siblings(".dlg-2").css({ "display": "block" });
+                    setTimeout(function () {
+                        $(event.target).css({ "display": "none" });
+                        $(event.target).siblings(".select-3").css({ "display": "block" });
+                    }, 500);
+                }
+                if ($(event.target).hasClass("select-3")) {
+                    $(event.target).addClass("active");
+                    $(event.target).parents(".dialog-select").siblings(".dlg-2").css({ "display": "none" });
+                    $(event.target).parents(".dialog-select").siblings(".dlg-3").css({ "display": "block" });
+                    setTimeout(function () {
+                        $(event.target).css({ "display": "none" });
+                        $(event.target).siblings(".select-4").css({ "display": "block" });
+                    }, 500);
+                }
+                if ($(event.target).hasClass("select-4")) {
+                    $(event.target).addClass("active");
+                    $(function () {
+                        setTimeout(function () {
+                            $(event.target).parents(".dialog-select").parents(".dialog").hide(1000);
+                        }, 1000);
+                        setTimeout(function () {
+                            $(event.target).parents(".dialog-select").parents(".dialog").parents(".mask").hide(1500);
+                        }, 1500);
+                    })
+                }
+            });
+        });
+
         const $container = $("#container");
         function update() {
             Draggable.create(".map-wrapper", {

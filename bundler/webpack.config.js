@@ -1,14 +1,31 @@
+const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// 載入 html-webpack-plugin (第一步)
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 module.exports = {
-    entry: path.resolve(__dirname, '../src/script.js'),
-    performance: {
-        hints: "warning", // 枚举
-        hints: "error", // 性能提示中抛出错误
-        hints: false, // 关闭性能提示
-        maxAssetSize: 200000, // 整数类型（以字节为单位）
-        maxEntrypointSize: 400000, // 整数类型（以字节为单位）
-        assetFilter: function (assetFilename) {
-            // 提供资源文件名的断言函数
-            return assetFilename.endsWith('.css') || assetFilename.endsWith('.js');
-        }
-    },
-}
+  entry: './src/script.js',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'static/js/[name].[hash].js',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+      },
+    ],
+  },
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: 'static/css/[name].[hash].css',
+    }),
+    // 創建實例 (第二步)
+    new HtmlWebpackPlugin({
+      // 配置 HTML 模板路徑與生成名稱 (第三步)
+      template: './src/index.html',
+      filename: 'index.html',
+    }),
+  ],
+};

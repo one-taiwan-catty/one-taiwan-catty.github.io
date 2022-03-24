@@ -2,7 +2,7 @@
   "repository": "#",
   "license": "UNLICENSED",
   "scripts": {
-    "build": "webpack --config ./bundler/webpack.prod.js",
+    "build": "webpack --mode development",
     "dev": "webpack serve --config ./bundler/webpack.dev.js"
   },
   "dependencies": {
@@ -27,7 +27,6 @@
     "webpack-cli": "^4.9.2",
     "webpack-merge": "^5.8.0"
   },
-  
   "devDependencies": {
     "css-loader": "^3.4.2",
     "html-webpack-plugin": "^4.0.3",
@@ -35,5 +34,5 @@
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11"
   }
-
 }
+
