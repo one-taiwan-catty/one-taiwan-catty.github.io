@@ -283,7 +283,6 @@ body {
 .wrapper .map-wrapper .veg {
   width: 75vw;
   height: 37vh;
-  border: 1px solid red;
   position: absolute;
   top: 30%;
   left: 77%;
@@ -531,6 +530,7 @@ body {
 
 .item-wrapper .marquee-inner {
   display: block;
+  height: 100%;
   width: 100%;
   position: absolute;
 }
