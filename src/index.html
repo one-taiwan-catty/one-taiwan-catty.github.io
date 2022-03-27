@@ -11,7 +11,7 @@
     <!-- font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500&family=Zen+Antique&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;500&family=Zen+Antique&display=swap"
         rel="stylesheet">
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
@@ -26,107 +26,124 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
-    <!-- Start Dialog -->
-    <div class="mask">
-        <div class="dialog">
-            <div class="dialog-dlg dlg-1">
-                <h4>謎之音 0.0</h4>
-                <p>肖年欸！哩欲咩啥？</p>
-            </div>
-            <div class="dialog-dlg dlg-2">
-                <h4>謎之音 0.0</h4>
-                <p>一斤120啦！</p>
-            </div>
-            <div class="dialog-dlg dlg-3">
-                <h4>謎之音 0.0</h4>
-                <p>那你真是問對人了！進來看看吧！</p>
-            </div>
-            <div class="dialog-select">
-                <a class="select select-1">逃走</a>
-                <a class="select select-2">這怎麼賣？</a>
-                <a class="select select-3">一斤...是多少...</a>
-                <a class="select select-4">開始探索</a>
+    <canvas class="webgl"></canvas>
+    <div class="item-wrapper">
+        <!-- <div class="item-weigh"></div> -->
+        <!-- Start navbar -->
+        <div class="navbar">
+            <div class="nav-item">
+                <a href="index.html" class="nav-logo"></a>
+                <!-- <ul id="popup-menu" class="nav-popup">
+                        <li></li>
+                        <a href="#!" class="close-btn">
+                            <span></span>
+                            <span></span>
+                        </a>
+                    </ul> -->
+                <a href="#popup-menu" class="menu-toggle">
+                    <span></span>
+                    <span></span>
+                </a>
             </div>
         </div>
-    </div>
-    <!-- End Dialog -->
-
-    <!-- Start main -->
-    <div class="wrapper" id="container">
-        <!-- Start map -->
-        <div class="map-wrapper" id="map">
-            <a href="vegetable.html" class="veg"></a>
-            <a href="beef.html" class="beef"></a>
-            <a href="pork.html" class="pork"></a>
-            <a href="chicken.html" class="chicken"></a>
-            <a href="seafood.html" class="seafood"></a>
-            <a href="fruit.html" class="fruit"></a>
+        <!-- Emd navbar -->
+    
+        <!-- Start Btn -->
+        <div class="btn-wrapper">
+            <a class="btn-item" href="#weigh">
+                <div class="btn-icon btn-weigh"></div>
+            </a>
+            <a class="btn-item" href="#picking">
+                <div class="btn-icon btn-picking"></div>
+            </a>
         </div>
-        <!-- Start map -->
+        <!-- End Btn -->
+    
+        <!-- Start marquee -->
+        <div class="marquee-wrapper">
+            <div class="marquee-block">
+                <div class="marquee-inner to-left">
+                    <span>
+                        <div class="marquee-item">
+                        </div>
+                        <div class="marquee-item">
+                        </div>
+                        <div class="marquee-item">
+                        </div>
+                        <div class="marquee-item">
+                        </div>
+                        <div class="marquee-item">
+                        </div>
+                    </span>
+                    <span>
+                        <div class="marquee-item">
+                        </div>
+                        <div class="marquee-item">
+                        </div>
+                        <div class="marquee-item">
+                        </div>
+                        <div class="marquee-item">
+                        </div>
+                        <div class="marquee-item">
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- End marquee -->
+    
+        <!-- Start main -->
+    
+        <!-- Start section-1 -->
+        <div class="section section-1">
+            <a href="#" class="scroll"></a>
+        </div>
+        <!-- End section-1 -->
+    
+        <!-- Start section-2 -->
+        <div class="section section-2">
+            <div class="one-catty">
+                <span>南瓜</span>
+            </div>
+        </div>
+        <!-- End section-2 -->
+
+        <!-- Start section-3 -->
+        <div class="section section-3">
+            <div class="weigh">
+                <div class="circle"></div>
+                <div class="pointer"></div>
+            </div>
+        </div>
+        <!-- End section-3 -->
+    
+        <!-- Start section-4 -->
+        <div class="section section-4" id="weigh">
+            <div class="cooking-title"></div>
+            <div class="cooking-subtitle"></div>
+            <div class="cooking-dishes">
+                <!-- <div class="dish dish-0"></div> -->
+                <!-- <div class="dish dish-1"></div> -->
+                <div class="dish dish-2"></div>
+            </div>
+        </div>
+        <!-- End section-4 -->
+    
+        <!-- Start section-5 -->
+        <div class="section section-5" id="picking">
+            <div class="nav-pink"></div>
+            <div class="picking">
+                <div class="picking-title">挑選指南</div>
+                <p class="picking-para">
+                    要驗明新鮮蘆筍有4個觀察重點：基部切口需保持鮮綠、筍尖要飽滿、莖上的鱗片要呈現翠綠或鮮粉紫、嫩莖上的表皮要飽滿有光澤；其中一項若呈現乾癟、褐色，或是鱗片間有明顯間隙，都是蘆筍因存放多日損失水分的徵兆，失水過多的蘆筍，尖部附近還會出現皺紋、偏軟而垂頭。
+                </p>
+            </div>
+        </div>
+        <!-- End section-5 -->
+    
+       
+        <!-- End main -->
     </div>
-    <!-- End main -->
 
-    <!-- js -->
-    <script>
-        $(document).ready(function () {
-            $("body").on("click", function (event) {
-                console.log($(event.target))
-                if ($(event.target).hasClass("select-1")) {
-                    $(event.target).addClass("active");
-                    $(function () {
-                        setTimeout(function () {
-                            $(event.target).parents(".dialog-select").parents(".dialog").hide(1000);
-                        }, 1000);
-                        setTimeout(function () {
-                            $(event.target).parents(".dialog-select").parents(".dialog").parents(".mask").hide(1500);
-                        }, 1500);
-                    })
-                }
-                if ($(event.target).hasClass("select-2")) {
-                    $(event.target).addClass("active");
-                    $(event.target).parents(".dialog-select").siblings(".dlg-1").css({ "display": "none"});
-                    $(event.target).parents(".dialog-select").siblings(".dlg-2").css({ "display": "block" });
-                    setTimeout(function () {
-                        $(event.target).css({ "display": "none" });
-                        $(event.target).siblings(".select-3").css({ "display": "block" });
-                    }, 500);
-                }
-                if ($(event.target).hasClass("select-3")) {
-                    $(event.target).addClass("active");
-                    $(event.target).parents(".dialog-select").siblings(".dlg-2").css({ "display": "none" });
-                    $(event.target).parents(".dialog-select").siblings(".dlg-3").css({ "display": "block" });
-                    setTimeout(function () {
-                        $(event.target).css({ "display": "none" });
-                        $(event.target).siblings(".select-4").css({ "display": "block" });
-                    }, 500);
-                }
-                if ($(event.target).hasClass("select-4")) {
-                    $(event.target).addClass("active");
-                    $(function () {
-                        setTimeout(function () {
-                            $(event.target).parents(".dialog-select").parents(".dialog").hide(1000);
-                        }, 1000);
-                        setTimeout(function () {
-                            $(event.target).parents(".dialog-select").parents(".dialog").parents(".mask").hide(1500);
-                        }, 1500);
-                    })
-                }
-            });
-        });
-
-        const $container = $("#container");
-        function update() {
-            Draggable.create(".map-wrapper", {
-                bounds: $container,
-                edgeResistance: 0.8,
-                inertia: true,
-                type: "x,y",
-                allowEventDefault: true,
-                throwProps: true,
-                autoScroll: true,
-            });
-        }
-        update();
-    </script>
 </body>
 </html>

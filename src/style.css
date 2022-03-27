@@ -9,7 +9,7 @@
   font-family: 'Zen Antique', serif;
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  text-decoration: none;
 }
 
 @font-face {
@@ -20,6 +20,10 @@
 
 html {
   background: #000;
+}
+
+p {
+  font-family: 'Noto Serif TC', serif;
 }
 
 .webgl {
@@ -55,7 +59,7 @@ p {
 
 button {
   border: 0;
-  background-color: none;
+  background-color: Transparent;
 }
 
 html {
@@ -300,64 +304,124 @@ body {
   background-size: cover;
   width: 100vw;
   height: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
+  overflow: hidden;
 }
 
-.vege-wrapper .items-wrapper {
+.vege-wrapper .vege-items {
+  width: 100%;
   position: absolute;
-  bottom: 80px;
-  width: 320vw;
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding-left: 80px;
+  bottom: 20px;
+}
+
+.vege-wrapper .vege-items .owl-stage {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  margin-left: -15%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  top: -3vh;
 }
 
-.vege-wrapper .items-wrapper .vege-items {
-  width: 100%;
-  height: 150px;
-  overflow-x: auto;
-  overflow-y: hidden;
-}
-
-.vege-wrapper .items-wrapper .vege-items .vege-item {
+.vege-wrapper .vege-items .vege-item {
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
   width: 150px;
   height: 150px;
+  background-size: 150px;
   display: inline-block;
-  margin-left: 20px;
 }
 
-.vege-wrapper .items-wrapper .vege-items .vege-item-1 {
-  background-image: url(/static/vege-01.png);
+.vege-wrapper .vege-items .vege-item-1 {
+  background-image: url(/static/vege-1.png);
 }
 
-.vege-wrapper .items-wrapper .vege-items .vege-item-2 {
-  background-image: url(/static/vege-02.png);
+.vege-wrapper .vege-items .vege-item-2 {
+  background-image: url(/static/vege-2.png);
 }
 
-.vege-wrapper .items-wrapper .vege-items .vege-item-3 {
-  background-image: url(/static/vege-03.png);
+.vege-wrapper .vege-items .vege-item-3 {
+  background-image: url(/static/vege-3.png);
 }
 
-.vege-wrapper .items-wrapper .vege-items .vege-item-4 {
-  background-image: url(/static/vege-04.png);
+.vege-wrapper .vege-items .vege-item-4 {
+  background-image: url(/static/vege-4.png);
 }
 
-.vege-wrapper .items-wrapper .vege-items .vege-item-5 {
-  background-image: url(/static/vege-05.png);
+.vege-wrapper .vege-items .vege-item-5 {
+  background-image: url(/static/vege-5.png);
 }
 
-.vege-wrapper .items-wrapper .vege-items .vege-item-6 {
-  background-image: url(/static/vege-06.png);
+.vege-wrapper .vege-items .vege-item-6 {
+  background-image: url(/static/vege-6.png);
+}
+
+.vege-wrapper .owl-item h4 {
+  color: transparent;
+}
+
+.vege-wrapper .owl-item.active.center {
+  margin-right: 85px !important;
+}
+
+.vege-wrapper .owl-item.active.center a h4 {
+  color: #000;
+  font-size: 1.2em;
+  position: fixed;
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0%);
+          transform: translate(-50%, 0%);
+  top: 240px;
+}
+
+.vege-wrapper .owl-item.active.center .vege-item {
+  width: 250px;
+  height: 250px;
+  background-size: 250px;
+}
+
+.vege-wrapper .owl-nav {
+  background-image: url("/static/bar.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: calc(100% - 40px);
+  height: 50px;
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0%);
+          transform: translate(-50%, 0%);
+  position: absolute;
+  bottom: 0;
+}
+
+.vege-wrapper .owl-nav button {
+  font-size: 0;
+}
+
+.vege-wrapper .owl-nav button span {
+  background-image: url("/static/arrow.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+}
+
+.vege-wrapper .owl-nav .owl-prev {
+  left: 20px;
+}
+
+.vege-wrapper .owl-nav .owl-next {
+  -webkit-transform: rotate(180deg) translate(0, 50%);
+          transform: rotate(180deg) translate(0, 50%);
+  position: absolute;
+  top: 50%;
+  right: 20px;
 }
 
 /* -------------------------- *\
@@ -530,7 +594,6 @@ body {
 
 .item-wrapper .marquee-inner {
   display: block;
-  height: 100%;
   width: 100%;
   position: absolute;
 }
@@ -541,7 +604,7 @@ body {
 }
 
 .item-wrapper .marquee-item {
-  background-image: url(/static/marquee.svg);
+  background-image: url(/static/marquee-ham.svg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -610,7 +673,7 @@ body {
   background-size: contain;
   width: 250px;
   height: 160px;
-  top: 80vh;
+  top: 80%;
   position: absolute;
   left: 50%;
   -webkit-transform: translate(-50%, 0%);
@@ -625,36 +688,55 @@ body {
   top: 105px;
 }
 
-.item-wrapper .section-3 .weigh {
-  background-image: url(/static/weigh.svg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  width: 260px;
-  height: 260px;
-  left: 50%;
-  top: 80vh;
-  -webkit-transform: translate(-50%, 0);
-          transform: translate(-50%, 0);
+.item-wrapper .section-3 {
+  height: 130%;
 }
 
-.item-wrapper .section-3 .weigh .pointer {
-  background-image: url(/static/pointer.svg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  width: 10px;
-  height: 100px;
+.item-wrapper .section-3 .weigh {
+  width: 100%;
+  height: 400px;
+  top: 70%;
   position: absolute;
   left: 50%;
   -webkit-transform: translate(-50%, 0%);
           transform: translate(-50%, 0%);
-  top: 15%;
+  overflow-x: hidden;
+}
+
+.item-wrapper .section-3 .weigh .circle {
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0%);
+          transform: translate(-50%, 0%);
+  background-image: url(/static/weigh.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 400px;
+  height: 400px;
+}
+
+.item-wrapper .section-3 .weigh .pointer {
+  background-image: url(/static/pointer.svg);
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0%);
+          transform: translate(-50%, 0%);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 15px;
+  height: 150px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  top: 20%;
 }
 
 .item-wrapper .section-4 {
   overflow: hidden;
-  margin-top: 40vh;
+  padding-top: 50%;
+  margin-top: 40px;
 }
 
 .item-wrapper .section-4 .cooking-title {
@@ -671,21 +753,24 @@ body {
 }
 
 .item-wrapper .section-4 .cooking-subtitle {
-  background-image: url(/static/cooking.svg);
+  background-image: url(/static/cooking-kim.svg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
   width: 240px;
   height: 230px;
-  position: absolute;
   left: 50%;
-  -webkit-transform: translate(-50%, 0%);
-          transform: translate(-50%, 0%);
-  top: 10px;
+  -webkit-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+  top: 40px;
+}
+
+.item-wrapper .section-4 .cooking-dishes {
+  top: 40px;
 }
 
 .item-wrapper .section-4 .cooking-dishes .dish {
-  background-image: url(/static/dish.png);
+  background-image: url(/static/cook-ham.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -707,9 +792,9 @@ body {
 }
 
 .item-wrapper .section-4 .cooking-dishes .dish-2 {
-  width: 300px;
-  height: 300px;
-  top: 20px;
+  width: 450px;
+  height: 400px;
+  top: -100px;
   position: absolute;
   left: 50%;
   -webkit-transform: translate(-50%, 0%);
@@ -748,6 +833,7 @@ body {
   text-align: justify;
   padding: 10vh 3px 0 3px;
   line-height: 1.5;
+  font-weight: 300;
 }
 
 .item-wrapper .item-weigh {
@@ -765,5 +851,6 @@ body {
           transform: translate(-50%, 0);
   width: 100vw;
   height: 300vh;
+  z-index: -1;
 }
 /*# sourceMappingURL=style.css.map */

@@ -75,13 +75,14 @@ ScrollTrigger.defaults({
 let object;
 
 gltfLoader.load(
-    'loosun.glb',
+    'kim-kue.glb',
     (gltf) => {
         object = gltf.scene
+        object.scale.set(0.5, 0.5, 0.5);
 
         object.traverse(function (children) {
 
-            // console.log(children)
+            console.log(children)
 
             if (object) {
                 let scrollY = window.scrollY;        
@@ -93,72 +94,72 @@ gltfLoader.load(
 		        const tween = gsap.timeline()
                 // 
                 tween.fromTo(object.rotation, { x: 0, y: 0, z: 0 },{x: 0.5, y: 0, z: -0.5, scrollTrigger: {
-                    scrub:true,
-                    trigger: ".section-2",
-                    // duration: {min: 0.2, max: 3}, 
-                    ease: "power0.inOut",
-                    start: "50% 90%",
-                    end: "70% 90%",
-                    // markers: true,
+                scrub:true,
+                trigger: ".section-2",
+                // duration: {min: 0.2, max: 3}, 
+                ease: "power0.inOut",
+                start: "50% 90%",
+                end: "70% 90%",
+                // markers: true,
                 },
                 }) 
                 //
-                    .fromTo(object.position, { x: 0, y: 0, z: 0 },{x: -3, y: -2, z: 0.8, scrollTrigger: {
-                    scrub:true,
-                    trigger: ".section-2",
-                    duration: { min: 2, max: 3 }, 
-                    ease: "power0.inOut",
-                    start: "50% 90%",
-                    end: "70% 90%",
-                    // markers: true,
+                .fromTo(object.position, { x: 0, y: 0, z: 0 },{x: -3, y: -2, z: 0.8, scrollTrigger: {
+                scrub:true,
+                trigger: ".section-2",
+                duration: { min: 2, max: 3 }, 
+                ease: "power0.inOut",
+                start: "50% 90%",
+                end: "70% 90%",
+                // markers: true,
                 },
                 }) 
                 //
-                    .to(object.rotation,{x: -0.5, y: 0, z: 0, scrollTrigger: {
-                    scrub:true,
-                    trigger: ".one-catty",
-                    duration: {min: 0.2, max: 1}, 
-                    ease: "power0.inOut",
-                        
-                    start: "20% 50%",
-                    end: "90% 50%",
-                    // markers: true,
+                .to(object.rotation,{x: -0.5, y: 0, z: 0, scrollTrigger: {
+                scrub:true,
+                trigger: ".one-catty",
+                duration: {min: 0.2, max: 1}, 
+                ease: "power0.inOut",
+                    
+                start: "20% 50%",
+                end: "90% 50%",
+                // markers: true,
                 },
                 }) 
                 //
-                    .to(object.position,{x: -1, y: -1, z: -0.8, scrollTrigger: {
-                    scrub:true, 
-                    trigger: ".one-catty",
-                    duration: {min: 0.2, max: 1}, 
-                    ease: "power0.inOut",
-                    start: "20% 50%",
-                    end: "90% 50%",
-                    // markers: true,
+                .to(object.position,{x: -1, y: -1, z: -0.8, scrollTrigger: {
+                scrub:true, 
+                trigger: ".one-catty",
+                duration: {min: 0.2, max: 1}, 
+                ease: "power0.inOut",
+                start: "20% 50%",
+                end: "90% 50%",
+                // markers: true,
                 },
                 })
-                    //
-                    .to(object.rotation, {x: 0, y: 0, z: 0.5, scrollTrigger: {
-                    scrub:true,
-                        
-                    trigger: ".section-3",
-                    // duration: {min: 0.2, max: 1}, 
-                    ease: "power0.inOut",
-                    start: "50% 80%",
-                    end: "60% 80%",
-                    // markers: true,
+                //
+                .to(object.rotation, {x: 0, y: 0, z: 0.5, scrollTrigger: {
+                scrub:true,
+                    
+                trigger: ".section-3",
+                // duration: {min: 0.2, max: 1}, 
+                ease: "power0.inOut",
+                start: "50% 80%",
+                end: "60% 80%",
+                // markers: true,
                 },
                 })
-                    .to(object.position, {x: -3, y: -2.5, z: 0, scrollTrigger: {
-                    scrub:true,
-                        
-                    trigger: ".section-3",
-                    // duration: {min: 0.2, max: 1}, 
-                    ease: "power0.inOut",
-                    start: "50% 80%",
-                    end: "60% 80%",
-                    // markers: true,
+                .to(object.position, {x: -3, y: -2.5, z: 0, scrollTrigger: {
+                scrub:true,
+                    
+                trigger: ".section-3",
+                // duration: {min: 0.2, max: 1}, 
+                ease: "power0.inOut",
+                start: "20% 80%",
+                end: "60% 80%",
+                // markers: true,
                 },
-                    }) 
+                }) 
                 .to(object.position, {x: -1, y: -2, z: -2, scrollTrigger: {
                     scrub:true,
                         
