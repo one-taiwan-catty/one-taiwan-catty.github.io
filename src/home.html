@@ -26,6 +26,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
+    
     <!-- Start Dialog -->
     <div class="mask">
         <div class="dialog">
@@ -50,7 +51,12 @@
         </div>
     </div>
     <!-- End Dialog -->
-
+    <div class="tutorial">
+        <div class="welcome"></div>
+        <h3>歡迎來到市場</h3>
+        <div class="tutorial-scroll"></div>
+        <p>四處拖曳以選擇攤位</p>
+    </div>
     <!-- Start main -->
     <div class="wrapper" id="container">
         <!-- Start map -->
@@ -80,6 +86,12 @@
                         setTimeout(function () {
                             $(event.target).parents(".dialog-select").parents(".dialog").parents(".mask").hide(1500);
                         }, 1500);
+                        setTimeout(function () {
+                            $(event.target).parents(".dialog-select").parents(".dialog").parents(".mask").siblings(".tutorial").css({"display": "flex"});
+                        }, 1500);
+                        setTimeout(function () {
+                            $(event.target).parents(".dialog-select").parents(".dialog").parents(".mask").siblings(".tutorial").hide(1500);
+                        }, 6000);
                     })
                 }
                 if ($(event.target).hasClass("select-2")) {

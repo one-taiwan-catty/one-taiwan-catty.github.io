@@ -20,6 +20,7 @@ html
 }
 p{
   font-family: 'Noto Serif TC', serif;
+  font-weight: 300;
 }
 .webgl
 {
@@ -223,7 +224,8 @@ body {
   position: fixed;
   width: 100vw;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
+  transition: all 0.3s;
 }
 .wrapper {
   height: 100%;
@@ -245,6 +247,68 @@ body {
       left: 77%;
       transform: rotate(-9deg);
     }
+  }
+}
+.tutorial{
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 100vw;
+  height: 100%;
+  z-index: 1000;
+  // border: 1px solid #fff;
+  color: #fff;
+  text-align: center;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  @include center();
+  animation: fadeOut 1s 4s forwards;
+
+  .welcome{
+    background-image: url('/static/tutorial/welcome.svg');
+    @include background(contain);
+    width: 100px;
+    height: 50px;
+  }
+  .tutorial-scroll{
+    margin: 100px 0;
+    background-image: url('/static/tutorial/scroll-ard.svg');
+    @include background(contain);
+    width: 80px;
+    height: 80px;
+    animation: scroll-ard 4s;
+
+  }
+  p{
+    font-size: 14px;
+  }
+}
+@keyframes scroll-ard {
+  0%{
+    transform: translate(0%,0%)
+  }
+  20%{
+    transform: translate(-80%,0%)
+  }
+  40%{
+    transform: translate(50%,-60%)
+  }
+  60%{
+    transform: translate(100%,60%)
+  }
+  80%{
+    transform: translate(-50%,50%)
+  }
+  100%{
+    transform: translate(0%,0%)
+  }
+}
+@keyframes fadeOut {
+  0%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
   }
 }
 
@@ -322,6 +386,7 @@ body {
       }
     }
   }
+  // ** beef-stand ** //
   &-beef{
     background-image: url('/static/stand-beef/beef-bg.png');
     .item{
@@ -700,7 +765,6 @@ body {
           text-align: justify;
           padding: 10vh 3px 0 3px;
           line-height: 1.5;
-          font-weight: 300;
         }
       }
     }
