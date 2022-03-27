@@ -295,10 +295,9 @@ body {
 }
 
 /* -------------------------- *\
-	Vege
+	Stand
 \* -------------------------- */
-.vege-wrapper {
-  background-image: url("/static/vege-bg.png");
+.stand {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -307,13 +306,13 @@ body {
   overflow: hidden;
 }
 
-.vege-wrapper .vege-items {
+.stand .stand-items {
   width: 100%;
   position: absolute;
   bottom: 20px;
 }
 
-.vege-wrapper .vege-items .owl-stage {
+.stand .stand-items .owl-stage {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -321,10 +320,31 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  top: -3vh;
+  top: -4.5vh;
 }
 
-.vege-wrapper .vege-items .vege-item {
+.stand .stand-items .owl-item.active.center {
+  margin-right: 85px !important;
+}
+
+.stand .stand-items .owl-item.active.center a h4 {
+  color: #000;
+  font-size: 1.2em;
+  position: fixed;
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0%);
+          transform: translate(-50%, 0%);
+  top: 250px;
+}
+
+.stand .stand-items .owl-item.active.center .item {
+  width: 250px;
+  height: 250px;
+  background-size: 250px;
+}
+
+.stand .stand-items .item {
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -334,56 +354,67 @@ body {
   display: inline-block;
 }
 
-.vege-wrapper .vege-items .vege-item-1 {
-  background-image: url(/static/vege-1.png);
-}
-
-.vege-wrapper .vege-items .vege-item-2 {
-  background-image: url(/static/vege-2.png);
-}
-
-.vege-wrapper .vege-items .vege-item-3 {
-  background-image: url(/static/vege-3.png);
-}
-
-.vege-wrapper .vege-items .vege-item-4 {
-  background-image: url(/static/vege-4.png);
-}
-
-.vege-wrapper .vege-items .vege-item-5 {
-  background-image: url(/static/vege-5.png);
-}
-
-.vege-wrapper .vege-items .vege-item-6 {
-  background-image: url(/static/vege-6.png);
-}
-
-.vege-wrapper .owl-item h4 {
+.stand .stand-items .item h4 {
   color: transparent;
 }
 
-.vege-wrapper .owl-item.active.center {
-  margin-right: 85px !important;
+.stand-vege {
+  background-image: url("/static/stand-vege/vege-bg.png");
 }
 
-.vege-wrapper .owl-item.active.center a h4 {
-  color: #000;
-  font-size: 1.2em;
-  position: fixed;
-  position: absolute;
-  left: 50%;
-  -webkit-transform: translate(-50%, 0%);
-          transform: translate(-50%, 0%);
-  top: 240px;
+.stand-vege .item-vege-1 {
+  background-image: url(/static/stand-vege/vege-1.png);
 }
 
-.vege-wrapper .owl-item.active.center .vege-item {
-  width: 250px;
-  height: 250px;
-  background-size: 250px;
+.stand-vege .item-vege-2 {
+  background-image: url(/static/stand-vege/vege-2.png);
 }
 
-.vege-wrapper .owl-nav {
+.stand-vege .item-vege-3 {
+  background-image: url(/static/stand-vege/vege-3.png);
+}
+
+.stand-vege .item-vege-4 {
+  background-image: url(/static/stand-vege/vege-4.png);
+}
+
+.stand-vege .item-vege-5 {
+  background-image: url(/static/stand-vege/vege-5.png);
+}
+
+.stand-vege .item-vege-6 {
+  background-image: url(/static/stand-vege/vege-6.png);
+}
+
+.stand-beef {
+  background-image: url("/static/stand-beef/beef-bg.png");
+}
+
+.stand-beef .item-beef-1 {
+  background-image: url(/static/stand-beef/beef-1.png);
+}
+
+.stand-beef .item-beef-2 {
+  background-image: url(/static/stand-beef/beef-2.png);
+}
+
+.stand-beef .item-beef-3 {
+  background-image: url(/static/stand-beef/beef-3.png);
+}
+
+.stand-beef .item-beef-4 {
+  background-image: url(/static/stand-beef/beef-4.png);
+}
+
+.stand-beef .item-beef-5 {
+  background-image: url(/static/stand-beef/beef-5.png);
+}
+
+.stand-beef .item-beef-6 {
+  background-image: url(/static/stand-beef/beef-6.png);
+}
+
+.owl-nav {
   background-image: url("/static/bar.png");
   background-position: center;
   background-repeat: no-repeat;
@@ -398,11 +429,11 @@ body {
   bottom: 0;
 }
 
-.vege-wrapper .owl-nav button {
+.owl-nav button {
   font-size: 0;
 }
 
-.vege-wrapper .owl-nav button span {
+.owl-nav button span {
   background-image: url("/static/arrow.svg");
   background-position: center;
   background-repeat: no-repeat;
@@ -412,11 +443,11 @@ body {
   display: inline-block;
 }
 
-.vege-wrapper .owl-nav .owl-prev {
+.owl-nav .owl-prev {
   left: 20px;
 }
 
-.vege-wrapper .owl-nav .owl-next {
+.owl-nav .owl-next {
   -webkit-transform: rotate(180deg) translate(0, 50%);
           transform: rotate(180deg) translate(0, 50%);
   position: absolute;
@@ -604,7 +635,7 @@ body {
 }
 
 .item-wrapper .marquee-item {
-  background-image: url(/static/marquee-ham.svg);
+  background-image: url(/static/marquee-kim-kue.svg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -736,7 +767,7 @@ body {
 .item-wrapper .section-4 {
   overflow: hidden;
   padding-top: 50%;
-  margin-top: 40px;
+  margin-top: 100px;
 }
 
 .item-wrapper .section-4 .cooking-title {
@@ -770,7 +801,7 @@ body {
 }
 
 .item-wrapper .section-4 .cooking-dishes .dish {
-  background-image: url(/static/cook-ham.png);
+  background-image: url(/static/cook-kim-kue.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -792,9 +823,9 @@ body {
 }
 
 .item-wrapper .section-4 .cooking-dishes .dish-2 {
-  width: 450px;
-  height: 400px;
-  top: -100px;
+  width: 550px;
+  height: 600px;
+  top: -300px;
   position: absolute;
   left: 50%;
   -webkit-transform: translate(-50%, 0%);
