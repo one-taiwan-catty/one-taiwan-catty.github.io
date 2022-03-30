@@ -75,10 +75,10 @@ ScrollTrigger.defaults({
 let object;
 
 gltfLoader.load(
-    'kim-kue.glb',
+    'loosun.glb',
     (gltf) => {
         object = gltf.scene
-        object.scale.set(0.5, 0.5, 0.5);
+        // object.scale.set(0.5, 0.5, 0.5);
 
         object.traverse(function (children) {
 
