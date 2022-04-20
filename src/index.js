@@ -1,197 +1,179 @@
-import './style.css';
-import * as dat from 'lil-gui';
+import * as dat from 'lil-gui'
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
-import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
-import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
-import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
-import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
-import gsap from 'gsap';
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { MapControls } from 'OrbitControls';
+import { GLTFLoader } from 'GLTFLoader';
+import { DRACOLoader } from 'DRACOLoader';
+import { RoomEnvironment } from 'RoomEnvironment';
+import { EffectComposer } from 'EffectComposer';
+import { RenderPass } from 'RenderPass';
+import { UnrealBloomPass } from 'UnrealBloomPass';
+import { Material } from 'three';
+// import gsap from 'gsap';
+// import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 gsap.registerPlugin(ScrollTrigger);
 
-/**
- * Spector JS
- */
-// const SPECTOR = require("spectorjs");
+let camera, controls, raycaster, mouse;
+let model;
+let stands;
+let porkStand, vegStand, fruitStand, fishStand, beefStand, chickenStand;
+let frustumSize,aspect;
 
-// const spector = new SPECTOR.Spector();
-// spector.displayUI();
 
-/**
- * Base
- */
-// Debug
-
-// const gui = new dat.GUI();
-
-// Canvas
 const canvas = document.querySelector('canvas.webgl');
-
-// Scene
+const renderer = new THREE.WebGLRenderer({
+    canvas: canvas,
+    antialias: true,
+});
+const gui = new dat.GUI()
+// const raycaster = new THREE.Raycaster()
 const scene = new THREE.Scene();
 
-/**
+/* -------------------------------------------------------------
  * Loaders
- */
+------------------------------------------------------------- */
 // Texture loader
 const textureLoader = new THREE.TextureLoader();
 
 // Draco loader
 const dracoLoader = new DRACOLoader();
-dracoLoader.setDecoderPath("draco/");
+dracoLoader.setDecoderPath("/dist/draco/");
 
 // GLTF loader
 const gltfLoader = new GLTFLoader();
 gltfLoader.setDRACOLoader(dracoLoader);
 
-/**
- * object
- */
+function init() {
+    /* -------------------------------------------------------------
+     * Light
+    ------------------------------------------------------------- */
+    const directionalLight = new THREE.DirectionalLight(0xffffff, .1);
+    
+    directionalLight.position.set(18, 18, -18);
+    directionalLight.castShadow = true;
+    
+    const d = 8;
+    directionalLight.shadow.camera.left = - d;
+    directionalLight.shadow.camera.right = d;
+    directionalLight.shadow.camera.top = d;
+    directionalLight.shadow.camera.bottom = - d;
+    directionalLight.shadow.camera.fov = 45;
+    directionalLight.shadow.camera.aspect = 1;
+    directionalLight.shadow.camera.near = 0.1;
+    directionalLight.shadow.camera.far = 500;
+    directionalLight.shadow.bias = -0.0001;
+    directionalLight.shadow.mapSize.width = 2048;
+    directionalLight.shadow.mapSize.height = 2048;
+    
+    scene.add(directionalLight);
+    
+    /* -------------------------------------------------------------
+     * Material
+    ------------------------------------------------------------- */
+    // Pole light material
+    // const poleLightMaterial = new THREE.MeshStandardMaterial({
+    //     color: 0xFF6070,
+    //     emissive: 0xFF6070,
+    //     // specular: 0xffffff,
+    //     // shininess: 1,
+    //     emissiveIntensity: 0.1,
+    //     roughness: 0.3,
+    //     metalness: 1
+    // })
+    /* -------------------------------------------------------------
+     * Camera
+    ------------------------------------------------------------- */
+    frustumSize = 4.5;
+    aspect = window.innerWidth / window.innerHeight;
+    camera = new THREE.OrthographicCamera( frustumSize * aspect / - 2, frustumSize * aspect / 2, frustumSize / 2, frustumSize / - 2, 1, 1000 );
+    camera.position.set( - 160, 100, 170 );
+    gui.add(camera.position, 'x').min(-300).max(300).step(1);
+    gui.add(camera.position, 'y').min(-300).max(300).step(1);
+    gui.add(camera.position, 'z').min(-300).max(300).step(1);
 
-/**
- * Light
- */
-const pointLight = new THREE.PointLight(0xffffff, .2, 1, 2)
-pointLight.position.set( 0, -20, 10 );
-pointLight.castShadow = true;
+    camera.zoom = 1;
+    scene.add(camera);
 
-scene.add(pointLight)
+    const helper = new THREE.CameraHelper( camera );
+    scene.add( helper );
 
-/**
- * Material
- */
-ScrollTrigger.defaults({
-    immediateRender: false,
-    ease: "power1.inOut",
-    scrub: 0.5
-});
+    raycaster = new THREE.Raycaster();
+    mouse = new THREE.Vector2()
 
-/**
- * Model
- */
-let object;
+    /* -------------------------------------------------------------
+     * Model
+    ------------------------------------------------------------- */
+    gltfLoader.load(
+        '/dist/model/market.glb',
+        (gltf) => {
+            model = gltf.scene;
+            // model.scale.set(0.5, 0.5, 0.5);
+    
+            // // Get each model
+            console.log(model.children);
+            porkStand = gltf.scene.children.find((child) => child.name === 'porkStand')
+            vegStand = gltf.scene.children.find((child) => child.name === 'vegStand')
+            fruitStand = gltf.scene.children.find((child) => child.name === 'fruitStand')
+            fishStand = gltf.scene.children.find((child) => child.name === 'fishStand')
+            beefStand = gltf.scene.children.find((child) => child.name === 'beefStand')
+            chickenStand = gltf.scene.children.find((child) => child.name === 'chickenStand')
 
-gltfLoader.load(
-    'loosun.glb',
-    (gltf) => {
-        object = gltf.scene
-        // object.scale.set(0.5, 0.5, 0.5);
+            console.log(porkStand);
+    
+            stands = new THREE.Group();
+            stands.add(porkStand, vegStand, fruitStand, fishStand, beefStand, chickenStand)
+            console.log(stands)
+    
+            stands.traverse(function (children) {
+                if (children.isMesh) {
+                    children.castShadow = true;
+                    children.receiveShadow = true;
+                }
+            });
+            // const lightCMesh = gltf.scene.children.find((child) => child.name === 'lightC')
+            // const lightDMesh = gltf.scene.children.find((child) => child.name === 'lightD')
+    
+            // beefAMesh = gltf.scene.children.find((child) => child.name === 'beefA')
+            // beefBMesh = gltf.scene.children.find((child) => child.name === 'beefB')
+            // beefCMesh = gltf.scene.children.find((child) => child.name === 'beefC')
+            // beefDMesh = gltf.scene.children.find((child) => child.name === 'beefD')
+    
+            // lightAMesh.material = poleLightMaterial
+            // lightBMesh.material = poleLightMaterial
+            // lightCMesh.material = poleLightMaterial
+            // lightDMesh.material = poleLightMaterial
+    
+            model.traverse(function (children) {
+                if (children.isLight) {
+                    children.shadow.camera.near = 0.001;
+                    children.shadow.camera.updateProjectionMatrix();
+                }
+                if (children.isMesh) {
+                    children.castShadow = true;
+                    children.receiveShadow = true;
+                }
+            });
+            scene.add(model,stands);
+    
+        }
+    );
 
-        object.traverse(function (children) {
 
-            console.log(children)
+    /* -------------------------------------------------------------
+     * Controls
+    ------------------------------------------------------------- */
+    controls = new MapControls(camera, canvas);
+    controls.enableDamping = true;
+    // controls.enableZoom = false;
+    controls.enableRotate = false;
 
-            if (object) {
-                let scrollY = window.scrollY;        
-            window.addEventListener('scroll', () =>
-            {
-                scrollY = window.scrollY
-                console.log(scrollY)
+    renderer.domElement.addEventListener('click', onClick, false);
 
-		        const tween = gsap.timeline()
-                // 
-                tween.fromTo(object.rotation, { x: 0, y: 0, z: 0 },{x: 0.5, y: 0, z: -0.5, scrollTrigger: {
-                scrub:true,
-                trigger: ".section-2",
-                // duration: {min: 0.2, max: 3}, 
-                ease: "power0.inOut",
-                start: "50% 90%",
-                end: "70% 90%",
-                // markers: true,
-                },
-                }) 
-                //
-                .fromTo(object.position, { x: 0, y: 0, z: 0 },{x: -3, y: -2, z: 0.8, scrollTrigger: {
-                scrub:true,
-                trigger: ".section-2",
-                duration: { min: 2, max: 3 }, 
-                ease: "power0.inOut",
-                start: "50% 90%",
-                end: "70% 90%",
-                // markers: true,
-                },
-                }) 
-                //
-                .to(object.rotation,{x: -0.5, y: 0, z: 0, scrollTrigger: {
-                scrub:true,
-                trigger: ".one-catty",
-                duration: {min: 0.2, max: 1}, 
-                ease: "power0.inOut",
-                    
-                start: "20% 50%",
-                end: "90% 50%",
-                // markers: true,
-                },
-                }) 
-                //
-                .to(object.position,{x: -1, y: -1, z: -0.8, scrollTrigger: {
-                scrub:true, 
-                trigger: ".one-catty",
-                duration: {min: 0.2, max: 1}, 
-                ease: "power0.inOut",
-                start: "20% 50%",
-                end: "90% 50%",
-                // markers: true,
-                },
-                })
-                //
-                .to(object.rotation, {x: 0, y: 0, z: 0.5, scrollTrigger: {
-                scrub:true,
-                    
-                trigger: ".section-3",
-                // duration: {min: 0.2, max: 1}, 
-                ease: "power0.inOut",
-                start: "50% 80%",
-                end: "60% 80%",
-                // markers: true,
-                },
-                })
-                .to(object.position, {x: -3, y: -2.5, z: 0, scrollTrigger: {
-                scrub:true,
-                    
-                trigger: ".section-3",
-                // duration: {min: 0.2, max: 1}, 
-                ease: "power0.inOut",
-                start: "20% 80%",
-                end: "60% 80%",
-                // markers: true,
-                },
-                }) 
-                .to(object.position, {x: -1, y: -2, z: -2, scrollTrigger: {
-                    scrub:true,
-                        
-                    trigger: ".weigh",
-                    // duration: {min: 0.2, max: 1}, 
-                    ease: "power0.inOut",
-                    start: "top 70%",
-                    end: "60% 70%",
-                    // markers: true,
-                },
-                }) 
-                .to(".pointer", {rotation: 50,x:30,y:15, scrollTrigger: {
-                    scrub:true,
-                    trigger: ".weigh",
-                    duration: {min: 0.2, max: 1}, 
-                    // ease: "power0.inOut",
-                    start: "10% 70%",
-                    end: "60% 70%",
-                    // markers: true,
-                },
-                }) 
-             })
-            }
-        })
-        scene.add(object)
-    }
-);
+};
 
- 
-/**
+/* -------------------------------------------------------------
  * Sizes
- */
+------------------------------------------------------------- */
 const sizes = {
     width: window.innerWidth,
     height: window.innerHeight
@@ -212,35 +194,83 @@ window.addEventListener('resize', () => {
 });
 
 
+/* -------------------------------------------------------------
+* RAYCASTER
+------------------------------------------------------------- */
+function onClick() {
+    
+    event.preventDefault();
+    
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    
+    raycaster.setFromCamera(mouse, camera);
+    
+    const intersects = raycaster.intersectObjects(stands.children, true);
+    
+    const zoomInTimeline = (x, y, z, zoomOutFactor = 0) => {
+        let tl = gsap
+		.timeline({ defaults: { duration: 2, ease: "expo.out" } })
+        .to(controls.target, { x, y, z })
+		.to(camera.position, { x: x - 3, y: y + 3 , z: z + 20 }, 0)
+        // .to(stands.rotation, { x: 0, y: 0 }, 0)
+    };
+    
+    const zoom = 2;
+    if (intersects.length > 0) {
+        console.log('Intersection:', intersects[0].object.parent.name);
+    }
+    if (intersects[0].object.parent.name === 'porkStand') {
+        console.log('porkStand');
+        zoomInTimeline(porkStand.position.x, porkStand.position.y, porkStand.position.z, .1);
+        camera.zoom = zoom;
+        camera.updateProjectionMatrix();
 
-/**
- * Camera
- */
-// Base camera
-const camera = new THREE.PerspectiveCamera(45, sizes.width / sizes.height, 0.1, 100);
-camera.position.x = 3;
-camera.position.y = 2;
-camera.position.z = 0;
-// camera.lookAt(new THREE.Vector3(0, 0, 0))
-camera.lookAt(0, 0, 0);
+    }
+    if (intersects[0].object.parent.name === 'beefStand') {
+        zoomInTimeline(beefStand.position.x, beefStand.position.y, beefStand.position.z, .1);
+        camera.zoom = zoom;
+        camera.updateProjectionMatrix();
+    }
+    if (intersects[0].object.parent.name === 'fishStand') {
+        console.log('fishStand');
+        zoomInTimeline(fishStand.position.x , fishStand.position.y, fishStand.position.z, .1);
+        camera.zoom = zoom;
+        camera.updateProjectionMatrix();
 
-scene.add(camera);
+    }
+    if (intersects[0].object.parent.name === 'fruitStand') {
+        console.log('fruitStand');
+        zoomInTimeline(fruitStand.position.x , fruitStand.position.y, fruitStand.position.z, .1);
+        camera.zoom = zoom;
+        camera.updateProjectionMatrix();
+        
+    }
+    if (intersects[0].object.parent.name === 'vegStand') {
+        console.log('vegStand');
+        zoomInTimeline(vegStand.position.x , vegStand.position.y, vegStand.position.z, .1);
+        camera.zoom = zoom;
+        camera.updateProjectionMatrix();
+    }
+    if (intersects[0].object.parent.name === 'chickenStand') {
+        console.log('chickenStand');
+        zoomInTimeline(chickenStand.position.x , chickenStand.position.y, chickenStand.position.z, .1);
+        camera.zoom = zoom;
+        camera.updateProjectionMatrix();
+    }
 
-// Controls
-const controls = new OrbitControls(camera, canvas);
-controls.enableDamping = true;
-controls.enableZoom = false;
+}
 
 
-
-/**
+/* -------------------------------------------------------------
  * Renderer
- */
-const renderer = new THREE.WebGLRenderer({
-    canvas: canvas,
-    antialias: true,
-    alpha: true  
-});
+------------------------------------------------------------- */
+
+renderer.physicallyCorrectLights = true;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.autoUpdate = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.receiveShadow = true;
 renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setClearAlpha(0);
@@ -250,13 +280,13 @@ renderer.outputEncoding = THREE.sRGBEncoding;
 
 const environment = new RoomEnvironment();
 const pmremGenerator = new THREE.PMREMGenerator( renderer );
+pmremGenerator.compileEquirectangularShader();
 
 scene.environment = pmremGenerator.fromScene(environment).texture;
 
-
-/**
+/* -------------------------------------------------------------
  * Cursor
- */
+------------------------------------------------------------- */
 const cursor = {}
 cursor.x = 0
 cursor.y = 0
@@ -267,10 +297,9 @@ window.addEventListener('mousemove', (event) =>
     cursor.y = event.clientY / sizes.height - 0.5
 })
 
-
-/**
+/* -------------------------------------------------------------
  * Post processing
- */
+------------------------------------------------------------- */
 // const effectComposer = new EffectComposer(renderer);
 // effectComposer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 // effectComposer.setSize(sizes.width, sizes.height);
@@ -281,21 +310,19 @@ window.addEventListener('mousemove', (event) =>
 // const unrealBloomPass = new UnrealBloomPass();
 // effectComposer.addPass(unrealBloomPass);
 
-// unrealBloomPass.strength = 1;
-// unrealBloomPass.radius = 1.3;
+// unrealBloomPass.strength = 0.5;
+// unrealBloomPass.radius = 0.1;
 // unrealBloomPass.threshold = 0.7;
 
 // gui.add(unrealBloomPass, 'enabled');
 // gui.add(unrealBloomPass, 'strength').min(0).max(2).step(0.001);
 // gui.add(unrealBloomPass, 'radius').min(0).max(2).step(0.001);
 // gui.add(unrealBloomPass, 'threshold').min(0).max(1).step(0.001);
+init();
 
-
-
-
-/**
+/* -------------------------------------------------------------
  * Animate
- */
+------------------------------------------------------------- */
 const clock = new THREE.Clock();
 
 const tick = () => {
@@ -304,12 +331,12 @@ const tick = () => {
     // Update controls
     controls.update();
 
-    if (object) object.rotation.y = elapsedTime * 0.4;
-
+    // if (object) object.rotation.y = elapsedTime * 0.4;
+    // hoverPieces();
 
     // Render
     renderer.render(scene, camera)
-    // effectComposer.render();
+    // effectComposer.render(scene, camera);
 
 
     // Call tick again on the next frame
@@ -318,3 +345,5 @@ const tick = () => {
 };
 
 tick();
+// window.addEventListener('mousemove', onMouseMove);
+// window.addEventListener('mousedown', onMouseDown)

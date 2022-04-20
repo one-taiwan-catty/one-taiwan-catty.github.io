@@ -36,19 +36,20 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/ScrollTrigger.min.js"></script>
+    <!-- Threejs -->
     <script type="importmap">
       {
         "imports": {
           "three": "https://unpkg.com/three@0.138.0/build/three.module.js",
           "OrbitControls": "https://unpkg.com/three@0.138.0/examples/jsm/controls/OrbitControls.js",
-          "DRACOLoader": "/node_modules/three/examples/jsm/loaders/DRACOLoader.js",
+          "DRACOLoader": "https://unpkg.com/three@0.138.0/examples/jsm/loaders/DRACOLoader.js",
           "GLTFLoader": "https://unpkg.com/three@0.138.0/examples/jsm/loaders/GLTFLoader.js",
           "RoomEnvironment": "https://unpkg.com/three@0.138.0/examples/jsm/environments/RoomEnvironment.js"
         }
       }
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/ScrollTrigger.min.js"></script>
   </head>
   <body>
     <canvas class="webgl"></canvas>
@@ -89,18 +90,18 @@
         <div class="marquee-block">
           <div class="marquee-inner to-left">
             <span>
-              <div class="marquee-item"></div>
-              <div class="marquee-item"></div>
-              <div class="marquee-item"></div>
-              <div class="marquee-item"></div>
-              <div class="marquee-item"></div>
+              <div class="marquee-item" style="background-image: url(dist/marquee/marquee-loosun.svg);"></div>
+              <div class="marquee-item" style="background-image: url(dist/marquee/marquee-loosun.svg);"></div>
+              <div class="marquee-item" style="background-image: url(dist/marquee/marquee-loosun.svg);"></div>
+              <div class="marquee-item" style="background-image: url(dist/marquee/marquee-loosun.svg);"></div>
+              <div class="marquee-item" style="background-image: url(dist/marquee/marquee-loosun.svg);"></div>
             </span>
             <span>
-              <div class="marquee-item"></div>
-              <div class="marquee-item"></div>
-              <div class="marquee-item"></div>
-              <div class="marquee-item"></div>
-              <div class="marquee-item"></div>
+              <div class="marquee-item" style="background-image: url(dist/marquee/marquee-loosun.svg);"></div>
+              <div class="marquee-item" style="background-image: url(dist/marquee/marquee-loosun.svg);"></div>
+              <div class="marquee-item" style="background-image: url(dist/marquee/marquee-loosun.svg);"></div>
+              <div class="marquee-item" style="background-image: url(dist/marquee/marquee-loosun.svg);"></div>
+              <div class="marquee-item" style="background-image: url(dist/marquee/marquee-loosun.svg);"></div>
             </span>
           </div>
         </div>
@@ -118,7 +119,7 @@
       <!-- Start section-2 -->
       <div class="section section-2">
         <div class="one-catty">
-          <span>南瓜</span>
+          <span>蘆筍</span>
         </div>
       </div>
       <!-- End section-2 -->
@@ -135,7 +136,7 @@
       <!-- Start section-4 -->
       <div class="section section-4" id="weigh">
         <div class="cooking-title"></div>
-        <div class="cooking-subtitle"></div>
+        <div class="cooking-subtitle"  style="background-image: url(/dist/cook-loosun.svg);"></div>
         <div class="cooking-dishes">
           <!-- <div class="dish dish-0"></div> -->
           <!-- <div class="dish dish-1"></div> -->

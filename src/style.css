@@ -1,4 +1,4 @@
-/* @charset "UTF-8"; */
+@charset "UTF-8";
 /* -------------------------- *\
 	Globel
 \* -------------------------- */
@@ -105,7 +105,7 @@ body {
 }
 
 .dialog .dialog-dlg {
-  background-image: url("/static/dialog.png");
+  background-image: url("/dist/dialog.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -216,7 +216,7 @@ body {
 }
 
 .dialog .dialog-select {
-  background-image: url("/static/select.png");
+  background-image: url("/dist/select.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -274,7 +274,7 @@ body {
 }
 
 .wrapper .map-wrapper {
-  background-image: url("/static/map.png");
+  background-image: url("/dist/map.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -325,7 +325,7 @@ body {
 }
 
 .tutorial .welcome {
-  background-image: url("/static/tutorial/welcome.svg");
+  background-image: url("/dist/tutorial/welcome.svg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -335,7 +335,7 @@ body {
 
 .tutorial .tutorial-scroll {
   margin: 100px 0;
-  background-image: url("/static/tutorial/scroll-ard.svg");
+  background-image: url("/dist/tutorial/scroll-ard.svg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -428,7 +428,7 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: top;
+  background-position: bottom;
   width: 100vw;
   height: 100%;
   overflow: hidden;
@@ -457,7 +457,7 @@ body {
 }
 
 .stand .stand-items .owl-item.active.center a h4 {
-  color: #000;
+  color: #fff;
   font-size: 1.2em;
   position: fixed;
   position: absolute;
@@ -488,63 +488,63 @@ body {
 }
 
 .stand-vege {
-  background-image: url("/static/stand-vege/vege-bg.png");
+  background-image: url("/dist/stand-vege/vege-bg.png");
 }
 
 .stand-vege .item-vege-1 {
-  background-image: url(/static/stand-vege/vege-1.png);
+  background-image: url(/dist/stand-vege/vege-1.png);
 }
 
 .stand-vege .item-vege-2 {
-  background-image: url(/static/stand-vege/vege-2.png);
+  background-image: url(/dist/stand-vege/vege-2.png);
 }
 
 .stand-vege .item-vege-3 {
-  background-image: url(/static/stand-vege/vege-3.png);
+  background-image: url(/dist/stand-vege/vege-3.png);
 }
 
 .stand-vege .item-vege-4 {
-  background-image: url(/static/stand-vege/vege-4.png);
+  background-image: url(/dist/stand-vege/vege-4.png);
 }
 
 .stand-vege .item-vege-5 {
-  background-image: url(/static/stand-vege/vege-5.png);
+  background-image: url(/dist/stand-vege/vege-5.png);
 }
 
 .stand-vege .item-vege-6 {
-  background-image: url(/static/stand-vege/vege-6.png);
+  background-image: url(/dist/stand-vege/vege-6.png);
 }
 
 .stand-beef {
-  background-image: url("/static/stand-beef/beef-bg.png");
+  background-image: url("/dist/stand-beef/beef-bg.png");
 }
 
 .stand-beef .item-beef-1 {
-  background-image: url(/static/stand-beef/beef-1.png);
+  background-image: url(/dist/stand-beef/beef-1.png);
 }
 
 .stand-beef .item-beef-2 {
-  background-image: url(/static/stand-beef/beef-2.png);
+  background-image: url(/dist/stand-beef/beef-2.png);
 }
 
 .stand-beef .item-beef-3 {
-  background-image: url(/static/stand-beef/beef-3.png);
+  background-image: url(/dist/stand-beef/beef-3.png);
 }
 
 .stand-beef .item-beef-4 {
-  background-image: url(/static/stand-beef/beef-4.png);
+  background-image: url(/dist/stand-beef/beef-4.png);
 }
 
 .stand-beef .item-beef-5 {
-  background-image: url(/static/stand-beef/beef-5.png);
+  background-image: url(/dist/stand-beef/beef-5.png);
 }
 
 .stand-beef .item-beef-6 {
-  background-image: url(/static/stand-beef/beef-6.png);
+  background-image: url(/dist/stand-beef/beef-6.png);
 }
 
 .owl-nav {
-  background-image: url("/static/bar.png");
+  background-image: url("/dist/bar.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -566,7 +566,7 @@ body {
 }
 
 .owl-nav button span {
-  background-image: url("/static/arrow.svg");
+  background-image: url("/dist/arrow.svg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -615,7 +615,7 @@ body {
 }
 
 .item-wrapper .navbar .nav-item .nav-logo {
-  background-image: url(/static/logo.svg);
+  background-image: url(/dist/logo.svg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -699,7 +699,7 @@ body {
 }
 
 .item-wrapper .btn-wrapper {
-  width: 42px;
+  width: 44px;
   position: fixed;
   z-index: 999;
   right: 20px;
@@ -708,8 +708,8 @@ body {
 }
 
 .item-wrapper .btn-wrapper .btn-item {
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   display: block;
   border: 2px solid #fff;
   border-radius: 50%;
@@ -731,11 +731,11 @@ body {
 }
 
 .item-wrapper .btn-wrapper .btn-item .btn-icon.btn-weigh {
-  background-image: url(/static/btn-weigh.svg);
+  background-image: url(/dist/btn-weigh.svg);
 }
 
 .item-wrapper .btn-wrapper .btn-item .btn-icon.btn-picking {
-  background-image: url(/static/btn-info.svg);
+  background-image: url(/dist/btn-info.svg);
 }
 
 .item-wrapper .marquee-wrapper {
@@ -767,7 +767,6 @@ body {
 }
 
 .item-wrapper .marquee-item {
-  background-image: url(/static/marquee-kim-kue.svg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -815,7 +814,7 @@ body {
 }
 
 .item-wrapper .section-1 .scroll {
-  background-image: url(/static/scroll.svg);
+  background-image: url(/dist/scroll.svg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -830,7 +829,7 @@ body {
 }
 
 .item-wrapper .section-2 .one-catty {
-  background-image: url(/static/onecatty.svg);
+  background-image: url(/dist/onecatty.svg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -871,7 +870,7 @@ body {
   left: 50%;
   -webkit-transform: translate(-50%, 0%);
           transform: translate(-50%, 0%);
-  background-image: url(/static/weigh.svg);
+  background-image: url(/dist/weigh.svg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -880,7 +879,7 @@ body {
 }
 
 .item-wrapper .section-3 .weigh .pointer {
-  background-image: url(/static/pointer.svg);
+  background-image: url(/dist/pointer.svg);
   position: absolute;
   left: 50%;
   -webkit-transform: translate(-50%, 0%);
@@ -898,12 +897,11 @@ body {
 
 .item-wrapper .section-4 {
   overflow: hidden;
-  padding-top: 50%;
-  margin-top: 100px;
+  margin-top: 400px;
 }
 
 .item-wrapper .section-4 .cooking-title {
-  background-image: url(/static/cooking-title.svg);
+  background-image: url(/dist/cooking-title.svg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -916,7 +914,6 @@ body {
 }
 
 .item-wrapper .section-4 .cooking-subtitle {
-  background-image: url(/static/cooking-kim.svg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -933,7 +930,6 @@ body {
 }
 
 .item-wrapper .section-4 .cooking-dishes .dish {
-  background-image: url(/static/cook-kim-kue.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -999,7 +995,7 @@ body {
 }
 
 .item-wrapper .item-weigh {
-  background-image: url(/static/bg.png);
+  background-image: url(/dist/bg.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
