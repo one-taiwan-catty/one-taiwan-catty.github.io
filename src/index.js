@@ -7,6 +7,8 @@ import { RoomEnvironment } from 'RoomEnvironment';
 import { EffectComposer } from 'EffectComposer';
 import { RenderPass } from 'RenderPass';
 import { UnrealBloomPass } from 'UnrealBloomPass';
+import { ShaderPass } from 'ShaderPass';
+
 import { Material } from 'three';
 // import gsap from 'gsap';
 // import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -14,11 +16,18 @@ import { Material } from 'three';
 gsap.registerPlugin(ScrollTrigger);
 
 let camera, controls, raycaster, mouse;
-let model;
-let stands;
+let models, bloom;
+let model, stands, yellowLight, pinkLightMeat, greenLight;
+let pinkLightA, pinkLightB, pinkLightC, pinkLightD, pinkLightE;
 let porkStand, vegStand, fruitStand, fishStand, beefStand, chickenStand;
 let frustumSize,aspect;
+const materials = {};
+const ENTIRE_SCENE = 0, BLOOM_SCENE = 1
 
+const bloomLayer = new THREE.Layers();
+bloomLayer.set( BLOOM_SCENE );
+
+const darkMaterial = new THREE.MeshBasicMaterial( { color: 'black' } );
 
 const canvas = document.querySelector('canvas.webgl');
 const renderer = new THREE.WebGLRenderer({
@@ -71,25 +80,30 @@ function init() {
      * Material
     ------------------------------------------------------------- */
     // Pole light material
-    // const poleLightMaterial = new THREE.MeshStandardMaterial({
-    //     color: 0xFF6070,
-    //     emissive: 0xFF6070,
-    //     // specular: 0xffffff,
-    //     // shininess: 1,
-    //     emissiveIntensity: 0.1,
-    //     roughness: 0.3,
-    //     metalness: 1
-    // })
+    const yellowLightMaterial = new THREE.MeshStandardMaterial({
+        color: 0XFFEFCB,
+        emissive: 0XFFEFCB,
+        emissiveIntensity: 20,
+        roughness: 0.3,
+        metalness: 1
+    })
+    const pinkLightMaterial = new THREE.MeshStandardMaterial({
+        color: 0XFFB9CF,
+        emissive: 0XFFB9CF,
+        emissiveIntensity: 20,
+        roughness: 0.3,
+        metalness: 1
+    })
     /* -------------------------------------------------------------
      * Camera
     ------------------------------------------------------------- */
-    frustumSize = 4.5;
+    frustumSize = 1;
     aspect = window.innerWidth / window.innerHeight;
     camera = new THREE.OrthographicCamera( frustumSize * aspect / - 2, frustumSize * aspect / 2, frustumSize / 2, frustumSize / - 2, 1, 1000 );
-    camera.position.set( - 160, 100, 170 );
-    gui.add(camera.position, 'x').min(-300).max(300).step(1);
-    gui.add(camera.position, 'y').min(-300).max(300).step(1);
-    gui.add(camera.position, 'z').min(-300).max(300).step(1);
+    camera.position.set( - 160, 90, 170 );
+    // gui.add(camera.position, 'x').min(-300).max(300).step(1);
+    // gui.add(camera.position, 'y').min(-300).max(300).step(1);
+    // gui.add(camera.position, 'z').min(-300).max(300).step(1);
 
     camera.zoom = 1;
     scene.add(camera);
@@ -107,8 +121,9 @@ function init() {
         '/dist/model/market.glb',
         (gltf) => {
             model = gltf.scene;
-            // model.scale.set(0.5, 0.5, 0.5);
-    
+            const color = new THREE.Color();
+            const material = new THREE.MeshBasicMaterial( { color: color } );
+            
             // // Get each model
             console.log(model.children);
             porkStand = gltf.scene.children.find((child) => child.name === 'porkStand')
@@ -117,44 +132,52 @@ function init() {
             fishStand = gltf.scene.children.find((child) => child.name === 'fishStand')
             beefStand = gltf.scene.children.find((child) => child.name === 'beefStand')
             chickenStand = gltf.scene.children.find((child) => child.name === 'chickenStand')
-
-            console.log(porkStand);
     
             stands = new THREE.Group();
             stands.add(porkStand, vegStand, fruitStand, fishStand, beefStand, chickenStand)
             console.log(stands)
-    
-            stands.traverse(function (children) {
-                if (children.isMesh) {
-                    children.castShadow = true;
-                    children.receiveShadow = true;
-                }
-            });
-            // const lightCMesh = gltf.scene.children.find((child) => child.name === 'lightC')
-            // const lightDMesh = gltf.scene.children.find((child) => child.name === 'lightD')
-    
-            // beefAMesh = gltf.scene.children.find((child) => child.name === 'beefA')
-            // beefBMesh = gltf.scene.children.find((child) => child.name === 'beefB')
-            // beefCMesh = gltf.scene.children.find((child) => child.name === 'beefC')
-            // beefDMesh = gltf.scene.children.find((child) => child.name === 'beefD')
-    
-            // lightAMesh.material = poleLightMaterial
-            // lightBMesh.material = poleLightMaterial
-            // lightCMesh.material = poleLightMaterial
-            // lightDMesh.material = poleLightMaterial
-    
-            model.traverse(function (children) {
+            
+            // Emission
+            // yellowLight, pinkLight, pinkLightMeat, greenLight;
+
+            yellowLight = gltf.scene.children.find((child) => child.name === 'yellowLight');
+            // console.log(yellowLight);
+            yellowLight.material = yellowLightMaterial;
+
+            pinkLightA = gltf.scene.children.find((child) => child.name === 'pinkLightA');
+            pinkLightB = gltf.scene.children.find((child) => child.name === 'pinkLightB');
+            pinkLightC = gltf.scene.children.find((child) => child.name === 'pinkLightC');
+            pinkLightD = gltf.scene.children.find((child) => child.name === 'pinkLightD');
+            pinkLightE = gltf.scene.children.find((child) => child.name === 'pinkLightE');
+
+            pinkLightA.material = pinkLightMaterial;
+            pinkLightB.material = pinkLightMaterial;
+            pinkLightC.material = pinkLightMaterial;
+            pinkLightD.material = pinkLightMaterial;
+            pinkLightE.material = pinkLightMaterial;
+            
+            bloom = new THREE.Group();
+            bloom.add(yellowLight)
+
+            models = new THREE.Group();
+            models.add(model, stands, bloom)
+            // models.scale.set(5, 5, 5);
+
+            models.traverse(function (children) {
                 if (children.isLight) {
                     children.shadow.camera.near = 0.001;
                     children.shadow.camera.updateProjectionMatrix();
                 }
-                if (children.isMesh) {
+                if (children.isMesh && bloomLayer.test( children.layers ) === false ) {
+                    material[children.uuid] = children.material;
                     children.castShadow = true;
                     children.receiveShadow = true;
                 }
             });
-            scene.add(model,stands);
-    
+
+            bloom.layers.enable(BLOOM_SCENE);
+            
+            scene.add(models);
         }
     );
 
@@ -190,6 +213,8 @@ window.addEventListener('resize', () => {
 
     // Update renderer
     renderer.setSize(sizes.width, sizes.height)
+    bloomComposer.setSize( width, height );
+    finalComposer.setSize( width, height );
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 });
 
@@ -222,39 +247,39 @@ function onClick() {
     }
     if (intersects[0].object.parent.name === 'porkStand') {
         console.log('porkStand');
-        zoomInTimeline(porkStand.position.x, porkStand.position.y, porkStand.position.z, .1);
+        zoomInTimeline(porkStand.position.x, porkStand.position.y + .03, porkStand.position.z + .09, .1);
         camera.zoom = zoom;
         camera.updateProjectionMatrix();
 
     }
     if (intersects[0].object.parent.name === 'beefStand') {
-        zoomInTimeline(beefStand.position.x, beefStand.position.y, beefStand.position.z, .1);
+        zoomInTimeline(beefStand.position.x, beefStand.position.y - .01, beefStand.position.z - .3, .1);
         camera.zoom = zoom;
         camera.updateProjectionMatrix();
     }
     if (intersects[0].object.parent.name === 'fishStand') {
         console.log('fishStand');
-        zoomInTimeline(fishStand.position.x , fishStand.position.y, fishStand.position.z, .1);
+        zoomInTimeline(fishStand.position.x , fishStand.position.y, fishStand.position.z - .3, .1);
         camera.zoom = zoom;
         camera.updateProjectionMatrix();
 
     }
     if (intersects[0].object.parent.name === 'fruitStand') {
         console.log('fruitStand');
-        zoomInTimeline(fruitStand.position.x , fruitStand.position.y, fruitStand.position.z, .1);
+        zoomInTimeline(fruitStand.position.x , fruitStand.position.y, fruitStand.position.z - .03, .1);
         camera.zoom = zoom;
         camera.updateProjectionMatrix();
         
     }
     if (intersects[0].object.parent.name === 'vegStand') {
         console.log('vegStand');
-        zoomInTimeline(vegStand.position.x , vegStand.position.y, vegStand.position.z, .1);
+        zoomInTimeline(vegStand.position.x , vegStand.position.y - .04, vegStand.position.z - .3, .1);
         camera.zoom = zoom;
         camera.updateProjectionMatrix();
     }
     if (intersects[0].object.parent.name === 'chickenStand') {
         console.log('chickenStand');
-        zoomInTimeline(chickenStand.position.x , chickenStand.position.y, chickenStand.position.z, .1);
+        zoomInTimeline(chickenStand.position.x , chickenStand.position.y + .03, chickenStand.position.z + .05, .1);
         camera.zoom = zoom;
         camera.updateProjectionMatrix();
     }
@@ -297,45 +322,46 @@ window.addEventListener('mousemove', (event) =>
     cursor.y = event.clientY / sizes.height - 0.5
 })
 
+init();
 /* -------------------------------------------------------------
  * Post processing
 ------------------------------------------------------------- */
-// const effectComposer = new EffectComposer(renderer);
-// effectComposer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-// effectComposer.setSize(sizes.width, sizes.height);
+const effectComposer = new EffectComposer(renderer)
+effectComposer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+effectComposer.setSize(sizes.width, sizes.height)
 
-// const renderPass = new RenderPass(scene, camera);
-// effectComposer.addPass(renderPass);
+const renderPass = new RenderPass(scene, camera)
+effectComposer.addPass(renderPass)
 
-// const unrealBloomPass = new UnrealBloomPass();
-// effectComposer.addPass(unrealBloomPass);
+const unrealBloomPass = new UnrealBloomPass()
+effectComposer.addPass(unrealBloomPass)
 
-// unrealBloomPass.strength = 0.5;
-// unrealBloomPass.radius = 0.1;
-// unrealBloomPass.threshold = 0.7;
+unrealBloomPass.strength = 1
+unrealBloomPass.radius = 1.3
+unrealBloomPass.threshold = 0.7
 
-// gui.add(unrealBloomPass, 'enabled');
-// gui.add(unrealBloomPass, 'strength').min(0).max(2).step(0.001);
-// gui.add(unrealBloomPass, 'radius').min(0).max(2).step(0.001);
-// gui.add(unrealBloomPass, 'threshold').min(0).max(1).step(0.001);
-init();
+// gui.add(unrealBloomPass, 'enabled')
+// gui.add(unrealBloomPass, 'strength').min(0).max(2).step(0.001)
+// gui.add(unrealBloomPass, 'radius').min(0).max(2).step(0.001)
+// gui.add(unrealBloomPass, 'threshold').min(0).max(1).step(0.001)
 
 /* -------------------------------------------------------------
- * Animate
+* Animate
 ------------------------------------------------------------- */
 const clock = new THREE.Clock();
-
 const tick = () => {
     const elapsedTime = clock.getElapsedTime();
-
+    
     // Update controls
     controls.update();
-
+    
     // if (object) object.rotation.y = elapsedTime * 0.4;
     // hoverPieces();
 
     // Render
+    renderer.toneMapping = 5;
     renderer.render(scene, camera)
+
     // effectComposer.render(scene, camera);
 
 
@@ -347,3 +373,18 @@ const tick = () => {
 tick();
 // window.addEventListener('mousemove', onMouseMove);
 // window.addEventListener('mousedown', onMouseDown)
+
+function darkenNonBloomed( children ) {
+    if ( children.isMesh && bloomLayer.test( children.layers ) === false ) {
+        materials[ children.uuid ] = children.material;
+        children.material = darkMaterial;
+    }
+}
+
+function restoreMaterial( children ) {
+    if ( materials[ children.uuid ] ) {
+
+        children.material = materials[ children.uuid ];
+        delete materials[ children.uuid ];
+    }
+}
