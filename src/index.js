@@ -21,14 +21,13 @@ let model, stands, yellowLight, pinkLightMeat, greenLight;
 let pinkLightA, pinkLightB, pinkLightC, pinkLightD, pinkLightE;
 let porkStand, vegStand, fruitStand, fishStand, beefStand, chickenStand;
 let frustumSize,aspect;
-const materials = {};
-const ENTIRE_SCENE = 0, BLOOM_SCENE = 1
+const ENTIRE_SCENE = 0, BLOOM_SCENE = 1;
 
 const bloomLayer = new THREE.Layers();
 bloomLayer.set( BLOOM_SCENE );
 
 const darkMaterial = new THREE.MeshBasicMaterial( { color: 'black' } );
-
+const materials = {};
 const canvas = document.querySelector('canvas.webgl');
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
@@ -56,7 +55,7 @@ function init() {
     /* -------------------------------------------------------------
      * Light
     ------------------------------------------------------------- */
-    const directionalLight = new THREE.DirectionalLight(0xffffff, .1);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
     
     directionalLight.position.set(18, 18, -18);
     directionalLight.castShadow = true;
@@ -70,9 +69,9 @@ function init() {
     directionalLight.shadow.camera.aspect = 1;
     directionalLight.shadow.camera.near = 0.1;
     directionalLight.shadow.camera.far = 500;
-    directionalLight.shadow.bias = -0.0001;
-    directionalLight.shadow.mapSize.width = 2048;
-    directionalLight.shadow.mapSize.height = 2048;
+    directionalLight.shadow.bias = -0.00001;
+    directionalLight.shadow.mapSize.width = 4096;
+    directionalLight.shadow.mapSize.height = 4096;
     
     scene.add(directionalLight);
     
@@ -83,14 +82,14 @@ function init() {
     const yellowLightMaterial = new THREE.MeshStandardMaterial({
         color: 0XFFEFCB,
         emissive: 0XFFEFCB,
-        emissiveIntensity: 20,
+        emissiveIntensity: 2000000,
         roughness: 0.3,
         metalness: 1
     })
     const pinkLightMaterial = new THREE.MeshStandardMaterial({
         color: 0XFFB9CF,
         emissive: 0XFFB9CF,
-        emissiveIntensity: 20,
+        emissiveIntensity: 900000000,
         roughness: 0.3,
         metalness: 1
     })
@@ -100,7 +99,7 @@ function init() {
     frustumSize = 1;
     aspect = window.innerWidth / window.innerHeight;
     camera = new THREE.OrthographicCamera( frustumSize * aspect / - 2, frustumSize * aspect / 2, frustumSize / 2, frustumSize / - 2, 1, 1000 );
-    camera.position.set( - 160, 90, 170 );
+    camera.position.set( - 120, 100, 200 );
     // gui.add(camera.position, 'x').min(-300).max(300).step(1);
     // gui.add(camera.position, 'y').min(-300).max(300).step(1);
     // gui.add(camera.position, 'z').min(-300).max(300).step(1);
@@ -157,26 +156,24 @@ function init() {
             pinkLightE.material = pinkLightMaterial;
             
             bloom = new THREE.Group();
-            bloom.add(yellowLight)
-
+            bloom.add(yellowLight, pinkLightA, pinkLightB, pinkLightC, pinkLightD, pinkLightE)
+ 
+            bloom.layers.enable(BLOOM_SCENE);
             models = new THREE.Group();
             models.add(model, stands, bloom)
-            // models.scale.set(5, 5, 5);
 
             models.traverse(function (children) {
                 if (children.isLight) {
                     children.shadow.camera.near = 0.001;
                     children.shadow.camera.updateProjectionMatrix();
                 }
-                if (children.isMesh && bloomLayer.test( children.layers ) === false ) {
+                if (children.isMesh ) {
                     material[children.uuid] = children.material;
                     children.castShadow = true;
                     children.receiveShadow = true;
                 }
             });
 
-            bloom.layers.enable(BLOOM_SCENE);
-            
             scene.add(models);
         }
     );
@@ -235,9 +232,10 @@ function onClick() {
     
     const zoomInTimeline = (x, y, z, zoomOutFactor = 0) => {
         let tl = gsap
-		.timeline({ defaults: { duration: 2, ease: "expo.out" } })
+		.timeline({ defaults: { duration: 2.5, ease: "expo.out" } })
         .to(controls.target, { x, y, z })
 		.to(camera.position, { x: x - 3, y: y + 3 , z: z + 20 }, 0)
+        
         // .to(stands.rotation, { x: 0, y: 0 }, 0)
     };
     
@@ -250,12 +248,17 @@ function onClick() {
         zoomInTimeline(porkStand.position.x, porkStand.position.y + .03, porkStand.position.z + .09, .1);
         camera.zoom = zoom;
         camera.updateProjectionMatrix();
-
+        
     }
     if (intersects[0].object.parent.name === 'beefStand') {
         zoomInTimeline(beefStand.position.x, beefStand.position.y - .01, beefStand.position.z - .3, .1);
         camera.zoom = zoom;
         camera.updateProjectionMatrix();
+        $(function () {
+            setTimeout(function () {
+                $(location).attr('href', '//one-taiwan-catty.github.io/beef');
+            }, 3000);
+        })
     }
     if (intersects[0].object.parent.name === 'fishStand') {
         console.log('fishStand');
@@ -303,11 +306,11 @@ renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1;
 renderer.outputEncoding = THREE.sRGBEncoding;
 
-const environment = new RoomEnvironment();
+// const environment = new RoomEnvironment();
 const pmremGenerator = new THREE.PMREMGenerator( renderer );
-pmremGenerator.compileEquirectangularShader();
+// pmremGenerator.compileEquirectangularShader();
 
-scene.environment = pmremGenerator.fromScene(environment).texture;
+// scene.environment = pmremGenerator.fromScene(environment).texture;
 
 /* -------------------------------------------------------------
  * Cursor
@@ -326,24 +329,67 @@ init();
 /* -------------------------------------------------------------
  * Post processing
 ------------------------------------------------------------- */
-const effectComposer = new EffectComposer(renderer)
-effectComposer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-effectComposer.setSize(sizes.width, sizes.height)
+// const effectComposer = new EffectComposer(renderer)
+// effectComposer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+// effectComposer.setSize(sizes.width, sizes.height)
 
-const renderPass = new RenderPass(scene, camera)
-effectComposer.addPass(renderPass)
+// const renderPass = new RenderPass(scene, camera)
+// effectComposer.addPass(renderPass)
 
-const unrealBloomPass = new UnrealBloomPass()
-effectComposer.addPass(unrealBloomPass)
+// const unrealBloomPass = new UnrealBloomPass()
+// effectComposer.addPass(unrealBloomPass)
 
-unrealBloomPass.strength = 1
-unrealBloomPass.radius = 1.3
-unrealBloomPass.threshold = 0.7
+// unrealBloomPass.strength = 1.5;
+// unrealBloomPass.radius = 0;
+// unrealBloomPass.threshold = 0.5;
 
 // gui.add(unrealBloomPass, 'enabled')
 // gui.add(unrealBloomPass, 'strength').min(0).max(2).step(0.001)
 // gui.add(unrealBloomPass, 'radius').min(0).max(2).step(0.001)
 // gui.add(unrealBloomPass, 'threshold').min(0).max(1).step(0.001)
+
+const renderScene = new RenderPass( scene, camera );
+
+const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 1.5, 0.4, 0.85 );
+bloomPass.threshold = 0.5;
+bloomPass.strength = 5;
+bloomPass.radius = 0;
+
+const bloomComposer = new EffectComposer( renderer );
+bloomComposer.renderToScreen = false;
+bloomComposer.addPass( renderScene );
+bloomComposer.addPass( bloomPass );
+
+const finalPass = new ShaderPass(
+    new THREE.ShaderMaterial( {
+        uniforms: {
+            baseTexture: { value: null },
+            bloomTexture: { value: bloomComposer.renderTarget2.texture }
+        },
+        vertexShader: document.getElementById( 'vertexshader' ).textContent,
+        fragmentShader: document.getElementById( 'fragmentshader' ).textContent,
+        defines: {}
+    } ), 'baseTexture'
+);
+finalPass.needsSwap = true;
+
+const finalComposer = new EffectComposer(renderer);
+finalComposer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+
+finalComposer.addPass( renderScene );
+finalComposer.addPass( finalPass );
+bloomComposer.renderToScreen = false;
+function render() {
+    renderBloom();
+    // render the entire scene, then render bloom scene on top
+    finalComposer.render();
+}
+function renderBloom( mask ) {
+    scene.traverse( darkenNonBloomed );
+    bloomComposer.render();
+    scene.traverse( restoreMaterial );
+}
+
 
 /* -------------------------------------------------------------
 * Animate
@@ -359,11 +405,10 @@ const tick = () => {
     // hoverPieces();
 
     // Render
-    renderer.toneMapping = 5;
-    renderer.render(scene, camera)
-
+    // effectComposer.toneMapping = 10;
+    // renderer.render(scene, camera)
     // effectComposer.render(scene, camera);
-
+    render();
 
     // Call tick again on the next frame
     window.requestAnimationFrame(tick);
@@ -371,20 +416,24 @@ const tick = () => {
 };
 
 tick();
-// window.addEventListener('mousemove', onMouseMove);
-// window.addEventListener('mousedown', onMouseDown)
+function darkenNonBloomed( models ) {
 
-function darkenNonBloomed( children ) {
-    if ( children.isMesh && bloomLayer.test( children.layers ) === false ) {
-        materials[ children.uuid ] = children.material;
-        children.material = darkMaterial;
+    if ( models.isMesh && bloomLayer.test( models.layers ) === false ) {
+
+        materials[ models.uuid ] = models.material;
+        models.material = darkMaterial;
+
     }
+
 }
 
-function restoreMaterial( children ) {
-    if ( materials[ children.uuid ] ) {
+function restoreMaterial( models ) {
 
-        children.material = materials[ children.uuid ];
-        delete materials[ children.uuid ];
+    if ( materials[ models.uuid ] ) {
+
+        models.material = materials[ models.uuid ];
+        delete materials[ models.uuid ];
+
     }
+
 }

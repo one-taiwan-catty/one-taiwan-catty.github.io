@@ -50,182 +50,219 @@ ScrollTrigger.defaults({
  */
 let object, cook1, cooks;
 let cook2, cook3;
-gltfLoader.load(
-    '/dist/model/loosun.glb',
-    (gltf) => {
-        object = gltf.scene
-        // object.scale.set(0.5, 0.5, 0.5);
-
-        object.traverse(function (children) {
-            if (object) {
-                let scrollY = window.scrollY;        
-            window.addEventListener('scroll', () =>
-            {
-                scrollY = window.scrollY
-		        const tween = gsap.timeline()
-                // 
-                tween.fromTo(object.rotation, { x: 0, y: 0, z: 0 },{x: 0.5, y: 0, z: -0.5, scrollTrigger: {
-                scrub:true,
-                trigger: ".section-2",
-                // duration: {min: 0.2, max: 3}, 
-                ease: "power0.inOut",
-                start: "50% 90%",
-                end: "70% 90%",
-                // markers: true,
-                },
-                }) 
-                //
-                .fromTo(object.position, { x: 0, y: 0, z: 0 },{x: -3, y: -2, z: 0.8, scrollTrigger: {
-                scrub:true,
-                trigger: ".section-2",
-                duration: { min: 2, max: 3 }, 
-                ease: "power0.inOut",
-                start: "50% 90%",
-                end: "70% 90%",
-                // markers: true,
-                },
-                }) 
-                //
-                .to(object.rotation,{x: -0.5, y: 0, z: 0, scrollTrigger: {
-                scrub:true,
-                trigger: ".one-catty",
-                duration: {min: 0.2, max: 1}, 
-                ease: "power0.inOut",
-                    
-                start: "20% 50%",
-                end: "90% 50%",
-                // markers: true,
-                },
-                }) 
-                //
-                .to(object.position,{x: -1, y: -1, z: -0.8, scrollTrigger: {
-                scrub:true, 
-                trigger: ".one-catty",
-                duration: {min: 0.2, max: 1}, 
-                ease: "power0.inOut",
-                start: "20% 50%",
-                end: "90% 50%",
-                // markers: true,
-                },
-                })
-                //
-                .to(object.rotation, {x: 0, y: 0, z: 0.5, scrollTrigger: {
-                scrub:true,
-                    
-                trigger: ".section-3",
-                // duration: {min: 0.2, max: 1}, 
-                ease: "power0.inOut",
-                start: "50% 80%",
-                end: "60% 80%",
-                // markers: true,
-                },
-                })
-                .to(object.position, {x: -3, y: -2.5, z: 0, scrollTrigger: {
-                scrub:true,
-                    
-                trigger: ".section-3",
-                // duration: {min: 0.2, max: 1}, 
-                ease: "power0.inOut",
-                start: "20% 80%",
-                end: "60% 80%",
-                // markers: true,
-                },
-                }) 
-                .to(object.position, {x: -1, y: -2, z: -2, scrollTrigger: {
-                    scrub:true,
-                        
-                    trigger: ".weigh",
-                    // duration: {min: 0.2, max: 1}, 
-                    ease: "power0.inOut",
-                    start: "top 70%",
-                    end: "60% 70%",
-                    // markers: true,
-                },
-                }) 
-                .to(".pointer", {rotation: 50,x:30,y:15, scrollTrigger: {
-                    scrub:true,
-                    trigger: ".weigh",
-                    duration: {min: 0.2, max: 1}, 
-                    // ease: "power0.inOut",
-                    start: "10% 70%",
-                    end: "60% 70%",
-                    // markers: true,
-                },
-                }) 
-             })
-            }
-        })
-        scene.add(object)
-
-        // cook-model
-        gltfLoader.load(
-        '/dist/model/cook-loosun.glb',
-        (gltf) => {
-            cook1 = gltf.scene;
-            if (cook1) {
-                cook1.position.set(1.5, .5, -.05);
-
-                cook2 = cook1.clone();
-                cook2.position.set(.7, .3, .25);
-
-                cook3 = cook1.clone();
-                cook3.position.set(.2, .1, -.5);
-            }
-
-            cooks = new THREE.Group();
-            cooks.add(cook1, cook2, cook3)
-            cooks.traverse(function (children) {
-
-            if (cooks) {
-                cooks.scale.set(0, 0, 0)
-                let scrollY = window.scrollY;        
-                window.addEventListener('scroll', () =>
-                {
-                    scrollY = window.scrollY
-                    const tween = gsap.timeline()
-                    // 
-                    tween.fromTo(cooks.scale, { x: 0, y: 0, z: 0 }, {
-                            x: 1, y: 1, z: 1, scrollTrigger: {
-                    scrub:true,
-                    trigger: ".section-4",
-                    duration: {min: 0.2, max: 3}, 
-                    ease: "power0.inOut",
-                    start: "-30% 90%",
-                    end: "50% 90%",
-                    // markers: true,
-                    },
-                    }) 
-                    .fromTo(cooks.position, { x: 0, y: 0, z: -.8 }, {
-                            x: 0, y: 0, z: 0, scrollTrigger: {
-                    scrub:true,
-                    trigger: ".section-4",
-                    duration: {min: 0.2, max: 3}, 
-                    ease: "power0.inOut",
-                    start: "-30% 90%",
-                    end: "60% 90%",
-                    // markers: true,
-                    },
-                    }) 
-                    .to(cooks.scale, {x: 3, y: 3, z: 3, scrollTrigger: {
-                    scrub:true,
-                    trigger: ".section-5",
-                    duration: {min: 0.2, max: 3}, 
-                    ease: "power0.inOut",
-                    start: "-10% 90%",
-                    end: "60% 90%",
-                    // markers: true,
-                    },
-                    }) 
-                })
-            }
-        })
-
-
-            scene.add(cooks)
-        }
-        );
+let item = [
+    {
+        title: '斤一斤 - 蘆筍',
+        model: '/dist/model/loosun.glb',
+        scale: ''
+    },
+    {
+        title: '斤一斤 - 蛤蠣',
+        model: '/dist/model/ham-a.glb',
+        scale: ''
+    },
+    {
+        title: '斤一斤 - 牛腱',
+        model: '/dist/model/kian-tsi-bah.glb',
+        scale: '0.8'
+    },
+    {
+        title: '斤一斤 - 南瓜',
+        model: '/dist/model/kim-kue.glb',
+        scale: '0.5'
     }
-);
+];
+// console.log(document.title);
+// console.log(item.model);
+item.map(function (item, index, array) {
+    
+    if (document.title === item.title) {
+        gltfLoader.load(
+            item.model,
+            (gltf) => {
+                object = gltf.scene;
+                if (item.scale !== '') {
+                    console.log(object.scale.x = `${item.scale}`);
+                    
+                    object.scale.x = `${item.scale}`
+                    object.scale.y = `${item.scale}`
+                    object.scale.z = `${item.scale}`
+                }
+
+                
+                object.traverse(function (children) {
+                    if (object) {
+                        let scrollY = window.scrollY;        
+                    window.addEventListener('scroll', () =>
+                    {
+                        scrollY = window.scrollY
+                        const tween = gsap.timeline()
+                        // 
+                        tween.fromTo(object.rotation, { x: 0, y: 0, z: 0 },{x: 0.5, y: 0, z: -0.5, scrollTrigger: {
+                        scrub:true,
+                        trigger: ".section-2",
+                        // duration: {min: 0.2, max: 3}, 
+                        ease: "power0.inOut",
+                        start: "50% 90%",
+                        end: "70% 90%",
+                        // markers: true,
+                        },
+                        }) 
+                        //
+                        .fromTo(object.position, { x: 0, y: 0, z: 0 },{x: -3, y: -2, z: 0.8, scrollTrigger: {
+                        scrub:true,
+                        trigger: ".section-2",
+                        duration: { min: 2, max: 3 }, 
+                        ease: "power0.inOut",
+                        start: "50% 90%",
+                        end: "70% 90%",
+                        // markers: true,
+                        },
+                        }) 
+                        //
+                        .to(object.rotation,{x: -0.5, y: 0, z: 0, scrollTrigger: {
+                        scrub:true,
+                        trigger: ".one-catty",
+                        duration: {min: 0.2, max: 1}, 
+                        ease: "power0.inOut",
+                            
+                        start: "20% 50%",
+                        end: "90% 50%",
+                        // markers: true,
+                        },
+                        }) 
+                        //
+                        .to(object.position,{x: -1, y: -1, z: -0.8, scrollTrigger: {
+                        scrub:true, 
+                        trigger: ".one-catty",
+                        duration: {min: 0.2, max: 1}, 
+                        ease: "power0.inOut",
+                        start: "20% 50%",
+                        end: "90% 50%",
+                        // markers: true,
+                        },
+                        })
+                        //
+                        .to(object.rotation, {x: 0, y: 0, z: 0.5, scrollTrigger: {
+                        scrub:true,
+                            
+                        trigger: ".section-3",
+                        // duration: {min: 0.2, max: 1}, 
+                        ease: "power0.inOut",
+                        start: "50% 80%",
+                        end: "60% 80%",
+                        // markers: true,
+                        },
+                        })
+                        .to(object.position, {x: -3, y: -2.5, z: 0, scrollTrigger: {
+                        scrub:true,
+                            
+                        trigger: ".section-3",
+                        // duration: {min: 0.2, max: 1}, 
+                        ease: "power0.inOut",
+                        start: "20% 80%",
+                        end: "60% 80%",
+                        // markers: true,
+                        },
+                        }) 
+                        .to(object.position, {x: -1, y: -2, z: -2, scrollTrigger: {
+                            scrub:true,
+                                
+                            trigger: ".weigh",
+                            // duration: {min: 0.2, max: 1}, 
+                            ease: "power0.inOut",
+                            start: "top 70%",
+                            end: "60% 70%",
+                            // markers: true,
+                        },
+                        }) 
+                        .to(".pointer", {rotation: 50,x:30,y:15, scrollTrigger: {
+                            scrub:true,
+                            trigger: ".weigh",
+                            duration: {min: 0.2, max: 1}, 
+                            // ease: "power0.inOut",
+                            start: "10% 70%",
+                            end: "60% 70%",
+                            // markers: true,
+                        },
+                        }) 
+                     })
+                    }
+                })
+                scene.add(object)
+        
+                // cook-model
+                gltfLoader.load(
+                '/dist/model/cook-loosun.glb',
+                (gltf) => {
+                    cook1 = gltf.scene;
+                    if (cook1) {
+                        cook1.position.set(1.5, .5, -.05);
+        
+                        cook2 = cook1.clone();
+                        cook2.position.set(.7, .3, .25);
+        
+                        cook3 = cook1.clone();
+                        cook3.position.set(.2, .1, -.5);
+                    }
+        
+                    cooks = new THREE.Group();
+                    cooks.add(cook1, cook2, cook3)
+                    cooks.traverse(function (children) {
+        
+                    if (cooks) {
+                        cooks.scale.set(0, 0, 0)
+                        let scrollY = window.scrollY;        
+                        window.addEventListener('scroll', () =>
+                        {
+                            scrollY = window.scrollY
+                            const tween = gsap.timeline()
+                            // 
+                            tween.fromTo(cooks.scale, { x: 0, y: 0, z: 0 }, {
+                                    x: 1, y: 1, z: 1, scrollTrigger: {
+                            scrub:true,
+                            trigger: ".section-4",
+                            duration: {min: 0.2, max: 3}, 
+                            ease: "power0.inOut",
+                            start: "-30% 90%",
+                            end: "50% 90%",
+                            // markers: true,
+                            },
+                            }) 
+                            .fromTo(cooks.position, { x: 0, y: 0, z: -.8 }, {
+                                    x: 0, y: 0, z: 0, scrollTrigger: {
+                            scrub:true,
+                            trigger: ".section-4",
+                            duration: {min: 0.2, max: 3}, 
+                            ease: "power0.inOut",
+                            start: "-30% 90%",
+                            end: "60% 90%",
+                            // markers: true,
+                            },
+                            }) 
+                            .to(cooks.scale, {x: 3, y: 3, z: 3, scrollTrigger: {
+                            scrub:true,
+                            trigger: ".section-5",
+                            duration: {min: 0.2, max: 3}, 
+                            ease: "power0.inOut",
+                            start: "-10% 90%",
+                            end: "60% 90%",
+                            // markers: true,
+                            },
+                            }) 
+                        })
+                    }
+                })
+        
+        
+                    scene.add(cooks)
+                }
+                );
+            }
+        );
+        
+    }
+});
 
  
 /**
