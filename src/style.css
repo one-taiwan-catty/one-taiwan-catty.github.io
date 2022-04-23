@@ -1005,8 +1005,8 @@ body {
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
   top: 0;
-  -webkit-transform: translate(-50%, 0);
-          transform: translate(-50%, 0);
+  -webkit-transform: translate(-50%, -50vh);
+          transform: translate(-50%, -50vh);
   width: 100vw;
   height: 300vh;
   z-index: -1;

@@ -50,26 +50,31 @@ ScrollTrigger.defaults({
  */
 let object, cook1, cooks;
 let cook2, cook3;
+// Models data
 let item = [
     {
         title: '斤一斤 - 蘆筍',
         model: '/dist/model/loosun.glb',
-        scale: ''
+        scale: '',
+        cook:'/dist/model/cook-loosun.glb'
     },
     {
         title: '斤一斤 - 蛤蠣',
         model: '/dist/model/ham-a.glb',
-        scale: ''
+        scale: '',
+        cook:''
     },
     {
         title: '斤一斤 - 牛腱',
         model: '/dist/model/kian-tsi-bah.glb',
-        scale: '0.8'
+        scale: '0.8',
+        cook:''
     },
     {
         title: '斤一斤 - 南瓜',
         model: '/dist/model/kim-kue.glb',
-        scale: '0.5'
+        scale: '0.5',
+        cook:''
     }
 ];
 // console.log(document.title);
@@ -193,7 +198,7 @@ item.map(function (item, index, array) {
         
                 // cook-model
                 gltfLoader.load(
-                '/dist/model/cook-loosun.glb',
+                item.cook,
                 (gltf) => {
                     cook1 = gltf.scene;
                     if (cook1) {

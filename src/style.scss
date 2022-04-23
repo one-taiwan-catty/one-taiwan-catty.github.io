@@ -782,7 +782,7 @@ body {
     @include background(cover);
     @include center();
     top: 0;
-    transform: translate(-50%,0);
+    transform: translate(-50%,-50vh);
     width: 100vw;
     height: 300vh;
     z-index: -1;

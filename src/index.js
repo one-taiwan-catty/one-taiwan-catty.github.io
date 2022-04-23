@@ -55,7 +55,7 @@ function init() {
     /* -------------------------------------------------------------
      * Light
     ------------------------------------------------------------- */
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, .5);
     
     directionalLight.position.set(18, 18, -18);
     directionalLight.castShadow = true;
@@ -107,8 +107,8 @@ function init() {
     camera.zoom = 1;
     scene.add(camera);
 
-    const helper = new THREE.CameraHelper( camera );
-    scene.add( helper );
+    // const helper = new THREE.CameraHelper( camera );
+    // scene.add( helper );
 
     raycaster = new THREE.Raycaster();
     mouse = new THREE.Vector2()
@@ -406,9 +406,9 @@ const tick = () => {
 
     // Render
     // effectComposer.toneMapping = 10;
-    // renderer.render(scene, camera)
+    renderer.render(scene, camera)
     // effectComposer.render(scene, camera);
-    render();
+    // render();
 
     // Call tick again on the next frame
     window.requestAnimationFrame(tick);
