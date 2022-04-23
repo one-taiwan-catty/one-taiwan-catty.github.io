@@ -826,6 +826,38 @@ body {
           transform: translate(-50%, 0%);
   bottom: 20px;
   display: inline-block;
+  -webkit-animation: scroll 2s linear 0s infinite;
+          animation: scroll 2s linear 0s infinite;
+}
+
+@-webkit-keyframes scroll {
+  0% {
+    -webkit-transform: translate(-50%, -30%);
+            transform: translate(-50%, -30%);
+  }
+  33% {
+    -webkit-transform: translate(-50%, 0%);
+            transform: translate(-50%, 0%);
+  }
+  100% {
+    -webkit-transform: translate(-50%, -30%);
+            transform: translate(-50%, -30%);
+  }
+}
+
+@keyframes scroll {
+  0% {
+    -webkit-transform: translate(-50%, -30%);
+            transform: translate(-50%, -30%);
+  }
+  33% {
+    -webkit-transform: translate(-50%, 0%);
+            transform: translate(-50%, 0%);
+  }
+  100% {
+    -webkit-transform: translate(-50%, -30%);
+            transform: translate(-50%, -30%);
+  }
 }
 
 .item-wrapper .section-2 .one-catty {
@@ -897,7 +929,9 @@ body {
 
 .item-wrapper .section-4 {
   overflow: hidden;
+  padding-top: 80%;
   margin-top: 400px;
+  margin-bottom: 100%;
 }
 
 .item-wrapper .section-4 .cooking-title {
@@ -911,6 +945,8 @@ body {
   left: 50%;
   -webkit-transform: translate(-50%, 0%);
           transform: translate(-50%, 0%);
+  -webkit-transform: translate(-50%, -300%);
+          transform: translate(-50%, -300%);
 }
 
 .item-wrapper .section-4 .cooking-subtitle {
@@ -1005,10 +1041,70 @@ body {
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
   top: 0;
-  -webkit-transform: translate(-50%, -50vh);
-          transform: translate(-50%, -50vh);
+  -webkit-transform: translate(-50%, 60%);
+          transform: translate(-50%, 60%);
   width: 100vw;
   height: 300vh;
   z-index: -1;
+}
+
+.loading {
+  background: #000;
+  width: 100vw;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: fixed;
+  z-index: 99999;
+}
+
+.loading .loading .counter {
+  text-align: center;
+}
+
+.loading .loading .counter p {
+  font-size: 40px;
+  font-weight: 100;
+  color: #f60d54;
+}
+
+.loading .loading .counter h1 {
+  color: #fff;
+  font-size: 60px;
+  margin-top: -10px;
+}
+
+.loading .loading .counter hr {
+  background: #f60d54;
+  border: none;
+  height: 1px;
+}
+
+.loading .loading .counter {
+  position: relative;
+  width: 200px;
+}
+
+.loading .loading .counter h1.abs {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.loading .loading .counter .color {
+  width: 0px;
+  overflow: hidden;
+  color: #f60d54;
 }
 /*# sourceMappingURL=style.css.map */

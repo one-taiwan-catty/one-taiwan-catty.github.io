@@ -18,6 +18,7 @@ gsap.registerPlugin(ScrollTrigger);
 let camera, controls, raycaster, mouse;
 let models, bloom;
 let model, stands, yellowLight, pinkLightMeat, greenLight;
+let chickenIconLight, fishIconLight, fruitIconLight, beefIconLight, vegIconLight, porkIconLight;
 let pinkLightA, pinkLightB, pinkLightC, pinkLightD, pinkLightE;
 let porkStand, vegStand, fruitStand, fishStand, beefStand, chickenStand;
 let frustumSize,aspect;
@@ -70,8 +71,8 @@ function init() {
     directionalLight.shadow.camera.near = 0.1;
     directionalLight.shadow.camera.far = 500;
     directionalLight.shadow.bias = -0.00001;
-    directionalLight.shadow.mapSize.width = 4096;
-    directionalLight.shadow.mapSize.height = 4096;
+    directionalLight.shadow.mapSize.width = 2048;
+    directionalLight.shadow.mapSize.height = 2048;
     
     scene.add(directionalLight);
     
@@ -80,16 +81,30 @@ function init() {
     ------------------------------------------------------------- */
     // Pole light material
     const yellowLightMaterial = new THREE.MeshStandardMaterial({
-        color: 0XFFEFCB,
-        emissive: 0XFFEFCB,
-        emissiveIntensity: 2000000,
+        color: 0XFFFF02,
+        emissive: 0XFFFF02,
+        emissiveIntensity: 90000,
         roughness: 0.3,
         metalness: 1
     })
     const pinkLightMaterial = new THREE.MeshStandardMaterial({
-        color: 0XFFB9CF,
-        emissive: 0XFFB9CF,
-        emissiveIntensity: 900000000,
+        color: 0XFF00A9,
+        emissive: 0XFF00A9,
+        emissiveIntensity: 90000,
+        roughness: 0.3,
+        metalness: 1
+    })
+    const pinkLightMeatMaterial = new THREE.MeshStandardMaterial({
+        color: 0XFF00A9,
+        emissive: 0XFF00A9,
+        emissiveIntensity: 90000,
+        roughness: 0.3,
+        metalness: 1
+    })
+    const iconLightMaterial = new THREE.MeshStandardMaterial({
+        color: 0XFFFFFF,
+        emissive: 0XFFFFFF,
+        emissiveIntensity: 90000,
         roughness: 0.3,
         metalness: 1
     })
@@ -140,7 +155,6 @@ function init() {
             // yellowLight, pinkLight, pinkLightMeat, greenLight;
 
             yellowLight = gltf.scene.children.find((child) => child.name === 'yellowLight');
-            // console.log(yellowLight);
             yellowLight.material = yellowLightMaterial;
 
             pinkLightA = gltf.scene.children.find((child) => child.name === 'pinkLightA');
@@ -155,8 +169,15 @@ function init() {
             pinkLightD.material = pinkLightMaterial;
             pinkLightE.material = pinkLightMaterial;
             
+            pinkLightMeat = gltf.scene.children.find((child) => child.name === 'pinkLightMeat');
+            pinkLightMeat.material = pinkLightMeatMaterial;
+
+            chickenIconLight = gltf.scene.children.find((child) => child.name === 'chickenIconLight');
+            // chickenIconLight.material = iconLightMaterial;
+
+
             bloom = new THREE.Group();
-            bloom.add(yellowLight, pinkLightA, pinkLightB, pinkLightC, pinkLightD, pinkLightE)
+            bloom.add(yellowLight, pinkLightA, pinkLightB, pinkLightC, pinkLightD, pinkLightE, pinkLightMeat, chickenIconLight, fishIconLight, fruitIconLight, beefIconLight, vegIconLight, porkIconLight)
  
             bloom.layers.enable(BLOOM_SCENE);
             models = new THREE.Group();
@@ -210,8 +231,8 @@ window.addEventListener('resize', () => {
 
     // Update renderer
     renderer.setSize(sizes.width, sizes.height)
-    bloomComposer.setSize( width, height );
-    finalComposer.setSize( width, height );
+    // bloomComposer.setSize( width, height );
+    // finalComposer.setSize( width, height );
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 });
 
@@ -256,7 +277,7 @@ function onClick() {
         camera.updateProjectionMatrix();
         $(function () {
             setTimeout(function () {
-                $(location).attr('href', '//one-taiwan-catty.github.io/beef');
+                $(location).attr('href', '//one-taiwan-catty.github.io/stand/beef');
             }, 3000);
         })
     }
@@ -380,13 +401,13 @@ finalComposer.addPass( renderScene );
 finalComposer.addPass( finalPass );
 bloomComposer.renderToScreen = false;
 function render() {
-    renderBloom();
+    renderBloom(scene, camera);
     // render the entire scene, then render bloom scene on top
-    finalComposer.render();
+    finalComposer.render(scene, camera);
 }
 function renderBloom( mask ) {
     scene.traverse( darkenNonBloomed );
-    bloomComposer.render();
+    bloomComposer.render(scene, camera);
     scene.traverse( restoreMaterial );
 }
 
@@ -408,7 +429,7 @@ const tick = () => {
     // effectComposer.toneMapping = 10;
     renderer.render(scene, camera)
     // effectComposer.render(scene, camera);
-    // render();
+
 
     // Call tick again on the next frame
     window.requestAnimationFrame(tick);

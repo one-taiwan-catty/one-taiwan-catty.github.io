@@ -640,6 +640,19 @@ body {
         @include verticalCenter;
         bottom: 20px;
         display: inline-block;
+        // transform: translate(-50%,-30%);
+        animation: scroll 2s linear 0s infinite;
+      }
+    }
+    @keyframes scroll {
+      0%{
+        transform: translate(-50%, -30%);
+      }
+      33%{
+        transform: translate(-50%, 0%);
+      }
+      100% {
+        transform: translate(-50%, -30%);
       }
     }
 
@@ -697,14 +710,16 @@ body {
     /* section-4 */
     &-4{
       overflow: hidden;
-      // padding-top: 50%;
+      padding-top: 80%;
       margin-top: 400px;
+      margin-bottom: 100%;
       .cooking-title{
         background-image: url(/dist/cooking-title.svg);
         @include background(contain);
         width: 280px;
         height: 34px;
         @include verticalCenter;
+        transform: translate(-50%,-300%)
       }
       .cooking-subtitle{
         @include background(contain);
@@ -782,9 +797,59 @@ body {
     @include background(cover);
     @include center();
     top: 0;
-    transform: translate(-50%,-50vh);
+    transform: translate(-50%,60%);
     width: 100vw;
     height: 300vh;
     z-index: -1;
+  }
+
+}
+.loading{
+  background: $black;
+  width: 100vw;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 99999;
+  .loading .counter {
+    text-align: center;
+  }
+  
+  .loading .counter p {
+    font-size: 40px;
+    font-weight: 100;
+    color: #f60d54;
+  }
+  
+  .loading .counter h1 {
+    color: $white;
+    font-size: 60px;
+    margin-top: -10px;
+  }
+  
+  .loading .counter hr {
+    background: #f60d54;
+    border: none;
+    height: 1px;
+  }
+  
+  .loading .counter {
+    position: relative;
+    width: 200px;
+  }
+  
+  .loading .counter h1.abs {
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+  
+  .loading .counter .color {
+    width: 0px;
+    overflow: hidden;
+    color: #f60d54;
   }
 }
