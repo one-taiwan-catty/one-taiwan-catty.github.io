@@ -325,46 +325,58 @@ body {
   .stand-items{ 
     width: 100%;
     position: fixed;
-    bottom: 20px;
-    .owl-stage{
-      display: flex;
-      margin-left: -15vw;
-      align-items: center;
-      position: fixed;
-      bottom: 40px;
-      // @include verticalCenter();
-
+    bottom: 100px;
+    .items{
+      .slick-center{
+      @include background(contain);
+        width: 200px; 
+        height: 180px;
+      }
     }
-    .owl-item{
-      &.active.center {
-        
-        margin-right: 85px !important;
-        a{
-          h4{
-            color: $white;
-            font-size: 1.2em;
-            position: fixed;
-            @include verticalCenter();
-            bottom: -8px;
+    .item {
+      @include background(100px);
+      width: 100px;
+      height: 180px;
+      display: inline-block;
+    }
+    .items-name-box{
+      background-image: url('/dist/bar.png');
+      @include background(contain);
+      width: 90%;
+      @include verticalCenter();
+      .items-name{
+        .slick-center {
+          h4 {
+            display: block;
           }
         }
-        .item{
-          width: 250px;
-          height: 250px;
-          background-size: 250px;
+        h4{
+          color: $white;
+          text-align: center;
+          display: none;
+        }
+        .slick-arrow {
+          font-size: 0;
+          background-image: url('/dist/arrow.svg');
+          @include background(contain);
+          width: 18px;
+          height: 18px;
+          display: inline-block;
+          position: relative;
+        }
+        .slick-prev {
+          // transform: translate(20px, 100%);
+          top: 18px;
+          left: 20px;
+        }
+        .slick-next {
+          top: -25px;
+          left: calc(90vw - 40px);
+          transform: rotate(180deg);
         }
       }
     }
-    .item{
-      @include background(contain);
-      width: 150px;
-      height: 150px;
-      background-size: 150px;
-      display: inline-block;
-      h4{
-      color: transparent;
-      }
-    }
+    
   }
   // ** vege-stand ** //
   &-vege{
@@ -427,29 +439,6 @@ body {
   height: 13vw;
   @include verticalCenter();
   bottom: 0; 
-  button{
-    font-size: 0;
-    width: 40px;
-    height: 40px;
-    position: absolute;
-    top: 50%;
-
-    span{
-      background-image: url('/dist/arrow.svg');
-      @include background(contain);
-      width: 18px;
-      height: 18px;
-      display: inline-block;
-    }
-  }
-  .owl-prev{
-    left: 20px;
-    transform: translate(0,-50%);
-  }
-  .owl-next{
-    transform: rotate(180deg) translate(0,50%);
-    right: 20px;
-  }
 }
 /* -------------------------- *\
 	Item
@@ -459,89 +448,7 @@ body {
   margin: auto;
   width: 100vw;
   height: 100%;
-  .navbar{
-    position: fixed;
-    height: 50px;
-    width: 100vw;
-    z-index: 999;
-    .nav-item{
-      width: 100%;
-      height: 100%;
-      .nav-logo{
-      background-image: url(/dist/logo.svg);
-      @include background(contain);
-      @include center();
-
-      width: 80px;
-      height: 30px;
-     }
-    }
-    /* menu-toggle */
-     .menu-toggle {
-      width: 42px;
-      height: 42px;
-      display: inline-block;
-      position: absolute;
-      top: 50%;
-      right: 20px;
-      transform: translate(0%, -50%);
-      span {
-      display: block;
-      /* span預設inline */
-      width: 42px;
-      height: 2px;
-      background-color: $white;
-      @include verticalCenter;
-
-      &:nth-child(1) {
-        top: 35%;
-      }
-      &:nth-child(2) {
-        top: 60%;
-      }
-      }
-    }
-  }
-  /* close-btn */
-
-  .navbar .close-btn {
-      width: 48px;
-      height: 48px;
-      /* border: 1px solid #fff; */
-      /* anchor預設inline */
-      position: absolute;
-      right: 16px;
-      top: 8px;
-      display: none;
-  }
-
-  .navbar .close-btn span {
-      display: block;
-      /* span預設inline */
-      width: 40px;
-      height: 2px;
-      background-color: $white;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      /* transform: translate(-50%,-50%); */
-  }
-
-  /* transform會覆寫，因此寫在同一行 ＊空一格 */
-
-  .navbar .close-btn span:nth-child(1) {
-      transform: translate(-50%, -50%) rotate(45deg);
-  }
-
-  .navbar .close-btn span:nth-child(2) {
-      transform: translate(-50%, -50%) rotate(-45deg);
-  }
-
-  @media screen and (max-width:768px) {
-      .navbar .close-btn {
-          display: inline-block;
-      }
-  }
+  
 
   /* Btn */
   .btn-wrapper{
@@ -804,52 +711,148 @@ body {
   }
 
 }
+
+/* -------------------------- *\
+	Nav
+\* -------------------------- */
+.navbar {
+  position: fixed;
+  height: 50px;
+  width: 100vw;
+  z-index: 999;
+  .nav-item {
+    width: 100%;
+    height: 100%;
+
+    .nav-logo {
+      background-image: url(/dist/logo.svg);
+      @include background(contain);
+      @include center();
+
+      width: 80px;
+      height: 30px;
+    }
+  }
+
+  /* menu-toggle */
+  .menu-toggle {
+    width: 42px;
+    height: 42px;
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translate(0%, -50%);
+
+    span {
+      display: block;
+      /* span預設inline */
+      width: 42px;
+      height: 2px;
+      background-color: $white;
+      @include verticalCenter;
+
+      &:nth-child(1) {
+        top: 35%;
+      }
+
+      &:nth-child(2) {
+        top: 60%;
+      }
+    }
+  }
+}
+
+/* close-btn */
+
+.navbar .close-btn {
+  width: 48px;
+  height: 48px;
+  /* border: 1px solid #fff; */
+  /* anchor預設inline */
+  position: absolute;
+  right: 16px;
+  top: 8px;
+  display: none;
+}
+
+.navbar .close-btn span {
+  display: block;
+  /* span預設inline */
+  width: 40px;
+  height: 2px;
+  background-color: $white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* transform: translate(-50%,-50%); */
+}
+
+/* transform會覆寫，因此寫在同一行 ＊空一格 */
+
+.navbar .close-btn span:nth-child(1) {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.navbar .close-btn span:nth-child(2) {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+@media screen and (max-width:768px) {
+  .navbar .close-btn {
+    display: inline-block;
+  }
+}
+
+/* -------------------------- *\
+	Loading
+\* -------------------------- */
 .loading{
   background: $black;
   width: 100vw;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   position: fixed;
   z-index: 99999;
-  .loading .counter {
-    text-align: center;
-  }
-  
-  .loading .counter p {
-    font-size: 40px;
-    font-weight: 100;
-    color: #f60d54;
-  }
-  
-  .loading .counter h1 {
-    color: $white;
-    font-size: 60px;
-    margin-top: -10px;
-  }
-  
-  .loading .counter hr {
-    background: #f60d54;
-    border: none;
-    height: 1px;
-  }
-  
-  .loading .counter {
-    position: relative;
-    width: 200px;
-  }
-  
-  .loading .counter h1.abs {
-    position: absolute;
-    top: 0;
+  .loading-box{
     width: 100%;
-  }
-  
-  .loading .counter .color {
-    width: 0px;
-    overflow: hidden;
-    color: #f60d54;
+    top: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .counter {
+      text-align: center;
+      margin-top: -80px;
+    }
+    
+    .counter p {
+      font-size: 40px;
+      font-weight: 100;
+      color: #EC5CF5;
+    }
+    
+    .counter h3 {
+      color: $white;
+      // font-size: 60px;
+      margin-top: 20px;
+    }
+    
+    .counter hr {
+      background: #EC5CF5;
+      border: none;
+      height: 1px;
+    }
+    
+    .counter {
+      position: relative;
+      width: 100%;
+    }
+    
+    .counter h1.abs {
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+
   }
 }

@@ -437,54 +437,70 @@ body {
 .stand .stand-items {
   width: 100%;
   position: fixed;
-  bottom: 20px;
+  bottom: 100px;
 }
 
-.stand .stand-items .owl-stage {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  margin-left: -15vw;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  position: fixed;
-  bottom: 40px;
-}
-
-.stand .stand-items .owl-item.active.center {
-  margin-right: 85px !important;
-}
-
-.stand .stand-items .owl-item.active.center a h4 {
-  color: #fff;
-  font-size: 1.2em;
-  position: fixed;
-  position: absolute;
-  left: 50%;
-  -webkit-transform: translate(-50%, 0%);
-          transform: translate(-50%, 0%);
-  bottom: -8px;
-}
-
-.stand .stand-items .owl-item.active.center .item {
-  width: 250px;
-  height: 250px;
-  background-size: 250px;
+.stand .stand-items .items .slick-center {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 200px;
+  height: 180px;
 }
 
 .stand .stand-items .item {
   background-position: center;
   background-repeat: no-repeat;
-  background-size: contain;
-  width: 150px;
-  height: 150px;
-  background-size: 150px;
+  background-size: 100px;
+  width: 100px;
+  height: 180px;
   display: inline-block;
 }
 
-.stand .stand-items .item h4 {
-  color: transparent;
+.stand .stand-items .items-name-box {
+  background-image: url("/dist/bar.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 90%;
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0%);
+          transform: translate(-50%, 0%);
+}
+
+.stand .stand-items .items-name-box .items-name .slick-center h4 {
+  display: block;
+}
+
+.stand .stand-items .items-name-box .items-name h4 {
+  color: #fff;
+  text-align: center;
+  display: none;
+}
+
+.stand .stand-items .items-name-box .items-name .slick-arrow {
+  font-size: 0;
+  background-image: url("/dist/arrow.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  position: relative;
+}
+
+.stand .stand-items .items-name-box .items-name .slick-prev {
+  top: 18px;
+  left: 20px;
+}
+
+.stand .stand-items .items-name-box .items-name .slick-next {
+  top: -25px;
+  left: calc(90vw - 40px);
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
 }
 
 .stand-vege {
@@ -557,36 +573,6 @@ body {
   bottom: 0;
 }
 
-.owl-nav button {
-  font-size: 0;
-  width: 40px;
-  height: 40px;
-  position: absolute;
-  top: 50%;
-}
-
-.owl-nav button span {
-  background-image: url("/dist/arrow.svg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  width: 18px;
-  height: 18px;
-  display: inline-block;
-}
-
-.owl-nav .owl-prev {
-  left: 20px;
-  -webkit-transform: translate(0, -50%);
-          transform: translate(0, -50%);
-}
-
-.owl-nav .owl-next {
-  -webkit-transform: rotate(180deg) translate(0, 50%);
-          transform: rotate(180deg) translate(0, 50%);
-  right: 20px;
-}
-
 /* -------------------------- *\
 	Item
 \* -------------------------- */
@@ -594,108 +580,9 @@ body {
   margin: auto;
   width: 100vw;
   height: 100%;
-  /* close-btn */
-  /* transform會覆寫，因此寫在同一行 ＊空一格 */
   /* Btn */
   /* marquee */
   /* background */
-}
-
-.item-wrapper .navbar {
-  position: fixed;
-  height: 50px;
-  width: 100vw;
-  z-index: 999;
-  /* menu-toggle */
-}
-
-.item-wrapper .navbar .nav-item {
-  width: 100%;
-  height: 100%;
-}
-
-.item-wrapper .navbar .nav-item .nav-logo {
-  background-image: url(/dist/logo.svg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  width: 80px;
-  height: 30px;
-}
-
-.item-wrapper .navbar .menu-toggle {
-  width: 42px;
-  height: 42px;
-  display: inline-block;
-  position: absolute;
-  top: 50%;
-  right: 20px;
-  -webkit-transform: translate(0%, -50%);
-          transform: translate(0%, -50%);
-}
-
-.item-wrapper .navbar .menu-toggle span {
-  display: block;
-  /* span預設inline */
-  width: 42px;
-  height: 2px;
-  background-color: #fff;
-  position: absolute;
-  left: 50%;
-  -webkit-transform: translate(-50%, 0%);
-          transform: translate(-50%, 0%);
-}
-
-.item-wrapper .navbar .menu-toggle span:nth-child(1) {
-  top: 35%;
-}
-
-.item-wrapper .navbar .menu-toggle span:nth-child(2) {
-  top: 60%;
-}
-
-.item-wrapper .navbar .close-btn {
-  width: 48px;
-  height: 48px;
-  /* border: 1px solid #fff; */
-  /* anchor預設inline */
-  position: absolute;
-  right: 16px;
-  top: 8px;
-  display: none;
-}
-
-.item-wrapper .navbar .close-btn span {
-  display: block;
-  /* span預設inline */
-  width: 40px;
-  height: 2px;
-  background-color: #fff;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  /* transform: translate(-50%,-50%); */
-}
-
-.item-wrapper .navbar .close-btn span:nth-child(1) {
-  -webkit-transform: translate(-50%, -50%) rotate(45deg);
-          transform: translate(-50%, -50%) rotate(45deg);
-}
-
-.item-wrapper .navbar .close-btn span:nth-child(2) {
-  -webkit-transform: translate(-50%, -50%) rotate(-45deg);
-          transform: translate(-50%, -50%) rotate(-45deg);
-}
-
-@media screen and (max-width: 768px) {
-  .item-wrapper .navbar .close-btn {
-    display: inline-block;
-  }
 }
 
 .item-wrapper .btn-wrapper {
@@ -1048,10 +935,122 @@ body {
   z-index: -1;
 }
 
+/* -------------------------- *\
+	Nav
+\* -------------------------- */
+.navbar {
+  position: fixed;
+  height: 50px;
+  width: 100vw;
+  z-index: 999;
+  /* menu-toggle */
+}
+
+.navbar .nav-item {
+  width: 100%;
+  height: 100%;
+}
+
+.navbar .nav-item .nav-logo {
+  background-image: url(/dist/logo.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 80px;
+  height: 30px;
+}
+
+.navbar .menu-toggle {
+  width: 42px;
+  height: 42px;
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  -webkit-transform: translate(0%, -50%);
+          transform: translate(0%, -50%);
+}
+
+.navbar .menu-toggle span {
+  display: block;
+  /* span預設inline */
+  width: 42px;
+  height: 2px;
+  background-color: #fff;
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0%);
+          transform: translate(-50%, 0%);
+}
+
+.navbar .menu-toggle span:nth-child(1) {
+  top: 35%;
+}
+
+.navbar .menu-toggle span:nth-child(2) {
+  top: 60%;
+}
+
+/* close-btn */
+.navbar .close-btn {
+  width: 48px;
+  height: 48px;
+  /* border: 1px solid #fff; */
+  /* anchor預設inline */
+  position: absolute;
+  right: 16px;
+  top: 8px;
+  display: none;
+}
+
+.navbar .close-btn span {
+  display: block;
+  /* span預設inline */
+  width: 40px;
+  height: 2px;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* transform: translate(-50%,-50%); */
+}
+
+/* transform會覆寫，因此寫在同一行 ＊空一格 */
+.navbar .close-btn span:nth-child(1) {
+  -webkit-transform: translate(-50%, -50%) rotate(45deg);
+          transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.navbar .close-btn span:nth-child(2) {
+  -webkit-transform: translate(-50%, -50%) rotate(-45deg);
+          transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+@media screen and (max-width: 768px) {
+  .navbar .close-btn {
+    display: inline-block;
+  }
+}
+
+/* -------------------------- *\
+	Loading
+\* -------------------------- */
 .loading {
   background: #000;
   width: 100vw;
   height: 100%;
+  position: fixed;
+  z-index: 99999;
+}
+
+.loading .loading-box {
+  width: 100%;
+  top: 20%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1065,46 +1064,38 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  position: fixed;
-  z-index: 99999;
 }
 
-.loading .loading .counter {
+.loading .loading-box .counter {
   text-align: center;
+  margin-top: -80px;
 }
 
-.loading .loading .counter p {
+.loading .loading-box .counter p {
   font-size: 40px;
   font-weight: 100;
-  color: #f60d54;
+  color: #EC5CF5;
 }
 
-.loading .loading .counter h1 {
+.loading .loading-box .counter h3 {
   color: #fff;
-  font-size: 60px;
-  margin-top: -10px;
+  margin-top: 20px;
 }
 
-.loading .loading .counter hr {
-  background: #f60d54;
+.loading .loading-box .counter hr {
+  background: #EC5CF5;
   border: none;
   height: 1px;
 }
 
-.loading .loading .counter {
+.loading .loading-box .counter {
   position: relative;
-  width: 200px;
-}
-
-.loading .loading .counter h1.abs {
-  position: absolute;
-  top: 0;
   width: 100%;
 }
 
-.loading .loading .counter .color {
-  width: 0px;
-  overflow: hidden;
-  color: #f60d54;
+.loading .loading-box .counter h1.abs {
+  position: absolute;
+  top: 0;
+  width: 100%;
 }
 /*# sourceMappingURL=style.css.map */

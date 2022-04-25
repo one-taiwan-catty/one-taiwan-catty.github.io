@@ -16,7 +16,6 @@
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
         integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jQuery.Marquee/1.5.0/jquery.marquee.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <!-- gsap -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
@@ -38,10 +37,6 @@
           "RGBELoader": "https://unpkg.com/three@0.138.0/examples/jsm/loaders/RGBELoader.js",
           "KTX2Loader": "https://unpkg.com/three@0.138.0/examples/jsm/loaders/KTX2Loader.js",
           "RoomEnvironment": "https://unpkg.com/three@0.138.0/examples/jsm/environments/RoomEnvironment.js",
-          "EffectComposer": "https://unpkg.com/three@0.138.0/examples/jsm/postprocessing/EffectComposer.js",
-          "RenderPass": "https://unpkg.com/three@0.138.0/examples/jsm/postprocessing/RenderPass.js",
-          "UnrealBloomPass": "https://unpkg.com/three@0.138.0/examples/jsm/postprocessing/UnrealBloomPass.js",
-          "ShaderPass": "https://unpkg.com/three@0.138.0/examples/jsm/postprocessing/ShaderPass.js",
           "lil-gui": "https://unpkg.com/three@0.138.0/examples/jsm/libs/lil-gui.module.min.js"
         }
       }
@@ -49,15 +44,15 @@
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
 <body>
-    <div class="loading" id="loading">
-        <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_aqmlws3s.json" mode="bounce" background="#000000"
-            speed="1.5" style="width: 300px; height: 300px;" loop autoplay></lottie-player>
-        <div class="counter">
-            <p>loading</p>
-            <h1>0%</h1>
-            <hr />
+    <!-- <div class="loading" id="loading">
+        <div class="loading-box">
+            <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_aqmlws3s.json" mode="bounce" background="#000000"
+                speed="1.5" style="width: 300px; height: 300px;" loop autoplay></lottie-player>
+            <div class="counter">
+                <hr />
+            </div>
         </div>
-    </div>
+    </div> -->
     <!-- Start Dialog -->
     <!-- <div class="mask">
         <div class="dialog">
@@ -93,53 +88,45 @@
     <!-- End Tutorial -->
 
     <!-- Start main -->
+    <div class="navbar">
+        <div class="nav-item">
+            <a href="index.html" class="nav-logo"></a>
+            <!-- <ul id="popup-menu" class="nav-popup">
+                            <li></li>
+                            <a href="#!" class="close-btn">
+                                <span></span>
+                                <span></span>
+                            </a>
+                    </ul> -->
+            <a href="#popup-menu" class="menu-toggle">
+                <span></span>
+                <span></span>
+            </a>
+        </div>
+    </div>
     <canvas class="webgl"></canvas>
-    <!-- <div class="wrapper" id="container"> -->
-        <!-- Start map -->
-        <!-- <div class="map-wrapper" id="map">
-            <a href="vegetable.html" class="veg"></a>
-            <a href="beef.html" class="beef"></a>
-            <a href="pork.html" class="pork"></a>
-            <a href="chicken.html" class="chicken"></a>
-            <a href="seafood.html" class="seafood"></a>
-            <a href="fruit.html" class="fruit"></a>
-        </div> -->
-        <!-- Start map -->
-    <!-- </div> -->
     <!-- End main -->
 
     <!-- js -->
-    <script type="x-shader/x-vertex" id="vertexshader">
-    
-    			varying vec2 vUv;
-    
-    			void main() {
-    
-    				vUv = uv;
-    
-    				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
-    
-    			}
-    
-    		</script>
-    
-    <script type="x-shader/x-fragment" id="fragmentshader">
-    
-    			uniform sampler2D baseTexture;
-    			uniform sampler2D bloomTexture;
-    
-    			varying vec2 vUv;
-    
-    			void main() {
-    
-    				gl_FragColor = ( texture2D( baseTexture, vUv ) + vec4( 1.0 ) * texture2D( bloomTexture, vUv ) );
-    
-    			}
-    
-    		</script>
     <script src="/src/index.js" type="module"></script>
     <script>
         $(document).ready(function () {
+            // $(window).on("load", function () {
+            //     $('#loading').delay(5000).fadeOut(1000);
+            //     let counter = 0;
+            //     let c = 0;
+            //     let i = setInterval(function () {
+            //         $(".loading .counter h1").html(c + "%");
+            //         $(".loading .counter hr").css("width", c + "%");
+
+            //         counter++;
+            //         c++;
+
+            //         if (counter == 101) {
+            //             clearInterval(i);
+            //         }
+            //     }, 10);
+            // });
             $("body").on("click", function (event) {
                 // console.log($(event.target))
                 if ($(event.target).hasClass("select-1")) {
@@ -189,24 +176,6 @@
                     })
                 }
             });
-        });
-        $(document).ready(function () {
-            $(window).on("load", function () {
-                $('#loading').delay(5000).fadeOut(1000);
-            });
-            let counter = 0;
-            let c = 0;
-            let i = setInterval(function () {
-                $(".loading .counter h1").html(c + "%");
-                $(".loading .counter hr").css("width", c + "%");
-
-                counter++;
-                c++;
-
-                if (counter == 101) {
-                    clearInterval(i);
-                }
-            }, 10);
         });
     </script>
 </body>

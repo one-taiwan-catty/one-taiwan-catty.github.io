@@ -18,69 +18,68 @@
     integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jQuery.Marquee/1.5.0/jquery.marquee.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
-    integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<!-- gsap -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/Draggable.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/ScrollToPlugin.min.js"
-    integrity="sha512-1OG9UO4krPizjtz/c9iDbjCqtXznBYdJeD4ccPaYfJHzC6F1qoQ3P1bgQ3J8lgCoK5qGVCqsY4+/RKjLDzITVQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- slick -->
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 </head>
 <body>
     <div class="stand stand-beef">
         <div class="stand-items stand-items-beef">
-            <div class="owl-carousel">
-                <a href="loosun.html" class="item item-beef item-beef-1">
-                    <h4>牛筋</h4>
-                </a>
-                <a href="loosun.html" class="item item-beef item-beef-2">
-                    <h4>牛腱</h4>
-                </a>
-                <a href="loosun.html" class="item item-beef item-beef-3">
-                    <h4>牛尾</h4>
-                </a>
-                <a href="loosun.html" class="item item-beef item-beef-4">
-                    <h4>牛肋條</h4>
-                </a>
-                <a href="loosun.html" class="item item-beef item-beef-5">
-                    <h4>牛小排</h4>
-                </a>
-                <a href="loosun.html" class="item item-beef item-beef-6">
-                    <h4>戰斧牛排</h4>
-                </a>
+            <div class="items">
+                <a href="loosun.html" class="item item-beef item-beef-1"></a>
+                <a href="loosun.html" class="item item-beef item-beef-2"></a>
+                <a href="loosun.html" class="item item-beef item-beef-3"></a>
+                <a href="loosun.html" class="item item-beef item-beef-4"></a>
+                <a href="loosun.html" class="item item-beef item-beef-5"></a>
+                <a href="loosun.html" class="item item-beef item-beef-6"></a>
+            </div>
+            <div class="items-name-box">
+                <div class="items-name">
+                    <a href="loosun.html">
+                        <h4>牛筋</h4>
+                    </a>
+                    <a href="loosun.html">
+                        <h4>牛腱</h4>
+                    </a>
+                    <a href="loosun.html">
+                        <h4>牛尾</h4>
+                    </a>
+                    <a href="loosun.html">
+                        <h4>牛肋條</h4>
+                    </a>
+                    <a href="loosun.html">
+                        <h4>牛小排</h4>
+                    </a>
+                    <a href="loosun.html">
+                        <h4>戰斧牛排</h4>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        $('.owl-carousel').owlCarousel({
-                loop: true,
-                items: 3,
-                margin: -20,
-                center: true,
-                freeDrag: false,
-                nav: true,
-                pullDrag: false,
-                info:true,
-                dots:false,
-            //     responsive: {
-            //     0: {
-            //         items: 3,
-            //         margin: -20,
-            //     },
-            //     375: {
-            //         items: 3,
-            //         nav: false
-            //     },
-            //     1000: {
-            //         items: 5,
-            //         nav: true,
-            //         loop: false
-            //     }
-            // }
-            })
+        $(document).ready(function () {
+            $('.items').slick({
+                arrows:false,
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                centerMode: true,
+                variableWidth:true
+            });
+            $('.items-name').slick({
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                centerMode: true,
+                asNavFor:'.items',
+                centerPadding:0,
+
+                // appendArrows:'.items-name-box'
+
+            });    
+        });
     </script>
 </body>
 </html>
