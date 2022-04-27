@@ -37,6 +37,10 @@ p {
   overflow: hidden;
 }
 
+ul, li {
+  list-style: none;
+}
+
 h1,
 h2,
 h3,
@@ -88,6 +92,171 @@ body {
 ::-webkit-scrollbar-button {
   width: 1px;
   height: 1px;
+}
+
+/* -------------------------- *\
+	Component
+\* -------------------------- */
+.item-chi-1 {
+  background-image: url(/dist/stand/stand-chi/chi-1.png);
+}
+
+.item-chi-2 {
+  background-image: url(/dist/stand/stand-chi/chi-2.png);
+}
+
+.item-chi-3 {
+  background-image: url(/dist/stand/stand-chi/chi-3.png);
+}
+
+.item-chi-4 {
+  background-image: url(/dist/stand/stand-chi/chi-4.png);
+}
+
+.item-chi-5 {
+  background-image: url(/dist/stand/stand-chi/chi-5.png);
+}
+
+.item-fruit-1 {
+  background-image: url(/dist/stand/stand-fruit/fruit-1.png);
+}
+
+.item-fruit-2 {
+  background-image: url(/dist/stand/stand-fruit/fruit-2.png);
+}
+
+.item-fruit-3 {
+  background-image: url(/dist/stand/stand-fruit/fruit-3.png);
+}
+
+.item-fruit-4 {
+  background-image: url(/dist/stand/stand-fruit/fruit-4.png);
+}
+
+.item-fruit-5 {
+  background-image: url(/dist/stand/stand-fruit/fruit-5.png);
+}
+
+.item-fruit-6 {
+  background-image: url(/dist/stand/stand-fruit/fruit-6.png);
+}
+
+.item-fish-1 {
+  background-image: url(/dist/stand/stand-fish/fish-1.png);
+}
+
+.item-fish-2 {
+  background-image: url(/dist/stand/stand-fish/fish-2.png);
+}
+
+.item-fish-3 {
+  background-image: url(/dist/stand/stand-fish/fish-3.png);
+}
+
+.item-fish-4 {
+  background-image: url(/dist/stand/stand-fish/fish-4.png);
+}
+
+.item-fish-5 {
+  background-image: url(/dist/stand/stand-fish/fish-5.png);
+}
+
+.item-fish-6 {
+  background-image: url(/dist/stand/stand-fish/fish-6.png);
+}
+
+.item-pork-1 {
+  background-image: url(/dist/stand/stand-pork/pork-1.png);
+}
+
+.item-pork-2 {
+  background-image: url(/dist/stand/stand-pork/pork-2.png);
+}
+
+.item-pork-3 {
+  background-image: url(/dist/stand/stand-pork/pork-3.png);
+}
+
+.item-pork-4 {
+  background-image: url(/dist/stand/stand-pork/pork-4.png);
+}
+
+.item-pork-5 {
+  background-image: url(/dist/stand/stand-pork/pork-5.png);
+}
+
+.item-pork-6 {
+  background-image: url(/dist/stand/stand-pork/pork-6.png);
+}
+
+.item-veg-1 {
+  background-image: url(/dist/stand/stand-veg/vege-1.png);
+}
+
+.item-veg-2 {
+  background-image: url(/dist/stand/stand-veg/vege-2.png);
+}
+
+.item-veg-3 {
+  background-image: url(/dist/stand/stand-veg/vege-3.png);
+}
+
+.item-veg-4 {
+  background-image: url(/dist/stand/stand-veg/vege-4.png);
+}
+
+.item-veg-5 {
+  background-image: url(/dist/stand/stand-veg/vege-5.png);
+}
+
+.item-veg-6 {
+  background-image: url(/dist/stand/stand-veg/vege-6.png);
+}
+
+.item-beef-1 {
+  background-image: url(/dist/stand/stand-beef/beef-1.png);
+}
+
+.item-beef-2 {
+  background-image: url(/dist/stand/stand-beef/beef-2.png);
+}
+
+.item-beef-3 {
+  background-image: url(/dist/stand/stand-beef/beef-3.png);
+}
+
+.item-beef-4 {
+  background-image: url(/dist/stand/stand-beef/beef-4.png);
+}
+
+.item-beef-5 {
+  background-image: url(/dist/stand/stand-beef/beef-5.png);
+}
+
+.item-beef-6 {
+  background-image: url(/dist/stand/stand-beef/beef-6.png);
+}
+
+.btn-item {
+  width: 44px;
+  height: 44px;
+  display: block;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  margin-top: 10px;
+  display: inline-block;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.nav-logo {
+  background-image: url(/dist/logo.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  z-index: 9999;
+  width: 80px;
+  height: 30px;
 }
 
 /* -------------------------- *\
@@ -428,7 +597,7 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: bottom;
+  background-position: center;
   width: 100vw;
   height: 100%;
   overflow: hidden;
@@ -437,7 +606,7 @@ body {
 .stand .stand-items {
   width: 100%;
   position: fixed;
-  bottom: 100px;
+  bottom: 10vh;
 }
 
 .stand .stand-items .items .slick-center {
@@ -467,6 +636,8 @@ body {
   left: 50%;
   -webkit-transform: translate(-50%, 0%);
           transform: translate(-50%, 0%);
+  position: fixed;
+  bottom: 15px;
 }
 
 .stand .stand-items .items-name-box .items-name .slick-center h4 {
@@ -475,6 +646,7 @@ body {
 
 .stand .stand-items .items-name-box .items-name h4 {
   color: #fff;
+  font-size: 18px;
   text-align: center;
   display: none;
 }
@@ -485,92 +657,46 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   display: inline-block;
   position: relative;
 }
 
 .stand .stand-items .items-name-box .items-name .slick-prev {
-  top: 18px;
+  top: 20px;
   left: 20px;
 }
 
 .stand .stand-items .items-name-box .items-name .slick-next {
-  top: -25px;
+  top: -27px;
   left: calc(90vw - 40px);
   -webkit-transform: rotate(180deg);
           transform: rotate(180deg);
 }
 
-.stand-vege {
-  background-image: url("/dist/stand-vege/vege-bg.png");
+.stand-chi {
+  background-image: url("/dist/stand/stand-chi/chi-bg.png");
 }
 
-.stand-vege .item-vege-1 {
-  background-image: url(/dist/stand-vege/vege-1.png);
+.stand-fruit {
+  background-image: url("/dist/stand/stand-fruit/fruit-bg.png");
 }
 
-.stand-vege .item-vege-2 {
-  background-image: url(/dist/stand-vege/vege-2.png);
+.stand-fish {
+  background-image: url("/dist/stand/stand-fish/fish-bg.png");
 }
 
-.stand-vege .item-vege-3 {
-  background-image: url(/dist/stand-vege/vege-3.png);
+.stand-pork {
+  background-image: url("/dist/stand/stand-pork/pork-bg.png");
 }
 
-.stand-vege .item-vege-4 {
-  background-image: url(/dist/stand-vege/vege-4.png);
-}
-
-.stand-vege .item-vege-5 {
-  background-image: url(/dist/stand-vege/vege-5.png);
-}
-
-.stand-vege .item-vege-6 {
-  background-image: url(/dist/stand-vege/vege-6.png);
+.stand-veg {
+  background-image: url("/dist/stand/stand-veg/vege-bg.png");
 }
 
 .stand-beef {
-  background-image: url("/dist/stand-beef/beef-bg.png");
-}
-
-.stand-beef .item-beef-1 {
-  background-image: url(/dist/stand-beef/beef-1.png);
-}
-
-.stand-beef .item-beef-2 {
-  background-image: url(/dist/stand-beef/beef-2.png);
-}
-
-.stand-beef .item-beef-3 {
-  background-image: url(/dist/stand-beef/beef-3.png);
-}
-
-.stand-beef .item-beef-4 {
-  background-image: url(/dist/stand-beef/beef-4.png);
-}
-
-.stand-beef .item-beef-5 {
-  background-image: url(/dist/stand-beef/beef-5.png);
-}
-
-.stand-beef .item-beef-6 {
-  background-image: url(/dist/stand-beef/beef-6.png);
-}
-
-.owl-nav {
-  background-image: url("/dist/bar.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  width: calc(100% - 40px);
-  height: 13vw;
-  position: absolute;
-  left: 50%;
-  -webkit-transform: translate(-50%, 0%);
-          transform: translate(-50%, 0%);
-  bottom: 0;
+  background-image: url("/dist//stand/stand-beef/beef-bg.png");
 }
 
 /* -------------------------- *\
@@ -585,22 +711,38 @@ body {
   /* background */
 }
 
+.item-wrapper.active .navbar {
+  background-color: #EC5CF5;
+}
+
+.item-wrapper.active .btn-wrapper .btn-item:nth-child(1), .item-wrapper.active .btn-wrapper .btn-item:nth-child(2) {
+  opacity: 0;
+  display: none;
+}
+
+.item-wrapper.active .btn-wrapper .btn-item:last-child {
+  opacity: 1;
+  display: inline-block;
+  background-color: #EC5CF5;
+}
+
 .item-wrapper .btn-wrapper {
   width: 44px;
   position: fixed;
-  z-index: 999;
+  z-index: 50;
   right: 20px;
   bottom: 20px;
   display: inline-block;
 }
 
-.item-wrapper .btn-wrapper .btn-item {
-  width: 44px;
-  height: 44px;
-  display: block;
-  border: 2px solid #fff;
-  border-radius: 50%;
-  margin-top: 10px;
+.item-wrapper .btn-wrapper .btn-item:last-child {
+  opacity: 0;
+  display: none;
+  background-color: #EC5CF5;
+}
+
+.item-wrapper .btn-wrapper .btn-item:last-child.active {
+  opacity: 1;
   display: inline-block;
 }
 
@@ -625,11 +767,15 @@ body {
   background-image: url(/dist/btn-info.svg);
 }
 
+.item-wrapper .btn-wrapper .btn-item .btn-icon.btn-top {
+  background-image: url(/dist/btn-top.svg);
+}
+
 .item-wrapper .marquee-wrapper {
   position: fixed;
   width: 40px;
   height: 100%;
-  z-index: 999;
+  z-index: 99;
 }
 
 .item-wrapper .marquee-wrapper .marquee-block {
@@ -684,6 +830,8 @@ body {
   width: 100vw;
   padding-left: 30px;
   height: 100%;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
   /* section-1 */
   /* section-2 */
   /* section-3 */
@@ -884,16 +1032,10 @@ body {
 }
 
 .item-wrapper .section-5 {
-  background-color: #d3d3d3;
+  background-color: #d6d5d5;
   height: 100%;
   padding-left: 0px;
   overflow: hidden;
-}
-
-.item-wrapper .section-5 .nav-pink {
-  height: 50px;
-  width: 100%;
-  background-color: #FF4EFD;
 }
 
 .item-wrapper .section-5 .picking {
@@ -913,7 +1055,7 @@ body {
 
 .item-wrapper .section-5 .picking .picking-para {
   text-align: justify;
-  padding: 10vh 3px 0 3px;
+  padding: 8vh 3px 0 3px;
   line-height: 1.8;
 }
 
@@ -943,16 +1085,49 @@ body {
   height: 50px;
   width: 100vw;
   z-index: 999;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
   /* menu-toggle */
 }
 
-.navbar .nav-item {
+.navbar.active {
+  background-color: #FF4EFC;
+}
+
+.navbar .nav-box {
   width: 100%;
   height: 100%;
 }
 
-.navbar .nav-item .nav-logo {
-  background-image: url(/dist/logo.svg);
+.navbar .nav-box .nav-logo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.navbar .popup-menu {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.navbar .popup-menu .nav {
+  width: 100%;
+  height: 80%;
+  position: absolute;
+  bottom: 0;
+}
+
+.navbar .popup-menu .nav .nav-pic {
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -961,13 +1136,32 @@ body {
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  width: 80px;
-  height: 30px;
+  width: 150px;
+  height: 150px;
+}
+
+.navbar .popup-menu .nav .nav-item {
+  border: 1px solid #fff;
+  width: 50%;
+  height: 33.3%;
+  float: left;
+}
+
+.navbar .popup-menu .nav .nav-link {
+  display: block;
+  color: #fff;
+  text-align: center;
+  position: absolute;
+  bottom: 20px;
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0%);
+          transform: translate(-50%, 0%);
 }
 
 .navbar .menu-toggle {
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   display: inline-block;
   position: absolute;
   top: 50%;
@@ -977,9 +1171,10 @@ body {
 }
 
 .navbar .menu-toggle span {
+  float: right;
   display: block;
   /* span預設inline */
-  width: 42px;
+  width: 44px;
   height: 2px;
   background-color: #fff;
   position: absolute;
@@ -996,31 +1191,32 @@ body {
   top: 60%;
 }
 
+#popup-menu:target {
+  opacity: 1;
+  visibility: visible;
+}
+
 /* close-btn */
 .navbar .close-btn {
-  width: 48px;
-  height: 48px;
-  /* border: 1px solid #fff; */
-  /* anchor預設inline */
+  width: 44px;
+  height: 44px;
   position: absolute;
-  right: 16px;
-  top: 8px;
-  display: none;
+  right: 8px;
+  top: 5px;
+  display: inline-block;
 }
 
 .navbar .close-btn span {
   display: block;
   /* span預設inline */
-  width: 40px;
+  width: 20px;
   height: 2px;
   background-color: #fff;
   position: absolute;
   top: 50%;
   left: 50%;
-  /* transform: translate(-50%,-50%); */
 }
 
-/* transform會覆寫，因此寫在同一行 ＊空一格 */
 .navbar .close-btn span:nth-child(1) {
   -webkit-transform: translate(-50%, -50%) rotate(45deg);
           transform: translate(-50%, -50%) rotate(45deg);
@@ -1029,12 +1225,6 @@ body {
 .navbar .close-btn span:nth-child(2) {
   -webkit-transform: translate(-50%, -50%) rotate(-45deg);
           transform: translate(-50%, -50%) rotate(-45deg);
-}
-
-@media screen and (max-width: 768px) {
-  .navbar .close-btn {
-    display: inline-block;
-  }
 }
 
 /* -------------------------- *\

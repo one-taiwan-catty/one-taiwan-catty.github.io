@@ -25,6 +25,13 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 </head>
 <body>
+    <!-- Start Nav -->
+    <div class="navbar">
+        <div class="nav-item">
+            <a href="index.html" class="nav-logo"></a>
+        </div>
+    </div>
+    <!-- End Nav -->
     <div class="stand stand-beef">
         <div class="stand-items stand-items-beef">
             <div class="items">
@@ -37,24 +44,12 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
             </div>
             <div class="items-name-box">
                 <div class="items-name">
-                    <a href="loosun.html">
-                        <h4>牛筋</h4>
-                    </a>
-                    <a href="loosun.html">
-                        <h4>牛腱</h4>
-                    </a>
-                    <a href="loosun.html">
-                        <h4>牛尾</h4>
-                    </a>
-                    <a href="loosun.html">
-                        <h4>牛肋條</h4>
-                    </a>
-                    <a href="loosun.html">
-                        <h4>牛小排</h4>
-                    </a>
-                    <a href="loosun.html">
-                        <h4>戰斧牛排</h4>
-                    </a>
+                    <div><h4>牛筋</h4></div>
+                    <div><h4>牛腱</h4></div>
+                    <div><h4>牛尾</h4></div>
+                    <div><h4>牛肋條</h4></div>
+                    <div><h4>牛小排</h4></div>
+                    <div><h4>戰斧牛排</h4></div>
                 </div>
             </div>
         </div>
@@ -67,7 +62,9 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                 slidesToShow: 3,
                 slidesToScroll: 1,
                 centerMode: true,
-                variableWidth:true
+                asNavFor: '.items-name',
+                variableWidth:true,
+                speed:200
             });
             $('.items-name').slick({
                 slidesToShow: 3,
@@ -75,9 +72,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                 centerMode: true,
                 asNavFor:'.items',
                 centerPadding:0,
-
-                // appendArrows:'.items-name-box'
-
+                speed: 200
             });    
         });
     </script>

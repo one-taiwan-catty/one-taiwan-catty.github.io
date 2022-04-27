@@ -1,5 +1,7 @@
 import * as dat from 'lil-gui'
 import * as THREE from 'three';
+import { OrbitControls } from 'OrbitControls';
+import { DragControls } from 'DragControls';
 import { MapControls } from 'OrbitControls';
 import { GLTFLoader } from 'GLTFLoader';
 import { DRACOLoader } from 'DRACOLoader';
@@ -10,18 +12,21 @@ import { RoomEnvironment } from 'RoomEnvironment';
 gsap.registerPlugin(ScrollTrigger);
 
 let camera, controls, raycaster, mouse;
-let models, bloom;
+let models;
 let model, stands;
 let porkStand, vegStand, fruitStand, fishStand, beefStand, chickenStand;
-let frustumSize,aspect;
+let porkIconLight, vegIconLight, fruitIconLight, fishIconLight, beefIconLight, chickenIconLight;
+let frustumSize, aspect;
+let dragX, dragZ;
+let minPan, maxPan;
+
 
 const canvas = document.querySelector('canvas.webgl');
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
     antialias: true,
 });
-const gui = new dat.GUI()
-// const raycaster = new THREE.Raycaster()
+// const gui = new dat.GUI()
 const scene = new THREE.Scene();
 
 /* -------------------------------------------------------------
@@ -80,11 +85,8 @@ function init() {
     aspect = window.innerWidth / window.innerHeight;
     camera = new THREE.OrthographicCamera( frustumSize * aspect / - 2, frustumSize * aspect / 2, frustumSize / 2, frustumSize / - 2, 1, 1000 );
     camera.position.set( - 120, 100, 200 );
-    gui.add(camera.position, 'x').min(-300).max(300).step(1);
-    gui.add(camera.position, 'y').min(-300).max(300).step(1);
-    gui.add(camera.position, 'z').min(-300).max(300).step(1);
 
-    camera.zoom = 1;
+    camera.zoom = 1.2;
     scene.add(camera);
 
     // const helper = new THREE.CameraHelper( camera );
@@ -114,7 +116,33 @@ function init() {
     
             stands = new THREE.Group();
             stands.add(porkStand, vegStand, fruitStand, fishStand, beefStand, chickenStand)
-            console.log(stands)
+
+            // let porkIconLight, vegIconLight, fruitIconLight, fishIconLight, beefIconLight, chickenIconLight;
+
+            porkIconLight = gltf.scene.children.find((child) => child.name === 'porkIconLight')
+            vegIconLight = gltf.scene.children.find((child) => child.name === 'vegIconLight')
+            fruitIconLight = gltf.scene.children.find((child) => child.name === 'fruitIconLight')
+            fishIconLight = gltf.scene.children.find((child) => child.name === 'fishIconLight')
+            beefIconLight = gltf.scene.children.find((child) => child.name === 'beefIconLight')
+            chickenIconLight = gltf.scene.children.find((child) => child.name === 'chickenIconLight')
+
+            porkIconLight.material.transparent = true;
+            porkIconLight.material.opacity = 0;
+
+            vegIconLight.material.transparent = true;
+            vegIconLight.material.opacity = 0;
+
+            fruitIconLight.material.transparent = true;
+            fruitIconLight.material.opacity = 0;
+
+            fishIconLight.material.transparent = true;
+            fishIconLight.material.opacity = 0;
+
+            beefIconLight.material.transparent = true;
+            beefIconLight.material.opacity = 0;
+
+            chickenIconLight.material.transparent = true;
+            chickenIconLight.material.opacity = 0;
 
             models = new THREE.Group();
             models.add(stands, model)
@@ -124,7 +152,7 @@ function init() {
                     children.shadow.camera.near = 0.001;
                     children.shadow.camera.updateProjectionMatrix();
                 }
-                if (children.isMesh ) {
+                if (children.isMesh) {
                     children.castShadow = true;
                     children.receiveShadow = true;
                 }
@@ -138,13 +166,26 @@ function init() {
     /* -------------------------------------------------------------
      * Controls
     ------------------------------------------------------------- */
-    controls = new MapControls(camera, canvas);
+
+    controls = new MapControls(camera, canvas) 
+
     controls.enableDamping = true;
+    controls.dampingFactor = 0.25;
     // controls.enableZoom = false;
     controls.enableRotate = false;
-
     renderer.domElement.addEventListener('click', onClick, false);
 
+    const minPan = new THREE.Vector3( - .8, - .8, - .8 );
+    const maxPan = new THREE.Vector3( .8, .8, .8 );
+    const _v = new THREE.Vector3();
+    
+    controls.addEventListener("change", function() {
+    	_v.copy(controls.target);
+    	controls.target.clamp(minPan, maxPan);
+        _v.sub(controls.target);
+        camera.position.sub(_v);
+    })
+    // scene.add( new THREE.AxesHelper( .8 ) );
 };
 
 /* -------------------------------------------------------------
@@ -192,11 +233,14 @@ function onClick() {
     };
     
     const zoom = 2;
-    if (intersects.length > 0) {
-        console.log('Intersection:', intersects[0].object.parent.name);
-    }
+    // if (intersects.length > 0) {
+    //     console.log('Intersection:', intersects[0].object.parent.name);
+    // }
     if (intersects[0].object.parent.name === 'porkStand') {
         console.log('porkStand');
+        if (porkIconLight) { 
+            porkIconLight.material.opacity = 1;
+        } 
         zoomInTimeline(porkStand.position.x, porkStand.position.y + .03, porkStand.position.z + .09, .1);
         camera.zoom = zoom;
         camera.updateProjectionMatrix();
@@ -242,6 +286,7 @@ function onClick() {
 }
 
 
+
 /* -------------------------------------------------------------
  * Renderer
 ------------------------------------------------------------- */
@@ -258,12 +303,11 @@ renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1;
 renderer.outputEncoding = THREE.sRGBEncoding;
 
-// const environment = new RoomEnvironment();
 const pmremGenerator = new THREE.PMREMGenerator( renderer );
-// pmremGenerator.compileEquirectangularShader();
 
-// scene.environment = pmremGenerator.fromScene(environment).texture;
-
+function render() {
+    renderer.render( scene, camera );
+}
 /* -------------------------------------------------------------
  * Cursor
 ------------------------------------------------------------- */
@@ -279,6 +323,8 @@ window.addEventListener('mousemove', (event) =>
 
 init();
 
+
+
 /* -------------------------------------------------------------
 * Animate
 ------------------------------------------------------------- */
@@ -288,16 +334,61 @@ const tick = () => {
     
     // Update controls
     controls.update();
-    
-    renderer.render(scene, camera)
+    let dragX = Math.round((camera.position.x + Number.EPSILON) * 1000) / 1000;      
+    let dragZ = Math.round((camera.position.z + Number.EPSILON) * 1000) / 1000;
 
+    // porkLight
+    if (dragX < -120 && dragZ > 200.1) {
+        if (porkIconLight) { 
+            porkIconLight.material.opacity = 1;
+            porkIconLight.rotation.z = elapsedTime * 1.3;
+        } 
+    }
+    // beefLight
+    if (dragX > -119.6 && dragZ > 200.4) {
+        if (beefIconLight) { 
+            beefIconLight.material.opacity = 1;
+            beefIconLight.rotation.z = elapsedTime * 1.3;
+        } 
+    }
 
+    // vegLight
+    if (dragX > -119.3 && dragZ > 199.7) {
+        if (vegIconLight) { 
+            vegIconLight.material.opacity = 1;
+            vegIconLight.rotation.z = elapsedTime * 1.3;
+        } 
+    }
+    // fishLight
+    if (dragX > -119.7 && dragZ > 199.3) {
+        if (fishIconLight) { 
+            fishIconLight.material.opacity = 1;
+            fishIconLight.rotation.z = elapsedTime * 1.3;
+        } 
+    }
+    // fruitLight
+    if (dragX < -120.2 && dragZ < 199.5) {
+        if (fruitIconLight) { 
+            fruitIconLight.material.opacity = 1;
+            fruitIconLight.rotation.z = elapsedTime * 1.3;
+        } 
+    }
+
+    // chickenLight
+    if (dragX < -120.6 && dragZ > 199.5) {
+        // console.log('chicken')
+        if (chickenIconLight) { 
+            chickenIconLight.material.opacity = 1;
+            chickenIconLight.rotation.z = elapsedTime * 1.3;
+        } 
+    }
+
+    render();
     // Call tick again on the next frame
     window.requestAnimationFrame(tick);
-
 };
 
 tick();
-function standsShow(stands) {
+// function standsShow(stands) {
     
-}
+// }

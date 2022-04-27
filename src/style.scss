@@ -45,7 +45,7 @@ p{
 $light-gray: #d6d5d5;
 $black: #000;
 $white: #fff;
-$blue: #0f4c81;
+$pink:#EC5CF5;
 
 @mixin background($size) {
   background-position: center;
@@ -63,7 +63,9 @@ $blue: #0f4c81;
   left: 50%;
   transform: translate(-50%, 0%);
 }
-
+ul,li{
+  list-style: none;
+}
 h1,
 h2,
 h3,
@@ -113,11 +115,143 @@ body {
   height: 1px;
 }
 // ** 隱藏滾動條 ** \\
+/* -------------------------- *\
+	Component
+\* -------------------------- */
+.item {
+  &-chi {
+    &-1 {
+      background-image: url(/dist/stand/stand-chi/chi-1.png);
+    }
 
+    &-2 {
+      background-image: url(/dist/stand/stand-chi/chi-2.png);
+    }
+
+    &-3 {
+      background-image: url(/dist/stand/stand-chi/chi-3.png);
+    }
+
+    &-4 {
+      background-image: url(/dist/stand/stand-chi/chi-4.png);
+    }
+
+    &-5 {
+      background-image: url(/dist/stand/stand-chi/chi-5.png);
+    }
+  }
+  &-fruit {
+    &-1 {
+      background-image: url(/dist/stand/stand-fruit/fruit-1.png);
+    }
+  
+    &-2 {
+      background-image: url(/dist/stand/stand-fruit/fruit-2.png);
+    }
+  
+    &-3 {
+      background-image: url(/dist/stand/stand-fruit/fruit-3.png);
+    }
+  
+    &-4 {
+      background-image: url(/dist/stand/stand-fruit/fruit-4.png);
+    }
+  
+    &-5 {
+      background-image: url(/dist/stand/stand-fruit/fruit-5.png);
+    }
+  
+    &-6 {
+      background-image: url(/dist/stand/stand-fruit/fruit-6.png);
+    }
+  }
+  &-fish {
+    &-1 {
+      background-image: url(/dist/stand/stand-fish/fish-1.png);
+    }
+  
+    &-2 {
+      background-image: url(/dist/stand/stand-fish/fish-2.png);
+    }
+  
+    &-3 {
+      background-image: url(/dist/stand/stand-fish/fish-3.png);
+    }
+  
+    &-4 {
+      background-image: url(/dist/stand/stand-fish/fish-4.png);
+    }
+  
+    &-5 {
+      background-image: url(/dist/stand/stand-fish/fish-5.png);
+    }
+  
+    &-6 {
+      background-image: url(/dist/stand/stand-fish/fish-6.png);
+    }
+  }
+  &-pork {
+    &-1 {
+      background-image: url(/dist/stand/stand-pork/pork-1.png);
+    }
+  
+    &-2 {
+      background-image: url(/dist/stand/stand-pork/pork-2.png);
+    }
+  
+    &-3 {
+      background-image: url(/dist/stand/stand-pork/pork-3.png);
+    }
+  
+    &-4 {
+      background-image: url(/dist/stand/stand-pork/pork-4.png);
+    }
+  
+    &-5 {
+      background-image: url(/dist/stand/stand-pork/pork-5.png);
+    }
+  
+    &-6 {
+      background-image: url(/dist/stand/stand-pork/pork-6.png);
+    }
+  }
+  &-veg {
+    &-1 {background-image: url(/dist/stand/stand-veg/vege-1.png);}
+    &-2 {background-image: url(/dist/stand/stand-veg/vege-2.png);}
+    &-3 {background-image: url(/dist/stand/stand-veg/vege-3.png);}
+    &-4 {background-image: url(/dist/stand/stand-veg/vege-4.png);}
+    &-5 {background-image: url(/dist/stand/stand-veg/vege-5.png);}
+    &-6 {background-image: url(/dist/stand/stand-veg/vege-6.png);}
+  }
+  &-beef {
+    &-1 {background-image: url(/dist/stand/stand-beef/beef-1.png);}
+    &-2 {background-image: url(/dist/stand/stand-beef/beef-2.png);}
+    &-3 {background-image: url(/dist/stand/stand-beef/beef-3.png);}
+    &-4 {background-image: url(/dist/stand/stand-beef/beef-4.png);}
+    &-5 {background-image: url(/dist/stand/stand-beef/beef-5.png);}
+    &-6 {background-image: url(/dist/stand/stand-beef/beef-6.png);}
+  }
+}
+.btn-item {
+  width: 44px;
+  height: 44px;
+  display: block;
+  border: 2px solid $white;
+  border-radius: 50%;
+  margin-top: 10px;
+  display: inline-block;
+  transition: all 0.5s;
+}
+.nav-logo {
+  background-image: url(/dist/logo.svg);
+  @include background(contain);
+  z-index: 9999;
+  width: 80px;
+  height: 30px;
+}
 /* -------------------------- *\
 	Index
 \* -------------------------- */
-
 .dialog{
   z-index: 2000;
   position: fixed;
@@ -318,14 +452,14 @@ body {
 \* -------------------------- */
 .stand{
   @include background(cover);
-  background-position: bottom;
+  background-position: center;
   width: 100vw;
   height: 100%;
   overflow: hidden;
   .stand-items{ 
     width: 100%;
     position: fixed;
-    bottom: 100px;
+    bottom: 10vh;
     .items{
       .slick-center{
       @include background(contain);
@@ -344,6 +478,8 @@ body {
       @include background(contain);
       width: 90%;
       @include verticalCenter();
+      position: fixed;
+      bottom: 15px;
       .items-name{
         .slick-center {
           h4 {
@@ -352,6 +488,7 @@ body {
         }
         h4{
           color: $white;
+          font-size: 18px;
           text-align: center;
           display: none;
         }
@@ -359,18 +496,18 @@ body {
           font-size: 0;
           background-image: url('/dist/arrow.svg');
           @include background(contain);
-          width: 18px;
-          height: 18px;
+          width: 20px;
+          height: 20px;
           display: inline-block;
           position: relative;
         }
         .slick-prev {
           // transform: translate(20px, 100%);
-          top: 18px;
+          top: 20px;
           left: 20px;
         }
         .slick-next {
-          top: -25px;
+          top: -27px;
           left: calc(90vw - 40px);
           transform: rotate(180deg);
         }
@@ -378,67 +515,30 @@ body {
     }
     
   }
-  // ** vege-stand ** //
-  &-vege{
-    background-image: url('/dist/stand-vege/vege-bg.png');
-    .item{
-      &-vege{
-        &-1{
-          background-image: url(/dist/stand-vege/vege-1.png);
-        }
-        &-2{
-          background-image: url(/dist/stand-vege/vege-2.png);
-        }
-        &-3{
-          background-image: url(/dist/stand-vege/vege-3.png);
-        }
-        &-4{
-          background-image: url(/dist/stand-vege/vege-4.png);
-        }
-        &-5{
-          background-image: url(/dist/stand-vege/vege-5.png);
-        }
-        &-6{
-          background-image: url(/dist/stand-vege/vege-6.png);
-        }
-      }
-    }
+  // ** chi-stand ** //
+  &-chi {
+    background-image: url('/dist/stand/stand-chi/chi-bg.png');
+  }
+  // ** fruit-stand ** //
+  &-fruit {
+    background-image: url('/dist/stand/stand-fruit/fruit-bg.png');
+  }
+  // ** fish-stand ** //
+  &-fish {
+    background-image: url('/dist/stand/stand-fish/fish-bg.png');
+  }
+  // ** pork-stand ** //
+  &-pork {
+    background-image: url('/dist/stand/stand-pork/pork-bg.png');
+  }
+  // ** veg-stand ** //
+  &-veg{
+    background-image: url('/dist/stand/stand-veg/vege-bg.png');
   }
   // ** beef-stand ** //
   &-beef{
-    background-image: url('/dist/stand-beef/beef-bg.png');
-    .item{
-      &-beef{
-        &-1{
-          background-image: url(/dist/stand-beef/beef-1.png);
-        }
-        &-2{
-          background-image: url(/dist/stand-beef/beef-2.png);
-        }
-        &-3{
-          background-image: url(/dist/stand-beef/beef-3.png);
-        }
-        &-4{
-          background-image: url(/dist/stand-beef/beef-4.png);
-        }
-        &-5{
-          background-image: url(/dist/stand-beef/beef-5.png);
-        }
-        &-6{
-          background-image: url(/dist/stand-beef/beef-6.png);
-        }
-      }
-    }
+    background-image: url('/dist//stand/stand-beef/beef-bg.png');
   }
-  
-}
-.owl-nav{
-  background-image: url('/dist/bar.png');
-  @include background(contain);
-  width: calc(100% - 40px);
-  height: 13vw;
-  @include verticalCenter();
-  bottom: 0; 
 }
 /* -------------------------- *\
 	Item
@@ -448,26 +548,45 @@ body {
   margin: auto;
   width: 100vw;
   height: 100%;
-  
+  &.active{
+    .navbar {
+      background-color: $pink;
+    }
+    .btn-wrapper{
+      .btn-item{
+        &:nth-child(1),
+        &:nth-child(2) {
+          opacity: 0;
+          display: none;
+        }
+        &:last-child {
+          opacity: 1;
+          display: inline-block;
+          background-color: $pink;
+        }
+      }
+    }
+  }
 
   /* Btn */
   .btn-wrapper{
     width: 44px;
     position: fixed;
-    z-index: 999;
+    z-index: 50;
     right: 20px;
     bottom: 20px;
     display: inline-block;
 
     .btn-item{
-      width: 44px;
-      height: 44px;
-      display: block;
-      border: 2px solid #fff;
-      border-radius: 50%;
-      margin-top: 10px;
-      display: inline-block;
-
+      &:last-child{
+          opacity: 0;
+          display: none;
+          background-color: $pink;
+        &.active{
+          opacity: 1;
+          display: inline-block;
+        }
+      }
       .btn-icon{
         @include background(contain);
         width: 20px;
@@ -479,6 +598,9 @@ body {
         &.btn-picking{
           background-image: url(/dist/btn-info.svg);
         }
+        &.btn-top {
+          background-image: url(/dist/btn-top.svg);
+        }
       }
     }
   }
@@ -489,7 +611,7 @@ body {
   position: fixed;
   width: 40px;
   height: 100%;
-  z-index: 999;
+  z-index: 99;
   }
   .marquee-wrapper .marquee-block{
     width: 100%;
@@ -528,7 +650,7 @@ body {
     width: 100vw;
     padding-left: 30px;
     height: 100%;
-
+    transition: all 0.5s;
     /* section-1 */
     &-1{
     // overflow: hidden;
@@ -574,7 +696,7 @@ body {
         @include verticalCenter;
 
         span{
-          color: #fff;
+          color: $white;
           font-size: 30px;
           position: absolute;
           left: 180px;
@@ -666,33 +788,25 @@ body {
 
     /* section-5 */
     &-5{
-      background-color: #d3d3d3;
+      background-color: $light-gray;
       height: 100%;
       padding-left: 0px;
       overflow: hidden;
-
-      .nav-pink{
-        height: 50px;
-        width: 100%;
-        background-color: #FF4EFD;
-      }
       .picking{
-        border-left: 1px solid #000;
-        border-right: 1px solid #000;
-
+        border-left: 1px solid $black;
+        border-right: 1px solid $black;
         width: 50%;
         height: 100%;
         position: absolute;
         right: 0;
         .picking-title{
-        text-align: center;
-
+          text-align: center;
           padding-top: 10vh;
           font-size: 12vw;
         }
         .picking-para{
           text-align: justify;
-          padding: 10vh 3px 0 3px;
+          padding: 8vh 3px 0 3px;
           line-height: 1.8;
         }
       }
@@ -720,34 +834,70 @@ body {
   height: 50px;
   width: 100vw;
   z-index: 999;
-  .nav-item {
+  transition: all 0.5s;
+  &.active {
+    background-color: #FF4EFC;
+  }
+  .nav-box {
     width: 100%;
     height: 100%;
 
     .nav-logo {
-      background-image: url(/dist/logo.svg);
-      @include background(contain);
       @include center();
-
-      width: 80px;
-      height: 30px;
     }
   }
-
+  .popup-menu{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $black;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s;
+    .nav {
+      width: 100%;
+      height: 80%;
+      position: absolute;
+      bottom: 0;
+      .nav-pic{
+        @include background(contain);
+        @include center();
+        width: 150px;
+        height: 150px;
+      }
+      .nav-item {
+        border: 1px solid $white;
+        width: 50%;
+        height: 33.3%;
+        float: left;
+      }
+      .nav-link {
+        display: block;
+        color: $white;
+        text-align: center;
+        position: absolute;
+        bottom: 20px;
+        @include verticalCenter();
+      }
+    }
+  }
+  
   /* menu-toggle */
   .menu-toggle {
-    width: 42px;
-    height: 42px;
+    width: 44px;
+    height: 44px;
     display: inline-block;
     position: absolute;
     top: 50%;
     right: 20px;
     transform: translate(0%, -50%);
-
     span {
+      float: right;
       display: block;
       /* span預設inline */
-      width: 42px;
+      width: 44px;
       height: 2px;
       background-color: $white;
       @include verticalCenter;
@@ -762,33 +912,32 @@ body {
     }
   }
 }
+#popup-menu:target {
+  opacity: 1;
+  visibility: visible;
+}
 
 /* close-btn */
 
 .navbar .close-btn {
-  width: 48px;
-  height: 48px;
-  /* border: 1px solid #fff; */
-  /* anchor預設inline */
+  width: 44px;
+  height: 44px;
   position: absolute;
-  right: 16px;
-  top: 8px;
-  display: none;
+  right: 8px;
+  top: 5px;
+  display: inline-block;
 }
 
 .navbar .close-btn span {
   display: block;
   /* span預設inline */
-  width: 40px;
+  width: 20px;
   height: 2px;
   background-color: $white;
   position: absolute;
   top: 50%;
   left: 50%;
-  /* transform: translate(-50%,-50%); */
 }
-
-/* transform會覆寫，因此寫在同一行 ＊空一格 */
 
 .navbar .close-btn span:nth-child(1) {
   transform: translate(-50%, -50%) rotate(45deg);
@@ -796,12 +945,6 @@ body {
 
 .navbar .close-btn span:nth-child(2) {
   transform: translate(-50%, -50%) rotate(-45deg);
-}
-
-@media screen and (max-width:768px) {
-  .navbar .close-btn {
-    display: inline-block;
-  }
 }
 
 /* -------------------------- *\
@@ -828,7 +971,7 @@ body {
     .counter p {
       font-size: 40px;
       font-weight: 100;
-      color: #EC5CF5;
+      color: $pink;
     }
     
     .counter h3 {
@@ -838,7 +981,7 @@ body {
     }
     
     .counter hr {
-      background: #EC5CF5;
+      background: $pink;
       border: none;
       height: 1px;
     }

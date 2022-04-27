@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh_TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>斤一斤</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+    integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/src/style.css">
+<!-- font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500&family=Zen+Antique&display=swap"
+    rel="stylesheet">
+<!-- jquery -->
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+    integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jQuery.Marquee/1.5.0/jquery.marquee.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- slick -->
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+</head>
+<body>
+    <!-- Start Nav -->
+    <div class="navbar">
+        <div class="nav-item">
+            <a href="index.html" class="nav-logo"></a>
+        </div>
+    </div>
+    <!-- End Nav -->
+    <div class="stand stand-fish">
+        <div class="stand-items stand-items-fish">
+            <div class="items">
+                <a href="loosun.html" class="item item-fish item-fish-1"></a>
+                <a href="loosun.html" class="item item-fish item-fish-2"></a>
+                <a href="loosun.html" class="item item-fish item-fish-3"></a>
+                <a href="loosun.html" class="item item-fish item-fish-4"></a>
+                <a href="loosun.html" class="item item-fish item-fish-5"></a>
+                <a href="loosun.html" class="item item-fish item-fish-6"></a>
+            </div>
+            <div class="items-name-box">
+                <div class="items-name">
+                    <div>
+                        <h4>虱目魚</h4>
+                    </div>
+                    <div>
+                        <h4>鮭魚</h4>
+                    </div>
+                    <div>
+                        <h4>透抽</h4>
+                    </div>
+                    <div>
+                        <h4>鱈魚</h4>
+                    </div>
+                    <div>
+                        <h4>台灣蛤</h4>
+                    </div>
+                    <div>
+                        <h4>草蝦</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+                $('.items').slick({
+                    arrows: false,
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                    centerMode: true,
+                    asNavFor: '.items-name',
+                    variableWidth: true,
+                    speed: 200
+                });
+                $('.items-name').slick({
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                    centerMode: true,
+                    asNavFor: '.items',
+                    centerPadding: 0,
+                    speed: 200
+                });
+            });
+    </script>
+</body>
+</html>

@@ -27,16 +27,9 @@
     ></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jQuery.Marquee/1.5.0/jquery.marquee.min.js"></script>
     <!-- gsap -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/Draggable.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/ScrollToPlugin.min.js"
-      integrity="sha512-1OG9UO4krPizjtz/c9iDbjCqtXznBYdJeD4ccPaYfJHzC6F1qoQ3P1bgQ3J8lgCoK5qGVCqsY4+/RKjLDzITVQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.14.2/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/ScrollToPlugin.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/ScrollTrigger.min.js"></script>
     <!-- Threejs -->
     <script type="importmap">
@@ -57,31 +50,59 @@
       <div class="item-weigh"></div>
       <!-- Start navbar -->
       <div class="navbar">
-        <div class="nav-item">
+        <div class="nav-box">
           <a href="index.html" class="nav-logo"></a>
-          <!-- <ul id="popup-menu" class="nav-popup">
-                        <li></li>
-                        <a href="#!" class="close-btn">
-                            <span></span>
-                            <span></span>
-                        </a>
-                </ul> -->
-          <a href="#popup-menu" class="menu-toggle">
+          <a href="#popup-menu" class="menu-toggle" id="toggle">
             <span></span>
             <span></span>
           </a>
+          <div class="popup-menu" id="popup-menu">
+            <ul class="nav">
+              <li class="nav-item">
+                <div class="nav-pic item-veg-1"></div>
+                <a href="#!" class="nav-link">白菜</a>
+              </li>
+              <li class="nav-item">
+                <div class="nav-pic item-veg-2"></div>
+                <a href="#!" class="nav-link">高麗菜</a>
+              </li>
+              <li class="nav-item">
+                <div class="nav-pic item-veg-3"></div>
+                <a href="#!" class="nav-link">花椰菜</a>
+              </li>
+              <li class="nav-item">
+                <div class="nav-pic item-veg-4"></div>
+                <a href="#!" class="nav-link">蘆筍</a>
+              </li>
+              <li class="nav-item">
+                <div class="nav-pic item-veg-5"></div>
+                <a href="#!" class="nav-link">苦瓜</a>
+              </li>
+              <li class="nav-item">
+                <div class="nav-pic item-veg-6"></div>
+                <a href="#!" class="nav-link">南瓜</a>
+              </li>
+            </ul>
+            <a href="#!" class="close-btn" id="close">
+              <span></span>
+              <span></span>
+            </a>
+          </div>
         </div>
       </div>
       <!-- Emd navbar -->
 
       <!-- Start Btn -->
       <div class="btn-wrapper">
-        <a class="btn-item" href="#weigh">
+        <button class="btn-item btn-item-weigh" data-target="#weigh" id="btn-weigh">
           <div class="btn-icon btn-weigh"></div>
-        </a>
-        <a class="btn-item" href="#picking">
+        </button>
+        <button class="btn-item" href="#picking" id="btn-picking">
           <div class="btn-icon btn-picking"></div>
-        </a>
+        </button>
+        <button class="btn-item" href="#top" id="btn-top">
+          <div class="btn-icon btn-top"></div>
+        </button>
       </div>
       <!-- End Btn -->
 
@@ -111,7 +132,7 @@
       <!-- Start main -->
 
       <!-- Start section-1 -->
-      <div class="section section-1">
+      <div class="section section-1" id="section3">
         <a href="#" class="scroll"></a>
       </div>
       <!-- End section-1 -->
@@ -134,20 +155,14 @@
       <!-- End section-3 -->
 
       <!-- Start section-4 -->
-      <div class="section section-4" id="weigh">
+      <div class="section section-4" id="section1">
         <div class="cooking-title"></div>
         <div class="cooking-subtitle"  style="background-image: url(../dist/cook-loosun.svg);"></div>
-        <div class="cooking-dishes">
-          <!-- <div class="dish dish-0"></div> -->
-          <!-- <div class="dish dish-1"></div> -->
-          <div class="dish dish-2"></div>
-        </div>
       </div>
       <!-- End section-4 -->
 
       <!-- Start section-5 -->
-      <div class="section section-5" id="picking">
-        <div class="nav-pink"></div>
+      <div class="section section-5" id="section2">
         <div class="picking">
           <div class="picking-title">挑選指南</div>
           <p class="picking-para">
@@ -160,5 +175,58 @@
     </div>
 
     <script src="/src/main.js" type="module"></script>
+    <script>
+      $(document).ready(function() {
+        const tween = gsap.timeline()
+        let tl = tween.from('#btn-weigh', {
+          scrollTrigger: {
+            trigger: ".item-wrapper",
+            duration: { min: 2, max: 3 },
+            start: '500% 0%',
+            end: '600% 0%',
+            toggleClass: "active",
+          },
+        })
+        .from('#btn-picking', {
+          scrollTrigger: {
+            trigger: ".item-wrapper",
+            duration: { min: 2, max: 3 },
+            start: '500% 0%',
+            end: '600% 0%',
+            toggleClass: "active",
+          },
+        })
+        .from('#btn-top', {
+          scrollTrigger: {
+            trigger: ".item-wrapper",
+            duration: { min: 2, max: 3 },
+            start: '500% 0%',
+            end: '600% 0%',
+            toggleClass: "active",
+          },
+        })
+        .from('.navbar', {
+          scrollTrigger: {
+            trigger: ".item-wrapper",
+            duration: { min: 2, max: 3 },
+            start: '500% 0%',
+            end: '600% 0%',
+            toggleClass: "active",
+          },
+        })
+      });
+      document.querySelectorAll(".btn-wrapper button").forEach((btn, index) => {
+        btn.addEventListener("click", () => {
+          gsap.to(window, { duration: 1.5, scrollTo: { y: "#section" + (index + 1), offsetY: -70 } });
+        });
+      });
+      document.getElementById("toggle").addEventListener("click", () => {
+          gsap.fromTo('.nav-logo', { duration: 1, x: 0}, { duration: 1, x: -110, ease: "ease" });
+      });
+      document.getElementById("close").addEventListener("click", () => {
+          gsap.fromTo('.nav-logo', { duration: 1, x: -110 }, { duration: 1, x:0, ease: "ease" });
+        });
+      
+    </script>
   </body>
 </html>

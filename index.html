@@ -32,10 +32,9 @@
         "imports": {
           "three": "https://unpkg.com/three@0.138.0/build/three.module.js",
           "OrbitControls": "https://unpkg.com/three@0.138.0/examples/jsm/controls/OrbitControls.js",
+          "DragControls": "https://unpkg.com/three@0.138.0/examples/jsm/controls/DragControls.js",
           "DRACOLoader": "https://unpkg.com/three@0.138.0/examples/jsm/loaders/DRACOLoader.js",
           "GLTFLoader": "https://unpkg.com/three@0.138.0/examples/jsm/loaders/GLTFLoader.js",
-          "RGBELoader": "https://unpkg.com/three@0.138.0/examples/jsm/loaders/RGBELoader.js",
-          "KTX2Loader": "https://unpkg.com/three@0.138.0/examples/jsm/loaders/KTX2Loader.js",
           "RoomEnvironment": "https://unpkg.com/three@0.138.0/examples/jsm/environments/RoomEnvironment.js",
           "lil-gui": "https://unpkg.com/three@0.138.0/examples/jsm/libs/lil-gui.module.min.js"
         }
@@ -88,22 +87,49 @@
     <!-- End Tutorial -->
 
     <!-- Start main -->
+    <!-- Start navbar -->
     <div class="navbar">
-        <div class="nav-item">
+        <div class="nav-box">
             <a href="index.html" class="nav-logo"></a>
-            <!-- <ul id="popup-menu" class="nav-popup">
-                            <li></li>
-                            <a href="#!" class="close-btn">
-                                <span></span>
-                                <span></span>
-                            </a>
-                    </ul> -->
-            <a href="#popup-menu" class="menu-toggle">
+            <a href="#popup-menu" class="menu-toggle" id="toggle">
                 <span></span>
                 <span></span>
             </a>
+            <div class="popup-menu" id="popup-menu">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <div class="nav-pic item-veg-1"></div>
+                        <a href="#!" class="nav-link">白菜</a>
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-pic item-veg-2"></div>
+                        <a href="#!" class="nav-link">高麗菜</a>
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-pic item-veg-3"></div>
+                        <a href="#!" class="nav-link">花椰菜</a>
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-pic item-veg-4"></div>
+                        <a href="#!" class="nav-link">蘆筍</a>
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-pic item-veg-5"></div>
+                        <a href="#!" class="nav-link">苦瓜</a>
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-pic item-veg-6"></div>
+                        <a href="#!" class="nav-link">南瓜</a>
+                    </li>
+                </ul>
+                <a href="#!" class="close-btn" id="close">
+                    <span></span>
+                    <span></span>
+                </a>
+            </div>
         </div>
     </div>
+    <!-- Emd navbar -->
     <canvas class="webgl"></canvas>
     <!-- End main -->
 
@@ -177,6 +203,12 @@
                 }
             });
         });
+        document.getElementById("toggle").addEventListener("click", () => {
+                gsap.fromTo('.nav-logo', { duration: 1, x: 0 }, { duration: 1, x: -110, ease: "ease" });
+            });
+            document.getElementById("close").addEventListener("click", () => {
+                gsap.fromTo('.nav-logo', { duration: 1, x: -110 }, { duration: 1, x: 0, ease: "ease" });
+            });
     </script>
 </body>
 </html>
