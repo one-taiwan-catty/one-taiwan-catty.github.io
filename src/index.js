@@ -171,7 +171,7 @@ function init() {
 
     controls.enableDamping = true;
     controls.dampingFactor = 0.25;
-    // controls.enableZoom = false;
+    controls.enableZoom = false;
     controls.enableRotate = false;
     renderer.domElement.addEventListener('click', onClick, false);
 

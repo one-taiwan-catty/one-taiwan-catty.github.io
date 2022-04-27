@@ -1049,7 +1049,7 @@ body {
 
 .item-wrapper .section-5 .picking .picking-title {
   text-align: center;
-  padding-top: 10vh;
+  padding-top: 12vh;
   font-size: 12vw;
 }
 
@@ -1066,12 +1066,9 @@ body {
   background-size: cover;
   position: absolute;
   left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  top: 0;
-  -webkit-transform: translate(-50%, 60%);
-          transform: translate(-50%, 60%);
+  -webkit-transform: translate(-50%, 0%);
+          transform: translate(-50%, 0%);
+  top: 130%;
   width: 100vw;
   height: 300vh;
   z-index: -1;

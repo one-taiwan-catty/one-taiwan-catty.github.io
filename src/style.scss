@@ -801,7 +801,7 @@ body {
         right: 0;
         .picking-title{
           text-align: center;
-          padding-top: 10vh;
+          padding-top: 12vh;
           font-size: 12vw;
         }
         .picking-para{
@@ -816,9 +816,8 @@ body {
   .item-weigh{
     background-image: url(/dist/bg.png);
     @include background(cover);
-    @include center();
-    top: 0;
-    transform: translate(-50%,60%);
+    @include verticalCenter();
+    top: 130%;
     width: 100vw;
     height: 300vh;
     z-index: -1;
