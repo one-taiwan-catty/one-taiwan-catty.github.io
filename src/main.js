@@ -80,7 +80,6 @@ let item = [
 // console.log(document.title);
 // console.log(item.model);
 item.map(function (item, index, array) {
-    
     if (document.title === item.title) {
         gltfLoader.load(
             item.model,

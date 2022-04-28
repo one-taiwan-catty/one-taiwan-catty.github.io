@@ -1,13 +1,8 @@
 import * as dat from 'lil-gui'
 import * as THREE from 'three';
-import { OrbitControls } from 'OrbitControls';
-import { DragControls } from 'DragControls';
 import { MapControls } from 'OrbitControls';
 import { GLTFLoader } from 'GLTFLoader';
 import { DRACOLoader } from 'DRACOLoader';
-import { RoomEnvironment } from 'RoomEnvironment';
-// import gsap from 'gsap';
-// import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,11 +10,8 @@ let camera, controls, raycaster, mouse;
 let models;
 let model, stands;
 let porkStand, vegStand, fruitStand, fishStand, beefStand, chickenStand;
-let porkIconLight, vegIconLight, fruitIconLight, fishIconLight, beefIconLight, chickenIconLight;
+let porkIconLight, vegIconLight, fruitIconLight, fishIconLight, beefIconLight, chickenIconLight, logoLight;
 let frustumSize, aspect;
-let dragX, dragZ;
-let minPan, maxPan;
-
 
 const canvas = document.querySelector('canvas.webgl');
 const renderer = new THREE.WebGLRenderer({
@@ -29,6 +21,88 @@ const renderer = new THREE.WebGLRenderer({
 // const gui = new dat.GUI()
 const scene = new THREE.Scene();
 
+let standsData = [
+    {
+        mesh: 'porkStand',
+        name: porkStand,
+        y: + .03,
+        z: + .09,
+        href: 'http://onetaiwancatty.com/stand/pork.html',
+        lightName: porkIconLight,
+        lightMesh: 'porkIconLight',
+        lightX: -121.2,
+        lightZ: 200.1,
+        speed: 1.3
+    },
+    {
+        mesh: 'beefStand',
+        name: beefStand,
+        y:  - .01,
+        z:  - .3,
+        href: 'http://onetaiwancatty.com/stand/beef.html',
+        lightName: beefIconLight,
+        lightMesh: 'beefIconLight',
+        lightX: -119.6,
+        lightZ: 200.4,
+        speed: 1.3
+        
+    },
+    {
+        mesh: 'fishStand',
+        name: fishStand,
+        y: '',
+        z:  - .3,
+        href: 'http://onetaiwancatty.com/stand/fish.html',
+        lightName: fishIconLight,
+        lightMesh: 'fishIconLight',
+        lightX: -119.7,
+        lightZ: 199.4,
+        speed: 1.3
+    },
+    {
+        mesh: 'fruitStand',
+        name: fruitStand,
+        y: '',
+        z:  - .03,
+        href: 'http://onetaiwancatty.com/stand/fruit.html',
+        lightName: fruitIconLight,
+        lightMesh: 'fruitIconLight',
+        lightX: -120.4,
+        lightZ: 199.5,
+        speed: 1.3
+    },
+    {
+        mesh: 'vegStand',
+        name: vegStand,
+        y:  - .04,
+        z:  - .3,
+        href: 'http://onetaiwancatty.com/stand/vegtable.html',
+        lightName: vegIconLight,
+        lightMesh: 'vegIconLight',
+        lightX: -119.3,
+        lightZ: 199.7,
+        speed: 1.3
+    },
+    {
+        mesh: 'chickenStand',
+        name: chickenStand,
+        y:  + .03,
+        z:  + .05,
+        href: 'http://onetaiwancatty.com/stand/chicken.html',
+        lightName: chickenIconLight,
+        lightMesh: 'chickenIconLight',
+        lightX: -120.7,
+        lightZ: 199.9,
+        speed: 1.3
+    },
+    {
+        lightName: logoLight,
+        lightMesh: 'logoLight',
+        lightX: -150,
+        lightZ: 150,
+        speed: 0.5
+    }
+]
 /* -------------------------------------------------------------
  * Loaders
 ------------------------------------------------------------- */
@@ -62,22 +136,11 @@ function init() {
     directionalLight.shadow.camera.near = 0.1;
     directionalLight.shadow.camera.far = 500;
     directionalLight.shadow.bias = -0.00001;
-    directionalLight.shadow.mapSize.width = 4096;
-    directionalLight.shadow.mapSize.height = 4096;
+    directionalLight.shadow.mapSize.width = 1028;
+    directionalLight.shadow.mapSize.height = 1028;
     
     scene.add(directionalLight);
     
-    /* -------------------------------------------------------------
-     * Material
-    ------------------------------------------------------------- */
-    // Pole light material
-    const iconLightMaterial = new THREE.MeshStandardMaterial({
-        color: 0XFFFFFF,
-        emissive: 0XFFFFFF,
-        emissiveIntensity: 90000,
-        roughness: 0.3,
-        metalness: 1
-    })
     /* -------------------------------------------------------------
      * Camera
     ------------------------------------------------------------- */
@@ -89,9 +152,6 @@ function init() {
     camera.zoom = 1.2;
     scene.add(camera);
 
-    // const helper = new THREE.CameraHelper( camera );
-    // scene.add( helper );
-
     raycaster = new THREE.Raycaster();
     mouse = new THREE.Vector2()
 
@@ -102,47 +162,18 @@ function init() {
         '/dist/model/market.glb',
         (gltf) => {
             model = gltf.scene;
-            const color = new THREE.Color();
-            const material = new THREE.MeshBasicMaterial( { color: color } );
-            
             // // Get each model
-            console.log(model.children);
-            porkStand = gltf.scene.children.find((child) => child.name === 'porkStand')
-            vegStand = gltf.scene.children.find((child) => child.name === 'vegStand')
-            fruitStand = gltf.scene.children.find((child) => child.name === 'fruitStand')
-            fishStand = gltf.scene.children.find((child) => child.name === 'fishStand')
-            beefStand = gltf.scene.children.find((child) => child.name === 'beefStand')
-            chickenStand = gltf.scene.children.find((child) => child.name === 'chickenStand')
-    
+            // console.log(model.children);
             stands = new THREE.Group();
-            stands.add(porkStand, vegStand, fruitStand, fishStand, beefStand, chickenStand)
-
-            // let porkIconLight, vegIconLight, fruitIconLight, fishIconLight, beefIconLight, chickenIconLight;
-
-            porkIconLight = gltf.scene.children.find((child) => child.name === 'porkIconLight')
-            vegIconLight = gltf.scene.children.find((child) => child.name === 'vegIconLight')
-            fruitIconLight = gltf.scene.children.find((child) => child.name === 'fruitIconLight')
-            fishIconLight = gltf.scene.children.find((child) => child.name === 'fishIconLight')
-            beefIconLight = gltf.scene.children.find((child) => child.name === 'beefIconLight')
-            chickenIconLight = gltf.scene.children.find((child) => child.name === 'chickenIconLight')
-
-            porkIconLight.material.transparent = true;
-            porkIconLight.material.opacity = 0;
-
-            vegIconLight.material.transparent = true;
-            vegIconLight.material.opacity = 0;
-
-            fruitIconLight.material.transparent = true;
-            fruitIconLight.material.opacity = 0;
-
-            fishIconLight.material.transparent = true;
-            fishIconLight.material.opacity = 0;
-
-            beefIconLight.material.transparent = true;
-            beefIconLight.material.opacity = 0;
-
-            chickenIconLight.material.transparent = true;
-            chickenIconLight.material.opacity = 0;
+            standsData.map(function (stand, index, array) {
+                stand.name = gltf.scene.children.find((child) => child.name === stand.mesh)
+                stands.add(stand.name)
+            })
+            standsData.map(function (stand, index, array) {
+                stand.lightName = gltf.scene.children.find((child) => child.name === stand.lightMesh)
+                stand.lightName.material.transparent = true;
+                stand.lightName.material.opacity = 0;
+            })
 
             models = new THREE.Group();
             models.add(stands, model)
@@ -185,7 +216,6 @@ function init() {
         _v.sub(controls.target);
         camera.position.sub(_v);
     })
-    // scene.add( new THREE.AxesHelper( .8 ) );
 };
 
 /* -------------------------------------------------------------
@@ -222,67 +252,28 @@ function onClick() {
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
     
     raycaster.setFromCamera(mouse, camera);
-    
     const intersects = raycaster.intersectObjects(stands.children, true);
     
     const zoomInTimeline = (x, y, z, zoomOutFactor = 0) => {
         let tl = gsap
-		.timeline({ defaults: { duration: 2.5, ease: "expo.out" } })
+        .timeline({ defaults: { duration: 2.5, ease: "expo.out" } })
         .to(controls.target, { x, y, z })
-		.to(camera.position, { x: x - 3, y: y + 3 , z: z + 20 }, 0)
+        .to(camera.position, { x: x - 3, y: y + 3 , z: z + 20 }, 0)
     };
     
     const zoom = 2;
-    // if (intersects.length > 0) {
-    //     console.log('Intersection:', intersects[0].object.parent.name);
-    // }
-    if (intersects[0].object.parent.name === 'porkStand') {
-        console.log('porkStand');
-        if (porkIconLight) { 
-            porkIconLight.material.opacity = 1;
-        } 
-        zoomInTimeline(porkStand.position.x, porkStand.position.y + .03, porkStand.position.z + .09, .1);
-        camera.zoom = zoom;
-        camera.updateProjectionMatrix();
-        
-    }
-    if (intersects[0].object.parent.name === 'beefStand') {
-        zoomInTimeline(beefStand.position.x, beefStand.position.y - .01, beefStand.position.z - .3, .1);
-        camera.zoom = zoom;
-        camera.updateProjectionMatrix();
-        $(function () {
-            setTimeout(function () {
-                $(location).attr('href', '//one-taiwan-catty.github.io/stand/beef');
-            }, 3000);
-        })
-    }
-    if (intersects[0].object.parent.name === 'fishStand') {
-        console.log('fishStand');
-        zoomInTimeline(fishStand.position.x , fishStand.position.y, fishStand.position.z - .3, .1);
-        camera.zoom = zoom;
-        camera.updateProjectionMatrix();
-
-    }
-    if (intersects[0].object.parent.name === 'fruitStand') {
-        console.log('fruitStand');
-        zoomInTimeline(fruitStand.position.x , fruitStand.position.y, fruitStand.position.z - .03, .1);
-        camera.zoom = zoom;
-        camera.updateProjectionMatrix();
-        
-    }
-    if (intersects[0].object.parent.name === 'vegStand') {
-        console.log('vegStand');
-        zoomInTimeline(vegStand.position.x , vegStand.position.y - .04, vegStand.position.z - .3, .1);
-        camera.zoom = zoom;
-        camera.updateProjectionMatrix();
-    }
-    if (intersects[0].object.parent.name === 'chickenStand') {
-        console.log('chickenStand');
-        zoomInTimeline(chickenStand.position.x , chickenStand.position.y + .03, chickenStand.position.z + .05, .1);
-        camera.zoom = zoom;
-        camera.updateProjectionMatrix();
-    }
-
+    standsData.map(function (stand, index, array) {
+        if (intersects[0].object.parent.name === stand.mesh) {
+            zoomInTimeline(stand.name.position.x, stand.name.position.y + stand.y, stand.name.position.z , .1);
+            camera.zoom = zoom;
+            camera.updateProjectionMatrix();
+            $(function () {
+                setTimeout(function () {
+                    $(location).attr('href', stand.href );
+                }, 3000);
+            })
+        }   
+    })
 }
 
 
@@ -331,58 +322,39 @@ init();
 const clock = new THREE.Clock();
 const tick = () => {
     const elapsedTime = clock.getElapsedTime();
-    
+    if (logoLight) { logoLight.rotation.z = elapsedTime * 0.5;} 
     // Update controls
     controls.update();
     let dragX = Math.round((camera.position.x + Number.EPSILON) * 1000) / 1000;      
     let dragZ = Math.round((camera.position.z + Number.EPSILON) * 1000) / 1000;
+    
+    standsData.map(function (stand, index, array) {
+        if (stand.lightMesh === 'chickenIconLight') {
+            if (dragX < stand.lightX && dragZ > stand.lightZ) {
+                if (stand.lightName) {
+                    stand.lightName.material.opacity = 1;
+                    stand.lightName.rotation.z = elapsedTime * stand.speed;
+                }
+            }
+        } else if ( stand.lightMesh === 'fruitIconLight') { 
+            if (dragX > stand.lightX && dragZ < stand.lightZ) {
+                if (stand.lightName) {
+                    stand.lightName.material.opacity = 1;
+                    stand.lightName.rotation.z = elapsedTime * stand.speed;
+                }
+            }    
+        } else{ 
+            if (dragX > stand.lightX && dragZ > stand.lightZ) {
+                if (stand.lightName) {
+                    stand.lightName.material.opacity = 1;
+                    stand.lightName.rotation.z = elapsedTime * stand.speed;
+                }
+            }
+        }
+    
+    })
 
-    // porkLight
-    if (dragX < -120 && dragZ > 200.1) {
-        if (porkIconLight) { 
-            porkIconLight.material.opacity = 1;
-            porkIconLight.rotation.z = elapsedTime * 1.3;
-        } 
-    }
-    // beefLight
-    if (dragX > -119.6 && dragZ > 200.4) {
-        if (beefIconLight) { 
-            beefIconLight.material.opacity = 1;
-            beefIconLight.rotation.z = elapsedTime * 1.3;
-        } 
-    }
-
-    // vegLight
-    if (dragX > -119.3 && dragZ > 199.7) {
-        if (vegIconLight) { 
-            vegIconLight.material.opacity = 1;
-            vegIconLight.rotation.z = elapsedTime * 1.3;
-        } 
-    }
-    // fishLight
-    if (dragX > -119.7 && dragZ > 199.3) {
-        if (fishIconLight) { 
-            fishIconLight.material.opacity = 1;
-            fishIconLight.rotation.z = elapsedTime * 1.3;
-        } 
-    }
-    // fruitLight
-    if (dragX < -120.2 && dragZ < 199.5) {
-        if (fruitIconLight) { 
-            fruitIconLight.material.opacity = 1;
-            fruitIconLight.rotation.z = elapsedTime * 1.3;
-        } 
-    }
-
-    // chickenLight
-    if (dragX < -120.6 && dragZ > 199.5) {
-        // console.log('chicken')
-        if (chickenIconLight) { 
-            chickenIconLight.material.opacity = 1;
-            chickenIconLight.rotation.z = elapsedTime * 1.3;
-        } 
-    }
-
+    
     render();
     // Call tick again on the next frame
     window.requestAnimationFrame(tick);
