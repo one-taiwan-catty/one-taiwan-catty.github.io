@@ -204,11 +204,11 @@
             });
         });
         document.getElementById("toggle").addEventListener("click", () => {
-                gsap.fromTo('.nav-logo', { duration: 1, x: 0 }, { duration: 1, x: -110, ease: "ease" });
-            });
-            document.getElementById("close").addEventListener("click", () => {
-                gsap.fromTo('.nav-logo', { duration: 1, x: -110 }, { duration: 1, x: 0, ease: "ease" });
-            });
+            gsap.fromTo('.nav-logo', { duration: 1, x: 0 }, { duration: 1, x: 0, left: 60, ease: "ease" });
+        });
+        document.getElementById("close").addEventListener("click", () => {
+            gsap.fromTo('.nav-logo', { duration: 1, x: 0, left: 60 }, { duration: 1, x: 0, left: "50%", ease: "ease" });
+        });
     </script>
 </body>
 </html>
