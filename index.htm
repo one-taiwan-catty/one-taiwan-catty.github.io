@@ -26,6 +26,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <!-- Threejs -->
     <script type="importmap">
       {
@@ -38,7 +39,6 @@
         }
       }
     </script>
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
 <body>
     <!-- <div class="loading" id="loading">
@@ -94,32 +94,32 @@
                 <span></span>
             </a>
             <div class="popup-menu" id="popup-menu">
-                <ul class="nav">
-                    <li class="nav-item">
-                        <div class="nav-pic item-veg-1"></div>
-                        <a href="http://onetaiwancatty.com/stand/pork.html" class="nav-link">豬肉攤</a>
-                    </li>
-                    <li class="nav-item">
-                        <div class="nav-pic item-veg-2"></div>
-                        <a href="http://onetaiwancatty.com/stand/beef.html" class="nav-link">牛肉攤</a>
-                    </li>
-                    <li class="nav-item">
-                        <div class="nav-pic item-veg-3"></div>
-                        <a href="http://onetaiwancatty.com/stand/fish.html" class="nav-link">雞肉攤</a>
-                    </li>
-                    <li class="nav-item">
-                        <div class="nav-pic item-veg-4"></div>
-                        <a href="http://onetaiwancatty.com/stand/fruit.html" class="nav-link">蔬菜攤</a>
-                    </li>
-                    <li class="nav-item">
-                        <div class="nav-pic item-veg-5"></div>
-                        <a href="http://onetaiwancatty.com/stand/vegtable.html" class="nav-link">海鮮攤</a>
-                    </li>
-                    <li class="nav-item">
-                        <div class="nav-pic item-veg-6"></div>
-                        <a href="http://onetaiwancatty.com/stand/chicken.html" class="nav-link">水果攤</a>
-                    </li>
-                </ul>
+                <div class="nav">
+                    <a class="nav-item" href="http://onetaiwancatty.com/stand/pork.html">
+                        <div class="nav-pic ham-index-1"></div>
+                        <div class="nav-link">豬肉攤</div>
+                    </a>
+                    <a class="nav-item" href="http://onetaiwancatty.com/stand/beef.html">
+                        <div class="nav-pic ham-index-2"></div>
+                        <div class="nav-link">牛肉攤</div>
+                    </a>
+                    <a class="nav-item" href="http://onetaiwancatty.com/stand/fish.html">
+                        <div class="nav-pic ham-index-3"></div>
+                        <div class="nav-link">雞肉攤</div>
+                    </a>
+                    <a class="nav-item" href="http://onetaiwancatty.com/stand/fruit.html">
+                        <div class="nav-pic ham-index-4"></div>
+                        <div class="nav-link">蔬菜攤</div>
+                    </a>
+                    <a class="nav-item" href="http://onetaiwancatty.com/stand/vegtable.html">
+                        <div class="nav-pic ham-index-5"></div>
+                        <div class="nav-link">海鮮攤</div>
+                    </a>
+                    <a class="nav-item" href="http://onetaiwancatty.com/stand/chicken.html">
+                        <div class="nav-pic ham-index-6"></div>
+                        <div class="nav-link">水果攤</div>
+                    </a>
+                </div>
                 <a href="#!" class="close-btn" id="close">
                     <span></span>
                     <span></span>
@@ -133,7 +133,7 @@
     <!-- End main -->
 
     <!-- js -->
-    <script src="/src/index.js" type="module"></script>
+    <script src="src/index.js" type="module"></script>
     <script>
         $(document).ready(function () {
             // $(window).on("load", function () {

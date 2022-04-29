@@ -242,6 +242,150 @@ body {
   background-image: url(/dist/stand/stand-beef/beef-6.png);
 }
 
+.ham-index-1 {
+  background-image: url(/dist/ham/index/porkIcon.png);
+}
+
+.ham-index-2 {
+  background-image: url(/dist/ham/index/beefIcon.png);
+}
+
+.ham-index-3 {
+  background-image: url(/dist/ham/index/chickenIcon.png);
+}
+
+.ham-index-4 {
+  background-image: url(/dist/ham/index/vegetableIcon.png);
+}
+
+.ham-index-5 {
+  background-image: url(/dist/ham/index/fishIcon.png);
+}
+
+.ham-index-6 {
+  background-image: url(/dist/ham/index/fruitIcon.png);
+}
+
+.ham-fruit-1 {
+  background-image: url(/dist/stand/stand-fruit/fruit-1.png);
+}
+
+.ham-fruit-2 {
+  background-image: url(/dist/stand/stand-fruit/fruit-2.png);
+}
+
+.ham-fruit-3 {
+  background-image: url(/dist/stand/stand-fruit/fruit-3.png);
+}
+
+.ham-fruit-4 {
+  background-image: url(/dist/stand/stand-fruit/fruit-4.png);
+}
+
+.ham-fruit-5 {
+  background-image: url(/dist/stand/stand-fruit/fruit-5.png);
+}
+
+.ham-fruit-6 {
+  background-image: url(/dist/stand/stand-fruit/fruit-6.png);
+}
+
+.ham-fish-1 {
+  background-image: url(/dist/stand/stand-fish/fish-1.png);
+}
+
+.ham-fish-2 {
+  background-image: url(/dist/stand/stand-fish/fish-2.png);
+}
+
+.ham-fish-3 {
+  background-image: url(/dist/stand/stand-fish/fish-3.png);
+}
+
+.ham-fish-4 {
+  background-image: url(/dist/stand/stand-fish/fish-4.png);
+}
+
+.ham-fish-5 {
+  background-image: url(/dist/stand/stand-fish/fish-5.png);
+}
+
+.ham-fish-6 {
+  background-image: url(/dist/stand/stand-fish/fish-6.png);
+}
+
+.ham-pork-1 {
+  background-image: url(/dist/stand/stand-pork/pork-1.png);
+}
+
+.ham-pork-2 {
+  background-image: url(/dist/stand/stand-pork/pork-2.png);
+}
+
+.ham-pork-3 {
+  background-image: url(/dist/stand/stand-pork/pork-3.png);
+}
+
+.ham-pork-4 {
+  background-image: url(/dist/stand/stand-pork/pork-4.png);
+}
+
+.ham-pork-5 {
+  background-image: url(/dist/stand/stand-pork/pork-5.png);
+}
+
+.ham-pork-6 {
+  background-image: url(/dist/stand/stand-pork/pork-6.png);
+}
+
+.ham-veg-1 {
+  background-image: url(/dist/stand/stand-veg/vege-1.png);
+}
+
+.ham-veg-2 {
+  background-image: url(/dist/stand/stand-veg/vege-2.png);
+}
+
+.ham-veg-3 {
+  background-image: url(/dist/stand/stand-veg/vege-3.png);
+}
+
+.ham-veg-4 {
+  background-image: url(/dist/stand/stand-veg/vege-4.png);
+}
+
+.ham-veg-5 {
+  background-image: url(/dist/stand/stand-veg/vege-5.png);
+}
+
+.ham-veg-6 {
+  background-image: url(/dist/stand/stand-veg/vege-6.png);
+}
+
+.ham-beef-1 {
+  background-image: url(/dist/stand/stand-beef/beef-1.png);
+}
+
+.ham-beef-2 {
+  background-image: url(/dist/stand/stand-beef/beef-2.png);
+}
+
+.ham-beef-3 {
+  background-image: url(/dist/stand/stand-beef/beef-3.png);
+}
+
+.ham-beef-4 {
+  background-image: url(/dist/stand/stand-beef/beef-4.png);
+}
+
+.ham-beef-5 {
+  background-image: url(/dist/stand/stand-beef/beef-5.png);
+}
+
+.ham-beef-6 {
+  background-image: url(/dist/stand/stand-beef/beef-6.png);
+}
+
 .btn-item {
   width: 44px;
   height: 44px;
@@ -1135,11 +1279,11 @@ body {
   background-size: contain;
   position: absolute;
   left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  width: 150px;
-  height: 150px;
+  -webkit-transform: translate(-50%, 0%);
+          transform: translate(-50%, 0%);
+  top: 20%;
+  width: 100px;
+  height: 100px;
 }
 
 .navbar .popup-menu .nav .nav-item {
@@ -1154,7 +1298,7 @@ body {
   color: #fff;
   text-align: center;
   position: absolute;
-  bottom: 20px;
+  bottom: 10%;
   position: absolute;
   left: 50%;
   -webkit-transform: translate(-50%, 0%);
