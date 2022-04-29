@@ -94,13 +94,13 @@
 
       <!-- Start Btn -->
       <div class="btn-wrapper">
-        <button class="btn-item btn-item-weigh" data-target="#weigh" id="btn-weigh">
+        <button class="btn-item" id="btn-weigh">
           <div class="btn-icon btn-weigh"></div>
         </button>
-        <button class="btn-item" href="#picking" id="btn-picking">
+        <button class="btn-item" id="btn-picking">
           <div class="btn-icon btn-picking"></div>
         </button>
-        <button class="btn-item" href="#top" id="btn-top">
+        <button class="btn-item" id="btn-top">
           <div class="btn-icon btn-top"></div>
         </button>
       </div>
@@ -132,7 +132,7 @@
       <!-- Start main -->
 
       <!-- Start section-1 -->
-      <div class="section section-1" id="section3">
+      <div class="section section-1" id="#top">
         <a href="#" class="scroll"></a>
       </div>
       <!-- End section-1 -->
@@ -220,13 +220,15 @@
           gsap.to(window, { duration: 1.5, scrollTo: { y: "#section" + (index + 1), offsetY: -70 } });
         });
       });
+      document.getElementById("btn-top").addEventListener("click", () => {
+          gsap.to(window, { duration: 1.5, scrollTo: { y: "#top"} });
+        });
       document.getElementById("toggle").addEventListener("click", () => {
           gsap.fromTo('.nav-logo', { duration: 1, x: 0}, { duration: 1, x: 0, left:60, ease: "ease" });
       });
       document.getElementById("close").addEventListener("click", () => {
           gsap.fromTo('.nav-logo', { duration: 1, x: 0, left: 60 }, { duration: 1, x:0, left: "50%", ease: "ease" });
         });
-      
     </script>
   </body>
 </html>
