@@ -22,16 +22,7 @@ p{
   font-family: 'Noto Serif TC', serif;
   font-weight: 300;
 }
-.webgl
-{
-    position: fixed;
-    top: 0;
-    left: 0;
-    outline: none;
-    width: 100vw;
-    height: 100%;
-    overflow: hidden;
-}
+
 
 // @font-face{
 //   font-family: 'DxSitrus';
@@ -115,6 +106,17 @@ body {
   height: 1px;
 }
 // ** 隱藏滾動條 ** \\
+#container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  outline: none;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: block;
+  @include verticalCenter()
+}
 /* -------------------------- *\
 	Component
 \* -------------------------- */

@@ -206,8 +206,8 @@ function init() {
     controls.enableRotate = false;
     renderer.domElement.addEventListener('click', onClick, false);
     
-    const minPan = new THREE.Vector3( - 1, - 1, - 1 );
-    const maxPan = new THREE.Vector3( 1, 1, 1 );
+    const minPan = new THREE.Vector3( - .95, - .95, - .95 );
+    const maxPan = new THREE.Vector3( .95, .95, .95 );
     const _v = new THREE.Vector3();
     
     controls.addEventListener("change", function() {
