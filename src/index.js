@@ -6,27 +6,21 @@ import { DRACOLoader } from 'DRACOLoader';
 
 gsap.registerPlugin(ScrollTrigger);
 
-let camera, controls, raycaster, mouse;
-let models;
-let model, stands;
+let scene, camera, controls, raycaster, mouse, renderer;
+let model, stands, models, clock, lights;
 let porkStand, vegStand, fruitStand, fishStand, beefStand, chickenStand;
 let porkIconLight, vegIconLight, fruitIconLight, fishIconLight, beefIconLight, chickenIconLight, logoLight;
 let frustumSize, aspect;
 
-const canvas = document.querySelector('canvas.webgl');
-const renderer = new THREE.WebGLRenderer({
-    canvas: canvas,
-    antialias: true,
-});
 // const gui = new dat.GUI()
-const scene = new THREE.Scene();
 
 let standsData = [
     {
         mesh: 'porkStand',
         name: porkStand,
+        x: + .01,
         y: + .03,
-        z: + .09,
+        z: + .2,
         href: 'http://onetaiwancatty.com/stand/pork.html',
         lightName: porkIconLight,
         lightMesh: 'porkIconLight',
@@ -37,8 +31,9 @@ let standsData = [
     {
         mesh: 'beefStand',
         name: beefStand,
-        y:  - .01,
-        z:  - .3,
+        x: - .05,
+        y:  + .01,
+        z:  + .3,
         href: 'http://onetaiwancatty.com/stand/beef.html',
         lightName: beefIconLight,
         lightMesh: 'beefIconLight',
@@ -50,8 +45,9 @@ let standsData = [
     {
         mesh: 'fishStand',
         name: fishStand,
-        y: '',
-        z:  - .3,
+        x: - .05,
+        y: + .1,
+        z:  - 8,
         href: 'http://onetaiwancatty.com/stand/fish.html',
         lightName: fishIconLight,
         lightMesh: 'fishIconLight',
@@ -62,8 +58,9 @@ let standsData = [
     {
         mesh: 'fruitStand',
         name: fruitStand,
-        y: '',
-        z:  - .03,
+        x: - .01,
+        y: + .01,
+        z:  - .08,
         href: 'http://onetaiwancatty.com/stand/fruit.html',
         lightName: fruitIconLight,
         lightMesh: 'fruitIconLight',
@@ -74,6 +71,7 @@ let standsData = [
     {
         mesh: 'vegStand',
         name: vegStand,
+        x: - .03,
         y:  - .04,
         z:  - .3,
         href: 'http://onetaiwancatty.com/stand/vegtable.html',
@@ -86,8 +84,9 @@ let standsData = [
     {
         mesh: 'chickenStand',
         name: chickenStand,
+        x: + .02,
         y:  + .03,
-        z:  + .05,
+        z:  - 3,
         href: 'http://onetaiwancatty.com/stand/chicken.html',
         lightName: chickenIconLight,
         lightMesh: 'chickenIconLight',
@@ -103,29 +102,22 @@ let standsData = [
         speed: 0.5
     }
 ]
-/* -------------------------------------------------------------
- * Loaders
-------------------------------------------------------------- */
-// Texture loader
-const textureLoader = new THREE.TextureLoader();
-
-// Draco loader
-const dracoLoader = new DRACOLoader();
-dracoLoader.setDecoderPath("/dist/draco/");
-
-// GLTF loader
-const gltfLoader = new GLTFLoader();
-gltfLoader.setDRACOLoader(dracoLoader);
-
+init();
 function init() {
-    /* -------------------------------------------------------------
-     * Light
-    ------------------------------------------------------------- */
-    const directionalLight = new THREE.DirectionalLight(0xffffff, .3);
+    const container = document.getElementById( 'container' );
+    frustumSize = 1;
+    aspect = window.innerWidth / window.innerHeight;
+    camera = new THREE.OrthographicCamera( frustumSize * aspect / - 2, frustumSize * aspect / 2, frustumSize / 2, frustumSize / - 2, 1, 1000 );
+    camera.position.set( - 120, 100, 200 );
     
+    camera.zoom = 1.2;
+
+    clock = new THREE.Clock();
+    scene = new THREE.Scene();
+
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
     directionalLight.position.set(18, 18, -18);
     directionalLight.castShadow = true;
-    
     const d = 8;
     directionalLight.shadow.camera.left = - d;
     directionalLight.shadow.camera.right = d;
@@ -136,47 +128,41 @@ function init() {
     directionalLight.shadow.camera.near = 0.1;
     directionalLight.shadow.camera.far = 500;
     directionalLight.shadow.bias = -0.00001;
-    directionalLight.shadow.mapSize.width = 1028;
-    directionalLight.shadow.mapSize.height = 1028;
+    directionalLight.shadow.mapSize.width = 4096;
+    directionalLight.shadow.mapSize.height = 4096;
     
     scene.add(directionalLight);
     
-    /* -------------------------------------------------------------
-     * Camera
-    ------------------------------------------------------------- */
-    frustumSize = 1;
-    aspect = window.innerWidth / window.innerHeight;
-    camera = new THREE.OrthographicCamera( frustumSize * aspect / - 2, frustumSize * aspect / 2, frustumSize / 2, frustumSize / - 2, 1, 1000 );
-    camera.position.set( - 120, 100, 200 );
-
-    camera.zoom = 1.2;
-    scene.add(camera);
-
     raycaster = new THREE.Raycaster();
     mouse = new THREE.Vector2()
 
-    /* -------------------------------------------------------------
-     * Model
-    ------------------------------------------------------------- */
+    // Draco loader
+    const dracoLoader = new DRACOLoader();
+    dracoLoader.setDecoderPath("/dist/draco/");
+
+    // GLTF loader
+    const gltfLoader = new GLTFLoader();
+    gltfLoader.setDRACOLoader(dracoLoader);
+
     gltfLoader.load(
         '/dist/model/market.glb',
         (gltf) => {
             model = gltf.scene;
             // // Get each model
-            // console.log(model.children);
             stands = new THREE.Group();
+            lights = new THREE.Group();
+
             standsData.map(function (stand, index, array) {
                 stand.name = gltf.scene.children.find((child) => child.name === stand.mesh)
                 stands.add(stand.name)
-            })
-            standsData.map(function (stand, index, array) {
                 stand.lightName = gltf.scene.children.find((child) => child.name === stand.lightMesh)
                 stand.lightName.material.transparent = true;
                 stand.lightName.material.opacity = 0;
+                lights.add(stand.lightName)
             })
 
             models = new THREE.Group();
-            models.add(stands, model)
+            models.add(stands, model,lights)
 
             models.traverse(function (children) {
                 if (children.isLight) {
@@ -188,64 +174,51 @@ function init() {
                     children.receiveShadow = true;
                 }
             });
-
+            lights.traverse(function (children) {
+                children.castShadow = false;
+            });
             scene.add(models);
+            tick();
         }
     );
 
+    renderer = new THREE.WebGLRenderer({antialias: true});
+    renderer.physicallyCorrectLights = true;
+    renderer.shadowMap.enabled = true;
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+    // renderer.setPixelRatio( window.devicePixelRatio );
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1;
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    container.appendChild(renderer.domElement);
+    
+    window.addEventListener( 'resize', onWindowResize );
+    const sizes = {
+    width: window.innerWidth,
+    height: window.innerHeight
+    };
 
-    /* -------------------------------------------------------------
-     * Controls
-    ------------------------------------------------------------- */
-
-    controls = new MapControls(camera, canvas) 
-
+    controls = new MapControls(camera, container) 
     controls.enableDamping = true;
     controls.dampingFactor = 0.25;
     controls.enableZoom = false;
     controls.enableRotate = false;
     renderer.domElement.addEventListener('click', onClick, false);
-
-    const minPan = new THREE.Vector3( - .8, - .8, - .8 );
-    const maxPan = new THREE.Vector3( .8, .8, .8 );
+    
+    const minPan = new THREE.Vector3( - 1, - 1, - 1 );
+    const maxPan = new THREE.Vector3( 1, 1, 1 );
     const _v = new THREE.Vector3();
     
     controls.addEventListener("change", function() {
-    	_v.copy(controls.target);
-    	controls.target.clamp(minPan, maxPan);
+        _v.copy(controls.target);
+        controls.target.clamp(minPan, maxPan);
         _v.sub(controls.target);
         camera.position.sub(_v);
     })
 };
 
-/* -------------------------------------------------------------
- * Sizes
-------------------------------------------------------------- */
-const sizes = {
-    width: window.innerWidth,
-    height: window.innerHeight
-};
-
-window.addEventListener('resize', () => {
-    // Update sizes
-    sizes.width = window.innerWidth
-    sizes.height = window.innerHeight
-
-    // Update camera
-    camera.aspect = sizes.width / sizes.height
-    camera.updateProjectionMatrix()
-
-    // Update renderer
-    renderer.setSize(sizes.width, sizes.height)
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-});
-
-
-/* -------------------------------------------------------------
-* RAYCASTER
-------------------------------------------------------------- */
 function onClick() {
-    
     event.preventDefault();
     
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
@@ -261,10 +234,10 @@ function onClick() {
         .to(camera.position, { x: x - 3, y: y + 3 , z: z + 20 }, 0)
     };
     
-    const zoom = 2;
+    const zoom = 2.5;
     standsData.map(function (stand, index, array) {
         if (intersects[0].object.parent.name === stand.mesh) {
-            zoomInTimeline(stand.name.position.x, stand.name.position.y + stand.y, stand.name.position.z , .1);
+            zoomInTimeline(stand.name.position.x + stand.x , stand.name.position.y + stand.y, stand.name.position.z , .1);
             camera.zoom = zoom;
             camera.updateProjectionMatrix();
             $(function () {
@@ -274,52 +247,13 @@ function onClick() {
             })
         }   
     })
+    
 }
-
-
-
-/* -------------------------------------------------------------
- * Renderer
-------------------------------------------------------------- */
-
-renderer.physicallyCorrectLights = true;
-renderer.shadowMap.enabled = true;
-renderer.shadowMap.autoUpdate = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-renderer.receiveShadow = true;
-renderer.setSize(sizes.width, sizes.height);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-renderer.setClearAlpha(0);
-renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1;
-renderer.outputEncoding = THREE.sRGBEncoding;
-
-const pmremGenerator = new THREE.PMREMGenerator( renderer );
 
 function render() {
     renderer.render( scene, camera );
 }
-/* -------------------------------------------------------------
- * Cursor
-------------------------------------------------------------- */
-const cursor = {}
-cursor.x = 0
-cursor.y = 0
 
-window.addEventListener('mousemove', (event) =>
-{
-    cursor.x = event.clientX / sizes.width - 0.5
-    cursor.y = event.clientY / sizes.height - 0.5
-})
-
-init();
-
-
-
-/* -------------------------------------------------------------
-* Animate
-------------------------------------------------------------- */
-const clock = new THREE.Clock();
 const tick = () => {
     const elapsedTime = clock.getElapsedTime();
     if (logoLight) { logoLight.rotation.z = elapsedTime * 0.5;} 
@@ -334,6 +268,7 @@ const tick = () => {
                 if (stand.lightName) {
                     stand.lightName.material.opacity = 1;
                     stand.lightName.rotation.z = elapsedTime * stand.speed;
+                    stand.lightName.castShadow = true;
                 }
             }
         } else if ( stand.lightMesh === 'fruitIconLight') { 
@@ -341,6 +276,7 @@ const tick = () => {
                 if (stand.lightName) {
                     stand.lightName.material.opacity = 1;
                     stand.lightName.rotation.z = elapsedTime * stand.speed;
+                    stand.lightName.castShadow = true;
                 }
             }    
         } else{ 
@@ -348,19 +284,21 @@ const tick = () => {
                 if (stand.lightName) {
                     stand.lightName.material.opacity = 1;
                     stand.lightName.rotation.z = elapsedTime * stand.speed;
+                    stand.lightName.castShadow = true;
                 }
             }
         }
-    
     })
-
-    
     render();
     // Call tick again on the next frame
     window.requestAnimationFrame(tick);
 };
 
-tick();
-// function standsShow(stands) {
-    
-// }
+function onWindowResize() {
+
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize( window.innerWidth, window.innerHeight );
+
+}
