@@ -111,7 +111,7 @@ function init() {
     camera = new THREE.OrthographicCamera( frustumSize * aspect / - 2, frustumSize * aspect / 2, frustumSize / 2, frustumSize / - 2, 1, 1000 );
     camera.position.set( - 120, 100, 200 );
     
-    camera.zoom = 1.2;
+    camera.zoom = 1.5;
 
     clock = new THREE.Clock();
     scene = new THREE.Scene();
@@ -187,7 +187,7 @@ function init() {
     renderer.physicallyCorrectLights = true;
     renderer.shadowMap.enabled = true;
     renderer.setSize( window.innerWidth, window.innerHeight );
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.3));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.4));
     // renderer.setPixelRatio( window.devicePixelRatio );
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1;
