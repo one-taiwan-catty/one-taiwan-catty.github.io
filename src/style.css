@@ -1167,22 +1167,18 @@ body {
   display: inline-block;
   position: absolute;
   top: 50%;
-  right: 20px;
+  right: 0;
+  padding-right: 20px;
   -webkit-transform: translate(0%, -50%);
           transform: translate(0%, -50%);
 }
 
 .navbar .menu-toggle span {
-  float: right;
   display: block;
   /* span預設inline */
-  width: 44px;
+  width: 20px;
   height: 2px;
   background-color: #fff;
-  position: absolute;
-  left: 50%;
-  -webkit-transform: translate(-50%, 0%);
-          transform: translate(-50%, 0%);
 }
 
 .navbar .menu-toggle span:nth-child(1) {
@@ -1204,7 +1200,7 @@ body {
   height: 44px;
   position: absolute;
   right: 8px;
-  top: 5px;
+  top: 4px;
   display: inline-block;
 }
 
