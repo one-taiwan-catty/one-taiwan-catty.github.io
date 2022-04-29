@@ -41,7 +41,7 @@
     </script>
 </head>
 <body>
-    <!-- <div class="loading" id="loading">
+    <div class="loading" id="loading">
         <div class="loading-box">
             <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_aqmlws3s.json" mode="bounce" background="#000000"
                 speed="1.5" style="width: 300px; height: 300px;" loop autoplay></lottie-player>
@@ -49,7 +49,7 @@
                 <hr />
             </div>
         </div>
-    </div> -->
+    </div>
     <!-- Start Dialog -->
     <!-- <div class="mask">
         <div class="dialog">
@@ -133,25 +133,25 @@
     <!-- End main -->
 
     <!-- js -->
-    <script src="src/index.js" type="module"></script>
+    <script src="./src/index.js" type="module"></script>
     <script>
         $(document).ready(function () {
-            // $(window).on("load", function () {
-            //     $('#loading').delay(5000).fadeOut(1000);
-            //     let counter = 0;
-            //     let c = 0;
-            //     let i = setInterval(function () {
-            //         $(".loading .counter h1").html(c + "%");
-            //         $(".loading .counter hr").css("width", c + "%");
+            $(window).on("load", function () {
+                $('#loading').delay(5000).fadeOut(1000);
+                let counter = 0;
+                let c = 0;
+                let i = setInterval(function () {
+                    $(".loading .counter h1").html(c + "%");
+                    $(".loading .counter hr").css("width", c + "%");
 
-            //         counter++;
-            //         c++;
+                    counter++;
+                    c++;
 
-            //         if (counter == 101) {
-            //             clearInterval(i);
-            //         }
-            //     }, 10);
-            // });
+                    if (counter == 101) {
+                        clearInterval(i);
+                    }
+                }, 10);
+            });
             $("body").on("click", function (event) {
                 // console.log($(event.target))
                 if ($(event.target).hasClass("select-1")) {
