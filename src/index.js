@@ -187,7 +187,7 @@ function init() {
     renderer.physicallyCorrectLights = true;
     renderer.shadowMap.enabled = true;
     renderer.setSize( window.innerWidth, window.innerHeight );
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.3));
     // renderer.setPixelRatio( window.devicePixelRatio );
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1;
