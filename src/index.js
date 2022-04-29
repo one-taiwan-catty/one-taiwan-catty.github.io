@@ -4,6 +4,8 @@ import { MapControls } from 'OrbitControls';
 import { GLTFLoader } from 'GLTFLoader';
 import { DRACOLoader } from 'DRACOLoader';
 
+gsap.registerPlugin(ScrollTrigger);
+
 let camera, controls, raycaster, mouse;
 let models;
 let model, stands;
@@ -98,7 +100,7 @@ let standsData = [
         lightMesh: 'logoLight',
         lightX: -150,
         lightZ: 150,
-        speed: 0.8
+        speed: 0.5
     }
 ]
 /* -------------------------------------------------------------
@@ -115,42 +117,40 @@ dracoLoader.setDecoderPath("/dist/draco/");
 const gltfLoader = new GLTFLoader();
 gltfLoader.setDRACOLoader(dracoLoader);
 
-init();
-
 function init() {
     /* -------------------------------------------------------------
      * Light
     ------------------------------------------------------------- */
-    // const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, .3);
     
-    // directionalLight.position.set(18, 18, -18);
-    // directionalLight.castShadow = true;
+    directionalLight.position.set(18, 18, -18);
+    directionalLight.castShadow = true;
     
-    // const d = 8;
-    // directionalLight.shadow.camera.left = - d;
-    // directionalLight.shadow.camera.right = d;
-    // directionalLight.shadow.camera.top = d;
-    // directionalLight.shadow.camera.bottom = - d;
-    // directionalLight.shadow.camera.fov = 45;
-    // directionalLight.shadow.camera.aspect = 1;
-    // directionalLight.shadow.camera.near = 0.1;
-    // directionalLight.shadow.camera.far = 500;
-    // directionalLight.shadow.bias = -0.001;
-    // directionalLight.shadow.mapSize.width = 2048;
-    // directionalLight.shadow.mapSize.height = 2048;
+    const d = 8;
+    directionalLight.shadow.camera.left = - d;
+    directionalLight.shadow.camera.right = d;
+    directionalLight.shadow.camera.top = d;
+    directionalLight.shadow.camera.bottom = - d;
+    directionalLight.shadow.camera.fov = 45;
+    directionalLight.shadow.camera.aspect = 1;
+    directionalLight.shadow.camera.near = 0.1;
+    directionalLight.shadow.camera.far = 500;
+    directionalLight.shadow.bias = -0.00001;
+    directionalLight.shadow.mapSize.width = 1028;
+    directionalLight.shadow.mapSize.height = 1028;
     
-    // scene.add(directionalLight);
+    scene.add(directionalLight);
     
     /* -------------------------------------------------------------
      * Camera
     ------------------------------------------------------------- */
     frustumSize = 1;
     aspect = window.innerWidth / window.innerHeight;
-
     camera = new THREE.OrthographicCamera( frustumSize * aspect / - 2, frustumSize * aspect / 2, frustumSize / 2, frustumSize / - 2, 1, 1000 );
     camera.position.set( - 120, 100, 200 );
 
     camera.zoom = 1.2;
+    scene.add(camera);
 
     raycaster = new THREE.Raycaster();
     mouse = new THREE.Vector2()
@@ -163,6 +163,7 @@ function init() {
         (gltf) => {
             model = gltf.scene;
             // // Get each model
+            // console.log(model.children);
             stands = new THREE.Group();
             standsData.map(function (stand, index, array) {
                 stand.name = gltf.scene.children.find((child) => child.name === stand.mesh)
@@ -174,17 +175,21 @@ function init() {
                 stand.lightName.material.opacity = 0;
             })
 
-            // models = new THREE.Group();
-            // models.add(stands, model)
+            models = new THREE.Group();
+            models.add(stands, model)
 
-            // models.traverse(function (children) {
-            //     if (children.isMesh) {
-            //         children.castShadow = true;
-            //         children.receiveShadow = true;
-            //     }
-            // });
+            models.traverse(function (children) {
+                if (children.isLight) {
+                    children.shadow.camera.near = 0.001;
+                    children.shadow.camera.updateProjectionMatrix();
+                }
+                if (children.isMesh) {
+                    children.castShadow = true;
+                    children.receiveShadow = true;
+                }
+            });
 
-            scene.add(camera,stands, model);
+            scene.add(models);
         }
     );
 
@@ -211,55 +216,29 @@ function init() {
         _v.sub(controls.target);
         camera.position.sub(_v);
     })
-    /* -------------------------------------------------------------
-    * Sizes
-    ------------------------------------------------------------- */
-    const sizes = {
-        width: window.innerWidth,
-        height: window.innerHeight
-    };
-
-    window.addEventListener('resize', () => {
-        // Update sizes
-        sizes.width = window.innerWidth
-        sizes.height = window.innerHeight
-
-        // Update camera
-        camera.aspect = sizes.width / sizes.height
-        camera.updateProjectionMatrix()
-
-        // Update renderer
-        renderer.setSize(sizes.width, sizes.height)
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-    });
-    /* -------------------------------------------------------------
-    * Renderer
-    ------------------------------------------------------------- */
-
-    renderer.physicallyCorrectLights = true;
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.autoUpdate = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    renderer.receiveShadow = true;
-    renderer.setSize(sizes.width, sizes.height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1;
-    renderer.outputEncoding = THREE.sRGBEncoding;
-
-    // /* -------------------------------------------------------------
-    // * Cursor
-    // ------------------------------------------------------------- */
-    // const cursor = {}
-    // cursor.x = 0
-    // cursor.y = 0
-
-    // window.addEventListener('mousemove', (event) =>
-    // {
-    //     cursor.x = event.clientX / sizes.width - 0.5
-    //     cursor.y = event.clientY / sizes.height - 0.5
-    // })
 };
+
+/* -------------------------------------------------------------
+ * Sizes
+------------------------------------------------------------- */
+const sizes = {
+    width: window.innerWidth,
+    height: window.innerHeight
+};
+
+window.addEventListener('resize', () => {
+    // Update sizes
+    sizes.width = window.innerWidth
+    sizes.height = window.innerHeight
+
+    // Update camera
+    camera.aspect = sizes.width / sizes.height
+    camera.updateProjectionMatrix()
+
+    // Update renderer
+    renderer.setSize(sizes.width, sizes.height)
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+});
 
 
 /* -------------------------------------------------------------
@@ -291,17 +270,49 @@ function onClick() {
             $(function () {
                 setTimeout(function () {
                     $(location).attr('href', stand.href );
-                }, 3500);
+                }, 3000);
             })
         }   
     })
 }
 
 
+
+/* -------------------------------------------------------------
+ * Renderer
+------------------------------------------------------------- */
+
+renderer.physicallyCorrectLights = true;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.autoUpdate = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.receiveShadow = true;
+renderer.setSize(sizes.width, sizes.height);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setClearAlpha(0);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1;
+renderer.outputEncoding = THREE.sRGBEncoding;
+
+const pmremGenerator = new THREE.PMREMGenerator( renderer );
+
 function render() {
     renderer.render( scene, camera );
 }
+/* -------------------------------------------------------------
+ * Cursor
+------------------------------------------------------------- */
+const cursor = {}
+cursor.x = 0
+cursor.y = 0
 
+window.addEventListener('mousemove', (event) =>
+{
+    cursor.x = event.clientX / sizes.width - 0.5
+    cursor.y = event.clientY / sizes.height - 0.5
+})
+
+init();
 
 
 
@@ -309,10 +320,11 @@ function render() {
 * Animate
 ------------------------------------------------------------- */
 const clock = new THREE.Clock();
-
 const tick = () => {
     const elapsedTime = clock.getElapsedTime();
+    if (logoLight) { logoLight.rotation.z = elapsedTime * 0.5;} 
     // Update controls
+    controls.update();
     let dragX = Math.round((camera.position.x + Number.EPSILON) * 1000) / 1000;      
     let dragZ = Math.round((camera.position.z + Number.EPSILON) * 1000) / 1000;
     
@@ -349,3 +361,6 @@ const tick = () => {
 };
 
 tick();
+// function standsShow(stands) {
+    
+// }

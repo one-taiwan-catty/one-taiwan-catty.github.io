@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { OrbitControls } from 'OrbitControls';
 import { DRACOLoader } from 'DRACOLoader';
 import { GLTFLoader } from 'GLTFLoader';
 import { RoomEnvironment } from 'RoomEnvironment';
@@ -22,6 +23,18 @@ dracoLoader.setDecoderPath("/dist/draco/");
 const gltfLoader = new GLTFLoader();
 gltfLoader.setDRACOLoader(dracoLoader);
 
+/**
+ * object
+ */
+
+/**
+ * Light
+ */
+const pointLight = new THREE.PointLight(0xffffff, .2, 1, 2)
+pointLight.position.set( 0, -20, 10 );
+pointLight.castShadow = true;
+
+scene.add(pointLight)
 
 /**
  * GSAP
@@ -79,6 +92,7 @@ item.map(function (item, index, array) {
                     object.scale.y = `${item.scale}`
                     object.scale.z = `${item.scale}`
                 }
+
                 
                 object.traverse(function (children) {
                     if (object) {
@@ -243,6 +257,8 @@ item.map(function (item, index, array) {
                         })
                     }
                 })
+        
+        
                     scene.add(cooks)
                 }
                 );
@@ -285,9 +301,16 @@ const camera = new THREE.PerspectiveCamera(45, sizes.width / sizes.height, 0.1, 
 camera.position.x = 3;
 camera.position.y = 2;
 camera.position.z = 0;
+// camera.lookAt(new THREE.Vector3(0, 0, 0))
 camera.lookAt(0, 0, 0);
 
 scene.add(camera);
+
+// Controls
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true;
+controls.enableZoom = false;
+
 
 
 /**
@@ -324,6 +347,32 @@ window.addEventListener('mousemove', (event) =>
     cursor.y = event.clientY / sizes.height - 0.5
 })
 
+
+/**
+ * Post processing
+ */
+// const effectComposer = new EffectComposer(renderer);
+// effectComposer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+// effectComposer.setSize(sizes.width, sizes.height);
+
+// const renderPass = new RenderPass(scene, camera);
+// effectComposer.addPass(renderPass);
+
+// const unrealBloomPass = new UnrealBloomPass();
+// effectComposer.addPass(unrealBloomPass);
+
+// unrealBloomPass.strength = 1;
+// unrealBloomPass.radius = 1.3;
+// unrealBloomPass.threshold = 0.7;
+
+// gui.add(unrealBloomPass, 'enabled');
+// gui.add(unrealBloomPass, 'strength').min(0).max(2).step(0.001);
+// gui.add(unrealBloomPass, 'radius').min(0).max(2).step(0.001);
+// gui.add(unrealBloomPass, 'threshold').min(0).max(1).step(0.001);
+
+
+
+
 /**
  * Animate
  */
@@ -333,12 +382,14 @@ const tick = () => {
     const elapsedTime = clock.getElapsedTime();
 
     // Update controls
+    controls.update();
 
     if (object) object.rotation.y = elapsedTime * 0.4;
     if (cook1) cook1.rotation.y = elapsedTime * 0.4;
 
     // Render
     renderer.render(scene, camera)
+    // effectComposer.render();
 
 
     // Call tick again on the next frame
