@@ -1,8 +1,14 @@
-import * as THREE from 'three';
-import { OrbitControls } from 'OrbitControls';
-import { DRACOLoader } from 'DRACOLoader';
-import { GLTFLoader } from 'GLTFLoader';
-import { RoomEnvironment } from 'RoomEnvironment';
+// import * as THREE from 'three';
+// import { OrbitControls } from 'OrbitControls';
+// import { DRACOLoader } from 'DRACOLoader';
+// import { GLTFLoader } from 'GLTFLoader';
+// import { RoomEnvironment } from 'RoomEnvironment';
+import * as THREE from 'https://unpkg.com/three@0.125.0/build/three.module.js';
+import { OrbitControls } from 'https://unpkg.com/three@0.125.0/examples/jsm/controls/OrbitControls.js';
+import { GLTFLoader } from 'https://unpkg.com/three@0.125.0/examples/jsm/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'https://unpkg.com/three@0.125.0/examples/jsm/loaders/DRACOLoader.js';
+import { RoomEnvironment } from 'https://unpkg.com/three@0.125.0/examples/jsm/environments/RoomEnvironment.js';
+
 // Canvas
 const canvas = document.querySelector('canvas.webgl');
 

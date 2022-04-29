@@ -1,12 +1,11 @@
-// import * as dat from 'lil-gui'
 // import * as THREE from 'three';
 // import { MapControls } from 'OrbitControls';
 // import { GLTFLoader } from 'GLTFLoader';
 // import { DRACOLoader } from 'DRACOLoader';
-import * as THREE from 'https://unpkg.com/three@0.138.0/build/three.module.js';
-import { MapControls } from 'https://unpkg.com/three@0.138.0/examples/jsm/controls/OrbitControls.js';
-import { GLTFLoader } from 'https://unpkg.com/three@0.138.0/examples/jsm/loaders/GLTFLoader.js';
-import { DRACOLoader } from 'https://unpkg.com/three@0.138.0/examples/jsm/loaders/DRACOLoader.js';
+import * as THREE from 'https://unpkg.com/three@0.125.0/build/three.module.js';
+import { MapControls } from 'https://unpkg.com/three@0.125.0/examples/jsm/controls/OrbitControls.js';
+import { GLTFLoader } from 'https://unpkg.com/three@0.125.0/examples/jsm/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'https://unpkg.com/three@0.125.0/examples/jsm/loaders/DRACOLoader.js';
 
 let scene, camera, controls, raycaster, mouse, renderer;
 let model, stands, models, clock, lights;

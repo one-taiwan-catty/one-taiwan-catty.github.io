@@ -22,7 +22,16 @@ p{
   font-family: 'Noto Serif TC', serif;
   font-weight: 300;
 }
-
+.webgl{
+  position: fixed;
+  top: 0;
+  left: 0;
+  outline: none;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: block;
+}
 
 // @font-face{
 //   font-family: 'DxSitrus';
@@ -1022,8 +1031,8 @@ body {
         @include background(contain);
         @include verticalCenter();
         top: 20%;
-        width: 100px;
-        height: 100px;
+        width: 50%;
+        height: 50%;
       }
       .nav-item {
         border: 1px solid $white;
