@@ -2,10 +2,11 @@
 // import { MapControls } from 'OrbitControls';
 // import { GLTFLoader } from 'GLTFLoader';
 // import { DRACOLoader } from 'DRACOLoader';
-import * as THREE from 'https://unpkg.com/three@0.125.0/build/three.module.js';
-import { MapControls } from 'https://unpkg.com/three@0.125.0/examples/jsm/controls/OrbitControls.js';
-import { GLTFLoader } from 'https://unpkg.com/three@0.125.0/examples/jsm/loaders/GLTFLoader.js';
-import { DRACOLoader } from 'https://unpkg.com/three@0.125.0/examples/jsm/loaders/DRACOLoader.js';
+import * as THREE from 'https://unpkg.com/three@0.127.0/build/three.module.js';
+import { MapControls } from 'https://unpkg.com/three@0.127.0/examples/jsm/controls/OrbitControls.js';
+import { OrbitControls } from './OrbitControls.js';
+import { GLTFLoader } from 'https://unpkg.com/three@0.127.0/examples/jsm/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'https://unpkg.com/three@0.127.0/examples/jsm/loaders/DRACOLoader.js';
 
 let scene, camera, controls, raycaster, mouse, renderer;
 let model, stands, models, clock, lights;
@@ -111,8 +112,8 @@ function init() {
     camera = new THREE.OrthographicCamera( frustumSize * aspect / - 2, frustumSize * aspect / 2, frustumSize / 2, frustumSize / - 2, 1, 1000 );
     camera.position.set( - 120, 100, 200 );
     
-    camera.zoom = 1.5;
-
+    camera.zoom = 1.3;
+    camera.updateProjectionMatrix();
     clock = new THREE.Clock();
     scene = new THREE.Scene();
 
@@ -187,8 +188,7 @@ function init() {
     renderer.physicallyCorrectLights = true;
     renderer.shadowMap.enabled = true;
     renderer.setSize( window.innerWidth, window.innerHeight );
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.4));
-    // renderer.setPixelRatio( window.devicePixelRatio );
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.3));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1;
     renderer.outputEncoding = THREE.sRGBEncoding;
@@ -234,7 +234,7 @@ function onClick() {
         .to(controls.target, { x, y, z })
         .to(camera.position, { x: x - 3, y: y + 3 , z: z + 20 }, 0)
     };
-    
+    console.log(intersects[0])
     const zoom = 2.5;
     standsData.map(function (stand, index, array) {
         if (intersects[0].object.parent.name === stand.mesh) {
