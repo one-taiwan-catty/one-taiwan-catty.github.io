@@ -50,6 +50,13 @@
             </div>
         </div>
     </div>
+    <div class="enter" id="enter">
+        <div class="enter-box">
+            <lottie-player src="https://assets5.lottiefiles.com/packages/lf20_kbnmyl1l.json" mode="bounce"
+                background="#000000" speed="0.3" style="width: 100%; height: 100%;" loop autoplay></lottie-player>
+        </div>
+    </div>
+    
     <!-- Start Dialog -->
     <!-- <div class="mask">
         <div class="dialog">
@@ -143,15 +150,16 @@
                 let i = setInterval(function () {
                     $(".loading .counter h1").html(c + "%");
                     $(".loading .counter hr").css("width", c + "%");
-
                     counter++;
                     c++;
-
                     if (counter == 101) {
                         clearInterval(i);
                     }
                 }, 10);
-            });
+                setTimeout(function () {
+                    $('#enter').css({ "display": "block" }).delay(1280).fadeOut(500);
+                }, 5000);
+            })
             $("body").on("click", function (event) {
                 // console.log($(event.target))
                 if ($(event.target).hasClass("select-1")) {
