@@ -2,11 +2,15 @@
 // import { MapControls } from 'OrbitControls';
 // import { GLTFLoader } from 'GLTFLoader';
 // import { DRACOLoader } from 'DRACOLoader';
-import * as THREE from 'https://unpkg.com/three@0.127.0/build/three.module.js';
-import { MapControls } from 'https://unpkg.com/three@0.127.0/examples/jsm/controls/OrbitControls.js';
-import { OrbitControls } from './OrbitControls.js';
-import { GLTFLoader } from 'https://unpkg.com/three@0.127.0/examples/jsm/loaders/GLTFLoader.js';
-import { DRACOLoader } from 'https://unpkg.com/three@0.127.0/examples/jsm/loaders/DRACOLoader.js';
+// import * as THREE from 'https://unpkg.com/three@0.137.0/build/three.module.js';
+// import { MapControls } from 'https://unpkg.com/three@0.137.0/examples/jsm/controls/OrbitControls.js';
+// import { GLTFLoader } from 'https://unpkg.com/three@0.137.0/examples/jsm/loaders/GLTFLoader.js';
+// import { DRACOLoader } from 'https://unpkg.com/three@0.137.0/examples/jsm/loaders/DRACOLoader.js';
+
+import * as THREE from 'https://unpkg.com/three@0.137.0/build/three.module.js';
+import { MapControls } from './OrbitControls.js';
+import { GLTFLoader } from './GLTFLoader.js';
+import { DRACOLoader } from './DRACOLoader.js';
 
 let scene, camera, controls, raycaster, mouse, renderer;
 let model, stands, models, clock, lights;
